@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">BechDo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="capture_amp_upload_the_item_s_photo"><![CDATA[Capture & Upload the item\'s photo]]></string>
+    <string name="upload_three_to_four_photos_of_n_the_item_for_clarity">Upload three to four photos of\n the item for clarity</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_in">Sign in</string>
+    <string name="buy_sell_amp_rent_products"><![CDATA[Buy, Sell & Rent Products]]></string>
+    <string name="buy_sell_and_rent_college_stuff_n_like_books_drafters_sheets_etc">Buy, sell and rent college stuff\n like books, drafters, sheets etc</string>
+</resources>
