@@ -25,24 +25,24 @@
             android:id="@+id/tvTagline"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="An e-commerce application to sell, buy and rent your daily life stuff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
+            android:text="An e-commerce application to sell, buy and rent your daily life stuff"
             android:textColor="@color/white"
             android:fontFamily="@font/montserrat"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:visibility="gone"
-            android:textSize="36sp"/>
+            android:textSize="36sp" />
     </LinearLayout>
 
     <View
         android:id="@+id/wavyBg"
-        android:layout_below="@id/logoNDescription"
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:background="@drawable/wave"/>
+        android:background="@drawable/wave"
+        android:layout_below="@id/logoNDescription"/>
 
     <LinearLayout
         android:id="@+id/emailPwdLayout"
@@ -55,8 +55,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
+            android:text="@string/email"
             android:fontFamily="@font/montserrat"
-            android:text="@string/enter_your_email"
             android:textColor="#312E5F"
             android:textSize="16sp" />
 
@@ -88,9 +88,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="5dp"
-            android:text="@string/enter_your_password"
-            android:textColor="#312E5F"
+            android:text="@string/password"
             android:fontFamily="@font/montserrat"
+            android:textColor="#312E5F"
             android:textSize="16sp" />
 
         <com.google.android.material.card.MaterialCardView
@@ -115,58 +115,26 @@
                 android:textSize="16sp" />
         </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/confirm_password"
-            android:fontFamily="@font/montserrat"
-            android:textColor="#312E5F"
-            android:textSize="16sp" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp"
-            android:backgroundTint="#312E5F"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="0dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/confirmPwdEt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:inputType="textPassword"
-                android:lines="1"
-                android:padding="8dp"
-                android:textColor="@color/white"
-                android:textCursorDrawable="@null"
-                android:textSize="16sp" />
-        </com.google.android.material.card.MaterialCardView>
-
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/signUpBtn"
+            android:id="@+id/signInBtn"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginStart="37dp"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="93dp"
             android:layout_marginEnd="37dp"
-            android:text="@string/sign_up"
+            android:text="@string/sign_in"
+            android:fontFamily="@font/montserrat"
             android:elevation="0dp"
             android:textAllCaps="false"
             app:backgroundTint="#E3386A"
             android:textSize="16sp"
-            android:fontFamily="@font/montserrat"
             app:cornerRadius="15dp" />
 
         <TextView
-            android:id="@+id/tvSignIn"
+            android:id="@+id/tvSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Already registered ? Sign in"
+            tools:text="New user? Sign up"
             android:textColor="#312E5F"
             android:fontFamily="@font/montserrat"
             android:layout_gravity="center"
@@ -186,6 +154,5 @@
         android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
         android:layout_below="@id/logoNDescription"
         android:layout_marginTop="60dp"/>
-
 
 </RelativeLayout>

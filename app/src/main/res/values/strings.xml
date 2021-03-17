@@ -2,12 +2,19 @@
     <string name="app_name">BechDo</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="capture_amp_upload_the_item_s_photo"><![CDATA[Capture & Upload the item\'s photo]]></string>
-    <string name="upload_three_to_four_photos_of_n_the_item_for_clarity">Upload three to four photos of\n the item for clarity</string>
+    <string name="capture_amp_upload_the_item_s_photo"><![CDATA[Capture & Upload\n the item\'s photo]]></string>
+    <string name="upload_three_to_four_photos_of_n_the_item_for_clarity">Upload three to four\n photos of the item\n for clarity</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="sign_up">Sign up</string>
     <string name="sign_in">Sign in</string>
     <string name="buy_sell_amp_rent_products"><![CDATA[Buy, Sell & Rent Products]]></string>
-    <string name="buy_sell_and_rent_college_stuff_n_like_books_drafters_sheets_etc">Buy, sell and rent college stuff\n like books, drafters, sheets etc</string>
+    <string name="one_step_solution_for_all_your_n_college_necessities_like_books_n_drafters_and_so_much_more">One step solution for all your\n  college necessities like books,\n drafters and so much more...</string>
+    <string name="choose_from_a_n_range_of_options">Choose from a\n range of options</string>
+    <string name="compare_the_prices_and_n_choose_the_best_product_n_for_you">Compare the prices and\n choose the best product\n for you</string>
+    <string name="contact_with_the_n_seller_buyer">Contact with the\n seller/buyer</string>
+    <string name="get_in_touch_with_your_n_buyer_seller_in_your_n_own_college">Get in touch with your \n buyer/seller in your \n own college</string>
+    <string name="enter_your_email">Enter your Email</string>
+    <string name="enter_your_password">Enter your Password</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>
