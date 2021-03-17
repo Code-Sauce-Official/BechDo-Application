@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "43969866935",
+    "project_id": "bech-do-2b48b",
+    "storage_bucket": "bech-do-2b48b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43969866935:android:2689807c78b8f71425b132",
+        "android_client_info": {
+          "package_name": "com.acash.bechdo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "43969866935-3onsr4i7119liki30odm8rgfuq5ant3h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.acash.bechdo",
+            "certificate_hash": "d86565e429bcc1b91372f8f99831d3805bb11fb2"
+          }
+        },
+        {
+          "client_id": "43969866935-uoolk5rhg2tvt7du58pa3m0r2cbbqh3m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKBRE2xsuelCrlpD6dJu7TKu0Fj4Kgzhc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "43969866935-uoolk5rhg2tvt7du58pa3m0r2cbbqh3m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
