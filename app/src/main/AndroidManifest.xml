@@ -10,20 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BechDo">
 
-        <activity android:name=".IntroActivity"
-            android:windowSoftInputMode="adjustNothing">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ProfileActivity" />
+
+        <activity
+            android:name=".EmailActivity"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name=".IntroActivity" />
+
+        <activity android:name=".MainActivity" />
+
     </application>
 
 </manifest>
