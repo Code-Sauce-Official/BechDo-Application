@@ -186,8 +186,8 @@
             android:fontFamily="@font/montserrat"
             android:textColor="#312E5F"
             android:textSize="15sp"
+            android:textColorHighlight="#00ff001C"
             tools:text="Already registered ? Sign in" />
-
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -201,6 +201,5 @@
         app:borderWidth="0dp"
         app:fabSize="mini"
         app:tint="@color/white" />
-
 
 </RelativeLayout>
