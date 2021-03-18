@@ -3,9 +3,7 @@ package com.acash.bechdo.fragments.emailactivity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.TextPaint
+import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
@@ -14,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.acash.bechdo.ProfileActivity
 import com.acash.bechdo.R
@@ -43,7 +42,6 @@ class SignUpFragment : Fragment() {
             }
         }
 
-
         taglineBtn.setOnClickListener{
             if(tvTagline.visibility==View.GONE) {
                 tvTagline.visibility = View.VISIBLE
@@ -59,53 +57,99 @@ class SignUpFragment : Fragment() {
                 )
             }
         }
+
+        emailEt.addTextChangedListener {
+            emailInput.isErrorEnabled = false
+        }
+
+        emailEt.setOnFocusChangeListener { _, hasFocus ->
+            if(!hasFocus){
+                checkEmail()
+            }
+        }
+
+        pwdEt.addTextChangedListener {
+            pwdInput.isErrorEnabled = false
+        }
+
+        pwdEt.setOnFocusChangeListener { _, hasFocus ->
+            if(!hasFocus){
+                checkPassword()
+            }
+        }
+
+        confirmPwdEt.addTextChangedListener {
+            confirmPwdInput.isErrorEnabled = false
+        }
+
+        confirmPwdEt.setOnFocusChangeListener { _, hasFocus ->
+            if(!hasFocus) {
+                checkConfirmPwd()
+            }
+        }
     }
 
     private fun validateCredentials():Boolean{
         var isValid = true
 
-        if(emailEt.text.isNullOrEmpty()){
-            emailEt.error = "Email cannot be empty!"
+        if(!checkEmail()){
             isValid = false
         }
 
-        if(pwdEt.text.isNullOrEmpty()){
-            pwdEt.error = "Password cannot be empty!"
+        if(!checkPassword()){
             isValid = false
         }
 
-        if(confirmPwdEt.text.isNullOrEmpty()){
-            confirmPwdEt.error = "Required Field!"
+        if(!checkConfirmPwd()){
             isValid = false
-        }
-
-        if(!emailEt.text.isNullOrEmpty() && !pwdEt.text.isNullOrEmpty()) {
-            if (pwdEt.text!!.length < 8) {
-                pwdEt.error = "Password should be at-least 8 characters long"
-                isValid = false
-            } else if (!pwdEt.text!!.any {
-                    it.isLetter()
-                }) {
-                pwdEt.error = "Password must contain at-least one letter"
-                isValid = false
-            } else if (!pwdEt.text!!.any {
-                    it.isDigit()
-                }) {
-                pwdEt.error = "Password must contain at-least one digit"
-                isValid = false
-            } else if (!pwdEt.text!!.any {
-                    !it.isLetterOrDigit()
-                }) {
-                pwdEt.error = "Password must contain at-least one special character"
-                isValid = false
-            } else if (!confirmPwdEt.text.isNullOrEmpty() && (pwdEt.text.toString() != confirmPwdEt.text.toString())) {
-                Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT)
-                    .show()
-                isValid = false
-            }
         }
 
         return isValid
+    }
+
+    private fun checkEmail():Boolean{
+        if(emailEt.text.isNullOrEmpty()){
+            emailInput.error = "Email cannot be empty!"
+            return false
+        }
+        return true
+    }
+
+    private fun checkPassword():Boolean{
+        if(pwdEt.text.isNullOrEmpty()){
+            pwdInput.error = "Password cannot be empty!"
+            return false
+        }else if (pwdEt.text!!.length < 8) {
+            pwdInput.error = "Password should be at-least 8 characters long"
+            return false
+        } else if (!pwdEt.text!!.any {
+                it.isLetter()
+            }) {
+            pwdInput.error = "Password must contain at-least one letter"
+            return false
+        } else if (!pwdEt.text!!.any {
+                it.isDigit()
+            }) {
+            pwdInput.error = "Password must contain at-least one digit"
+            return false
+        } else if (!pwdEt.text!!.any {
+                !it.isLetterOrDigit()
+            }) {
+            pwdInput.error = "Password must contain at-least one special character"
+            return false
+        }
+        return true
+    }
+
+    private fun checkConfirmPwd():Boolean{
+        if (confirmPwdEt.text.isNullOrEmpty()) {
+            confirmPwdInput.error = "Required Field!"
+            return false
+        }else if (!pwdEt.text.isNullOrEmpty() && (pwdEt.text.toString() != confirmPwdEt.text.toString())) {
+            confirmPwdInput.error = "Passwords do not match"
+            return false
+        }
+        return true
     }
 
     private fun signUpUser(email: String, pwd: String) {
