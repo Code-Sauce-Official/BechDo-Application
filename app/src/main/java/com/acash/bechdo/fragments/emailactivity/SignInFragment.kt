@@ -3,9 +3,7 @@ package com.acash.bechdo.fragments.emailactivity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.TextPaint
+import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
@@ -14,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.acash.bechdo.MainActivity
 import com.acash.bechdo.R
@@ -38,7 +37,7 @@ class SignInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setSpannableStrings()
         signInBtn.setOnClickListener {
-            if (validateCredentials()) {
+            if(validateCredentials()){
                 signInUser(emailEt.text.toString(), pwdEt.text.toString())
             }
         }
@@ -58,22 +57,56 @@ class SignInFragment : Fragment() {
                 )
             }
         }
+
+        emailEt.addTextChangedListener {
+            emailInput.isErrorEnabled = false
+        }
+
+        emailEt.setOnFocusChangeListener { _, hasFocus ->
+            if(!hasFocus){
+                checkEmail()
+            }
+        }
+
+        pwdEt.addTextChangedListener {
+            pwdInput.isErrorEnabled = false
+        }
+
+        pwdEt.setOnFocusChangeListener { _, hasFocus ->
+            if(!hasFocus){
+                checkPassword()
+            }
+        }
     }
 
     private fun validateCredentials():Boolean {
         var isValid = true
 
-        if (emailEt.text.isNullOrEmpty()) {
-            emailEt.error = "Email cannot be empty!"
+        if(!checkEmail()){
             isValid = false
         }
 
-        if (pwdEt.text.isNullOrEmpty()) {
-            pwdEt.error = "Password cannot be empty!"
+        if(!checkPassword()){
             isValid = false
         }
 
         return isValid
+    }
+
+    private fun checkEmail(): Boolean {
+        if (emailEt.text.isNullOrEmpty()) {
+            emailInput.error = "Email cannot be empty!"
+            return false
+        }
+        return true
+    }
+
+    private fun checkPassword():Boolean {
+        if (pwdEt.text.isNullOrEmpty()) {
+            pwdInput.error = "Password cannot be empty!"
+            return false
+        }
+        return true
     }
 
     private fun signInUser(email: String, pwd: String) {

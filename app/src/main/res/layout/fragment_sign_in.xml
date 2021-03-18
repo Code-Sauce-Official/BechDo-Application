@@ -18,7 +18,7 @@
             android:layout_width="180dp"
             android:layout_height="120dp"
             android:layout_gravity="center"
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="35dp"
             android:src="@drawable/logo" />
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="140dp"
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/montserrat"
             android:gravity="center"
@@ -40,7 +40,7 @@
     <View
         android:id="@+id/wavyBg"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="80dp"
         android:layout_below="@id/logoNDescription"
         android:background="@drawable/wave" />
 
@@ -55,19 +55,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/email"
             android:textColor="#312E5F"
             android:textSize="16sp" />
 
-        <com.google.android.material.card.MaterialCardView
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginEnd="35dp"
-            android:backgroundTint="#312E5F"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="0dp">
+            app:boxBackgroundColor="#312E5F"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeWidth="0dp"
+            app:errorIconDrawable="@null"
+            app:boxStrokeWidthFocused="0dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailEt"
@@ -76,29 +83,27 @@
                 android:background="@null"
                 android:inputType="textEmailAddress"
                 android:lines="1"
-                android:paddingStart="16dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="8dp"
+                android:padding="13dp"
                 android:textColor="@color/white"
                 android:textCursorDrawable="@null"
                 android:textSize="16sp" />
 
-        </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="5dp"
             android:fontFamily="@font/montserrat"
+            android:layout_marginTop="5dp"
             android:text="@string/password"
             android:textColor="#312E5F"
             android:textSize="16sp" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/pwdInput"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginEnd="35dp"
             app:boxBackgroundColor="#312E5F"
@@ -109,6 +114,7 @@
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:passwordToggleEnabled="true"
+            app:errorIconDrawable="@null"
             app:passwordToggleTint="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -127,9 +133,9 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/signInBtn"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="60dp"
             android:layout_marginStart="37dp"
-            android:layout_marginTop="93dp"
+            android:layout_marginTop="21dp"
             android:layout_marginEnd="37dp"
             android:elevation="0dp"
             android:fontFamily="@font/montserrat"
@@ -170,7 +176,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/logoNDescription"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:backgroundTint="#E3386A"
         android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
         app:borderWidth="0dp"
