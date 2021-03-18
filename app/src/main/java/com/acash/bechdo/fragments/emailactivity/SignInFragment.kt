@@ -36,7 +36,7 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setSpannableString()
+        setSpannableStrings()
         signInBtn.setOnClickListener {
             if (validateCredentials()) {
                 signInUser(emailEt.text.toString(), pwdEt.text.toString())
@@ -92,10 +92,11 @@ class SignInFragment : Fragment() {
             }
     }
 
-    private fun setSpannableString() {
-        val span = SpannableString("New user ? Sign up")
+    private fun setSpannableStrings() {
+        //New user ? Sign up
+        val spanNewUser = SpannableString("New user ? Sign up")
 
-        val clickableSpan = object : ClickableSpan() {
+        val clickableSpanNewUser = object : ClickableSpan() {
             /**
              * Performs the click action associated with this span.
              */
@@ -113,13 +114,50 @@ class SignInFragment : Fragment() {
             }
         }
 
-        span.setSpan(
-            clickableSpan,
-            span.length - 7,
-            span.length,
+        spanNewUser.setSpan(
+            clickableSpanNewUser,
+            spanNewUser.length - 7,
+            spanNewUser.length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         tvSignUp.movementMethod = LinkMovementMethod.getInstance()
-        tvSignUp.text = span
+        tvSignUp.text = spanNewUser
+
+        //Forgot Password?
+        val spanForgotPwd = SpannableString("Forgot Password ?")
+        val clickableSpanForgotPwd = object : ClickableSpan() {
+            /**
+             * Performs the click action associated with this span.
+             */
+            override fun onClick(widget: View) {
+                if(emailEt.text.isNullOrEmpty()){
+                    Toast.makeText(requireContext(),"Enter your registered Email id",Toast.LENGTH_SHORT).show()
+                }else {
+                    auth.sendPasswordResetEmail(emailEt.text.toString())
+                        .addOnCompleteListener{task->
+                            if(task.isSuccessful){
+                                Toast.makeText(requireContext(),"We have sent you instructions to reset password on your mail",Toast.LENGTH_SHORT).show()
+                            }else{
+                                Toast.makeText(requireContext(),"Failed to send reset mail",Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                }
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = false
+                ds.color = Color.parseColor("#312E5F")
+            }
+        }
+
+        spanForgotPwd.setSpan(
+            clickableSpanForgotPwd,
+            0,
+            spanForgotPwd.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        tvForgotPwd.movementMethod = LinkMovementMethod.getInstance()
+        tvForgotPwd.text = spanForgotPwd
     }
 }

@@ -140,6 +140,18 @@
             app:cornerRadius="15dp" />
 
         <TextView
+            android:id="@+id/tvForgotPwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat"
+            android:textColorHighlight="#00ff001C"
+            android:textColor="#312E5F"
+            android:textSize="15sp"
+            tools:text="Forgot Password ?"/>
+
+        <TextView
             android:id="@+id/tvSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -147,6 +159,7 @@
             android:layout_marginTop="12dp"
             android:fontFamily="@font/montserrat"
             android:textColor="#312E5F"
+            android:textColorHighlight="#00ff001C"
             android:textSize="15sp"
             tools:text="New user? Sign up" />
 
