@@ -7,6 +7,7 @@ import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -117,11 +118,15 @@ class SignInFragment : Fragment() {
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                     )
                 }else{
-                    Toast.makeText(requireContext(), task.exception?.message,Toast.LENGTH_SHORT).show()
+                    val toast = Toast.makeText(requireContext(), task.exception?.message,Toast.LENGTH_SHORT)
+                    toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
+                    toast.show()
                 }
             }
             .addOnFailureListener {
-                Toast.makeText(requireContext(), it.message,Toast.LENGTH_SHORT).show()
+                val toast = Toast.makeText(requireContext(), it.message,Toast.LENGTH_SHORT)
+                toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
+                toast.show()
             }
     }
 
@@ -169,10 +174,19 @@ class SignInFragment : Fragment() {
                     auth.sendPasswordResetEmail(emailEt.text.toString())
                         .addOnCompleteListener{task->
                             if(task.isSuccessful){
-                                Toast.makeText(requireContext(),"We have sent you instructions to reset password on your mail",Toast.LENGTH_SHORT).show()
+                                val toast = Toast.makeText(requireContext(),"We have sent you instructions to reset password on your mail",Toast.LENGTH_SHORT)
+                                toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
+                                toast.show()
                             }else{
-                                Toast.makeText(requireContext(),"Failed to send reset mail",Toast.LENGTH_SHORT).show()
+                                val toast = Toast.makeText(requireContext(),task.exception?.message,Toast.LENGTH_SHORT)
+                                toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
+                                toast.show()
                             }
+                        }
+                        .addOnFailureListener{
+                            val toast = Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT)
+                            toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
+                            toast.show()
                         }
                 }
             }
