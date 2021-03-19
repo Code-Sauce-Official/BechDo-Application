@@ -7,6 +7,7 @@ import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -160,11 +161,15 @@ class SignUpFragment : Fragment() {
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                     )
                 }else{
-                    Toast.makeText(requireContext(), task.exception?.message,Toast.LENGTH_SHORT).show()
+                    val toast = Toast.makeText(requireContext(), task.exception?.message,Toast.LENGTH_SHORT)
+                    toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
+                    toast.show()
                 }
             }
             .addOnFailureListener {
-                Toast.makeText(requireContext(), it.message,Toast.LENGTH_SHORT).show()
+                val toast = Toast.makeText(requireContext(), it.message,Toast.LENGTH_SHORT)
+                toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
+                toast.show()
             }
     }
 
