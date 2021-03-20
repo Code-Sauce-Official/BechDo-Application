@@ -14,47 +14,34 @@
         android:gravity="center"
         android:orientation="vertical">
 
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/smallwave"
-            android:orientation="vertical">
-
-        </ImageView>
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/image_view"
-            android:layout_width="150sp"
-            android:layout_height="150sp"
-            app:srcCompat="@drawable/profilephoto" />
-
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/taglineBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#E3386A"
-            app:borderWidth="0dp"
-            app:fabSize="mini" />
-
         <LinearLayout
             android:id="@+id/emailPwdLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/top"
-            android:layout_marginEnd="3dp"
             android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/smallwave"
+                android:contentDescription="@string/upload_profile"/>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_view"
+                android:layout_width="100sp"
+                android:layout_gravity="center"
+                android:layout_height="100sp"
+                app:srcCompat="@drawable/profilephoto" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:fontFamily="@font/montserrat"
-                android:text="Name"
+                android:text="@string/Name"
                 android:textColor="#312E5F"
-                android:textFontWeight="700"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -76,7 +63,7 @@
                     android:paddingTop="8dp"
                     android:paddingEnd="16dp"
                     android:paddingBottom="8dp"
-                    android:textColor="@color/white"
+                    android:textColor="#312E5F"
                     android:textCursorDrawable="@null"
                     android:textSize="16sp" />
 
@@ -88,10 +75,10 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/montserrat"
-                android:text="Date of Birth"
+                android:text="@string/dob"
                 android:textColor="#312E5F"
-                android:textFontWeight="700"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -124,10 +111,10 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/montserrat"
-                android:text="College"
+                android:text="@string/College"
                 android:textColor="#312E5F"
-                android:textFontWeight="700"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -153,12 +140,6 @@
                     android:textColor="#312E5F"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
 
             <TextView
@@ -167,109 +148,84 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/montserrat"
-                android:text="Year"
+                android:text="@string/Year"
                 android:textColor="#312E5F"
-                android:textFontWeight="700"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
 
-                <com.google.android.material.checkbox.MaterialCheckBox
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/checkbox"
-                    android:buttonTint="#F1F3fd">
-
-                </com.google.android.material.checkbox.MaterialCheckBox>
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#312E5F" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
                     android:fontFamily="@font/montserrat"
-                    android:text="First"
+                    android:text="@string/first"
                     android:textColor="#312E5F"
-                    android:textFontWeight="700"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
 
-                <com.google.android.material.checkbox.MaterialCheckBox
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="15dp"
-                    android:background="@drawable/checkbox"
-                    android:buttonTint="#F1F3fd">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:buttonTint="#312E5F">
 
-                </com.google.android.material.checkbox.MaterialCheckBox>
+                </CheckBox>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
                     android:fontFamily="@font/montserrat"
-                    android:text="Second"
+                    android:text="@string/second"
                     android:textColor="#312E5F"
-                    android:textFontWeight="700"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-                <com.google.android.material.checkbox.MaterialCheckBox
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:background="@drawable/checkbox"
-                    android:buttonTint="#F1F3fd">
-
-                </com.google.android.material.checkbox.MaterialCheckBox>
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:buttonTint="#312E5F" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
                     android:fontFamily="@font/montserrat"
-                    android:text="Third"
+                    android:text="@string/third"
                     android:textColor="#312E5F"
-                    android:textFontWeight="700"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-                <com.google.android.material.checkbox.MaterialCheckBox
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:background="@drawable/checkbox"
-                    android:buttonTint="#F1F3fd">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:buttonTint="#312E5F">
 
-                </com.google.android.material.checkbox.MaterialCheckBox>
+                </CheckBox>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
                     android:fontFamily="@font/montserrat"
-                    android:text="Fourth"
+                    android:text="@string/fourth"
                     android:textColor="#312E5F"
-                    android:textFontWeight="700"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
 
             <TextView
 
@@ -278,23 +234,21 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/montserrat"
                 android:gravity="center"
-                android:text="Upload Official College ID"
+                android:text="@string/Upload"
                 android:textColor="#31215F"
-                android:textFontWeight="700"
                 android:textSize="16sp"
-                android:textStyle="bold">
-
-            </TextView>
+                android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/signUpBtn"
+                android:id="@+id/UploadBtn"
                 android:layout_width="112dp"
                 android:layout_height="55dp"
+                android:layout_gravity="center"
                 android:layout_marginStart="37dp"
                 android:layout_marginEnd="37dp"
                 android:elevation="0dp"
                 android:fontFamily="@font/montserrat"
-                android:text="Upload"
+                android:text="@string/Uploadbtn"
                 android:textAllCaps="false"
                 android:textSize="16sp"
                 app:backgroundTint="#312E5F"
@@ -309,25 +263,24 @@
                 android:layout_marginLeft="54dp"
                 android:layout_marginRight="54dp"
                 android:fontFamily="@font/montserrat"
+                android:text="@string/verification"
                 android:textAlignment="center"
                 android:textColor="#E3366A"
-                android:textSize="12sp"
-                tools:text="Team will verify your ID for security purposes
-                within 24 hours" />
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.google.android.material.checkbox.MaterialCheckBox
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/checkbox_tnc"
-                    android:buttonTint="#F1F3fd">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#E3366A">
 
-                </com.google.android.material.checkbox.MaterialCheckBox>
+                </CheckBox>
 
 
                 <TextView
@@ -335,12 +288,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="6dp"
                     android:fontFamily="@font/montserrat"
+                    android:text="@string/accepttnc"
                     android:textAlignment="center"
                     android:textColor="#65CBC3"
-                    android:textSize="12sp"
-                    tools:text="I accept terms and Conditons " />
+                    android:textSize="12sp" />
 
 
             </LinearLayout>
@@ -349,11 +301,12 @@
                 android:id="@+id/savebtn"
                 android:layout_width="112dp"
                 android:layout_height="55dp"
+                android:layout_gravity="center"
                 android:layout_marginStart="37dp"
                 android:layout_marginEnd="37dp"
                 android:elevation="0dp"
                 android:fontFamily="@font/montserrat"
-                android:text="Save"
+                android:text="@string/Save"
                 android:textAllCaps="false"
                 android:textSize="16sp"
                 app:backgroundTint="#65CBC3"
@@ -366,7 +319,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:background="@drawable/bottom_wave">
 
         </View>
