@@ -1,9 +1,378 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/smallwave"
+            android:orientation="vertical">
+
+        </ImageView>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_view"
+            android:layout_width="150sp"
+            android:layout_height="150sp"
+            app:srcCompat="@drawable/profilephoto" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/taglineBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#E3386A"
+            app:borderWidth="0dp"
+            app:fabSize="mini" />
+
+        <LinearLayout
+            android:id="@+id/emailPwdLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/top"
+            android:layout_marginEnd="3dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Name"
+                android:textColor="#312E5F"
+                android:textFontWeight="700"
+                android:textSize="16sp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                android:backgroundTint="#F1F3FD"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nameEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:textColor="@color/white"
+                    android:textCursorDrawable="@null"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Date of Birth"
+                android:textColor="#312E5F"
+                android:textFontWeight="700"
+                android:textSize="16sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                app:boxBackgroundColor="#F1F3FD"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dob"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:inputType="date"
+                    android:lines="1"
+                    android:padding="8dp"
+                    android:textColor="#312E5F"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat"
+                android:text="College"
+                android:textColor="#312E5F"
+                android:textFontWeight="700"
+                android:textSize="16sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                app:boxBackgroundColor="#F1F3FD"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/college"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:padding="8dp"
+                    android:textColor="#312E5F"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Year"
+                android:textColor="#312E5F"
+                android:textFontWeight="700"
+                android:textSize="16sp" />
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:orientation="horizontal">
+
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/checkbox"
+                    android:buttonTint="#F1F3fd">
+
+                </com.google.android.material.checkbox.MaterialCheckBox>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="First"
+                    android:textColor="#312E5F"
+                    android:textFontWeight="700"
+                    android:textSize="14sp" />
+
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/checkbox"
+                    android:buttonTint="#F1F3fd">
+
+                </com.google.android.material.checkbox.MaterialCheckBox>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Second"
+                    android:textColor="#312E5F"
+                    android:textFontWeight="700"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/checkbox"
+                    android:buttonTint="#F1F3fd">
+
+                </com.google.android.material.checkbox.MaterialCheckBox>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Third"
+                    android:textColor="#312E5F"
+                    android:textFontWeight="700"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/checkbox"
+                    android:buttonTint="#F1F3fd">
+
+                </com.google.android.material.checkbox.MaterialCheckBox>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Fourth"
+                    android:textColor="#312E5F"
+                    android:textFontWeight="700"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="Upload Official College ID"
+                android:textColor="#31215F"
+                android:textFontWeight="700"
+                android:textSize="16sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/signUpBtn"
+                android:layout_width="112dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="37dp"
+                android:layout_marginEnd="37dp"
+                android:elevation="0dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Upload"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:backgroundTint="#312E5F"
+                app:cornerRadius="50dp" />
+
+
+            <TextView
+                android:id="@+id/tvSignIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="54dp"
+                android:layout_marginRight="54dp"
+                android:fontFamily="@font/montserrat"
+                android:textAlignment="center"
+                android:textColor="#E3366A"
+                android:textSize="12sp"
+                tools:text="Team will verify your ID for security purposes
+                within 24 hours" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/checkbox_tnc"
+                    android:buttonTint="#F1F3fd">
+
+                </com.google.android.material.checkbox.MaterialCheckBox>
+
+
+                <TextView
+                    android:id="@+id/tnc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="6dp"
+                    android:fontFamily="@font/montserrat"
+                    android:textAlignment="center"
+                    android:textColor="#65CBC3"
+                    android:textSize="12sp"
+                    tools:text="I accept terms and Conditons " />
+
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/savebtn"
+                android:layout_width="112dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="37dp"
+                android:layout_marginEnd="37dp"
+                android:elevation="0dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:backgroundTint="#65CBC3"
+                app:cornerRadius="50dp" />
+
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bottom_wave">
+
+        </View>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
