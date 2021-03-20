@@ -4,15 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ProfileActivity">
 
 
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
             <View
                 android:layout_width="match_parent"
@@ -313,14 +308,5 @@
                 android:background="@drawable/bottom_wave">
 
             </View>
-
-
-        </LinearLayout>
-
-
-
-
-
-
 
 </LinearLayout>
