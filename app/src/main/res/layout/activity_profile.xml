@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,22 +7,16 @@
     tools:context=".ProfileActivity">
 
 
-    <LinearLayout
-        android:id="@+id/top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+
 
         <LinearLayout
-            android:id="@+id/emailPwdLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:background="@drawable/smallwave"
                 android:contentDescription="@string/upload_profile"/>
 
@@ -313,18 +307,20 @@
                 app:cornerRadius="50dp" />
 
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bottom_wave">
+
+            </View>
+
+
         </LinearLayout>
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bottom_wave">
-
-        </View>
 
 
-    </LinearLayout>
 
 
-</RelativeLayout>
+
+</LinearLayout>
