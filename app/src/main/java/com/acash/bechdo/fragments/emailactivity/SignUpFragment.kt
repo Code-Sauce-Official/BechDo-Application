@@ -1,12 +1,12 @@
 package com.acash.bechdo.fragments.emailactivity
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.*
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +15,8 @@ import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import com.acash.bechdo.ProfileActivity
 import com.acash.bechdo.R
+import com.acash.bechdo.createProgressDialog
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 
@@ -154,23 +154,31 @@ class SignUpFragment : Fragment() {
     }
 
     private fun signUpUser(email: String, pwd: String) {
+        val progressDialog = requireContext().createProgressDialog("Signing up, Please wait...",false)
+        progressDialog.show()
         auth.createUserWithEmailAndPassword(email,pwd)
             .addOnCompleteListener{ task ->
                 if(task.isSuccessful){
-                    startActivity(Intent(requireContext(),ProfileActivity::class.java)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    )
+                    auth.currentUser?.sendEmailVerification()
+                        ?.addOnSuccessListener {
+                            progressDialog.dismiss()
+                            showToast("We have sent a verification link on your e-mail address.")
+                        }
+                        ?.addOnFailureListener {
+                            progressDialog.dismiss()
+                            showToast(it.message.toString())
+                        }
                 }else{
-                    val toast = Toast.makeText(requireContext(), task.exception?.message,Toast.LENGTH_SHORT)
-                    toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
-                    toast.show()
+                    progressDialog.dismiss()
+                    showToast(task.exception?.message.toString())
                 }
             }
-            .addOnFailureListener {
-                val toast = Toast.makeText(requireContext(), it.message,Toast.LENGTH_SHORT)
-                toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
-                toast.show()
-            }
+    }
+
+    private fun showToast(message:String){
+        val toast = Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT)
+        toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
+        toast.show()
     }
 
     private fun setSpannableString(){
@@ -181,7 +189,6 @@ class SignUpFragment : Fragment() {
              * Performs the click action associated with this span.
              */
             override fun onClick(widget: View) {
-                Log.d("CLick","clicked")
                 activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.container, SignInFragment())
                     ?.commit()
