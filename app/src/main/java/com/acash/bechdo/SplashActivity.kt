@@ -26,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {}
 
             override fun onFinish() {
-                if (auth.currentUser != null) {
+                if (auth.currentUser != null && auth.currentUser!!.isEmailVerified) {
                     database.collection("users").document(auth.uid.toString()).get()
                         .addOnSuccessListener {
                             if (it.exists()) {

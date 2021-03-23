@@ -146,6 +146,18 @@
             app:cornerRadius="15dp" />
 
         <TextView
+            android:id="@+id/tvSendVerificationMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat"
+            android:textColorHighlight="#00ff001C"
+            android:textColor="#312E5F"
+            android:textSize="15sp"
+            tools:text="Send Verification mail"/>
+
+        <TextView
             android:id="@+id/tvForgotPwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
