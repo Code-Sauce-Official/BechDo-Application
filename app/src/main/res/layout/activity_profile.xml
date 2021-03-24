@@ -27,6 +27,7 @@
                 android:layout_width="115dp"
                 android:layout_height="115dp"
                 android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
                 android:padding="5dp"
                 android:src="@drawable/defaultavatar"
                 android:contentDescription="@string/upload_profile"
@@ -65,6 +66,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
@@ -103,6 +105,7 @@
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dobInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
@@ -116,7 +119,7 @@
             app:boxStrokeWidthFocused="0dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dob"
+                android:id="@+id/dobEt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clickable="true"
@@ -126,6 +129,7 @@
                 android:lines="1"
                 android:padding="8dp"
                 android:textCursorDrawable="@null"
+                android:cursorVisible="false"
                 android:textColor="#312E5F"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -142,6 +146,7 @@
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/clgInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
@@ -155,7 +160,7 @@
             app:boxStrokeWidthFocused="0dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/collegeEt"
+                android:id="@+id/clgEt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
@@ -186,6 +191,7 @@
             android:orientation="horizontal">
 
             <RadioButton
+                android:id="@+id/firstYr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="#312E5F"
@@ -196,6 +202,7 @@
                 android:textStyle="bold" />
 
             <RadioButton
+                android:id="@+id/secondYr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -207,6 +214,7 @@
                 android:textStyle="bold" />
 
             <RadioButton
+                android:id="@+id/thirdYr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -218,6 +226,7 @@
                 android:textStyle="bold" />
 
             <RadioButton
+                android:id="@+id/fourthYr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -267,6 +276,7 @@
             android:textSize="12sp" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/tncCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
             android:layout_gravity="center"

@@ -3,10 +3,12 @@ package com.acash.bechdo.fragments.emailactivity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.*
+import android.os.CountDownTimer
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -16,14 +18,21 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.acash.bechdo.MainActivity
+import com.acash.bechdo.ProfileActivity
 import com.acash.bechdo.R
+import com.acash.bechdo.createProgressDialog
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
 class SignInFragment : Fragment() {
 
     private val auth by lazy {
         FirebaseAuth.getInstance()
+    }
+
+    private val database by lazy {
+        FirebaseFirestore.getInstance()
     }
 
     override fun onCreateView(
@@ -111,23 +120,45 @@ class SignInFragment : Fragment() {
     }
 
     private fun signInUser(email: String, pwd: String) {
+        val progressDialog = requireContext().createProgressDialog("Signing in, Please wait...",false)
+        progressDialog.show()
         auth.signInWithEmailAndPassword(email,pwd)
             .addOnCompleteListener{ task ->
                 if(task.isSuccessful){
-                    startActivity(Intent(requireContext(), MainActivity::class.java)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    )
+                    if(auth.currentUser?.isEmailVerified == true) {
+                        database.collection("users").document(auth.uid.toString()).get()
+                            .addOnSuccessListener {
+                                if (it.exists()) {
+                                    startActivity(
+                                        Intent(requireContext(), MainActivity::class.java)
+                                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    )
+                                } else {
+                                    startActivity(
+                                        Intent(requireContext(), ProfileActivity::class.java)
+                                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    )
+                                }
+                            }
+                            .addOnFailureListener {
+                                progressDialog.dismiss()
+                                showToast(it.message.toString())
+                            }
+                    }else{
+                        progressDialog.dismiss()
+                        showToast("Please verify your e-mail address!")
+                    }
                 }else{
-                    val toast = Toast.makeText(requireContext(), task.exception?.message,Toast.LENGTH_SHORT)
-                    toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
-                    toast.show()
+                    progressDialog.dismiss()
+                    showToast(task.exception?.message.toString())
                 }
             }
-            .addOnFailureListener {
-                val toast = Toast.makeText(requireContext(), it.message,Toast.LENGTH_SHORT)
-                toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
-                toast.show()
-            }
+    }
+
+    private fun showToast(message:String){
+        val toast = Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT)
+        toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
+        toast.show()
     }
 
     private fun setSpannableStrings() {
@@ -135,11 +166,7 @@ class SignInFragment : Fragment() {
         val spanNewUser = SpannableString("New user ? Sign up")
 
         val clickableSpanNewUser = object : ClickableSpan() {
-            /**
-             * Performs the click action associated with this span.
-             */
             override fun onClick(widget: View) {
-                Log.d("CLick", "clicked")
                 activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.container, SignUpFragment())
                     ?.commit()
@@ -169,24 +196,15 @@ class SignInFragment : Fragment() {
              */
             override fun onClick(widget: View) {
                 if(emailEt.text.isNullOrEmpty()){
-                    Toast.makeText(requireContext(),"Enter your registered Email id",Toast.LENGTH_SHORT).show()
+                    showToast("Enter your registered Email id")
                 }else {
                     auth.sendPasswordResetEmail(emailEt.text.toString())
                         .addOnCompleteListener{task->
                             if(task.isSuccessful){
-                                val toast = Toast.makeText(requireContext(),"We have sent you instructions to reset password on your mail",Toast.LENGTH_SHORT)
-                                toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
-                                toast.show()
+                                showToast("We have sent you instructions to reset password on your mail")
                             }else{
-                                val toast = Toast.makeText(requireContext(),task.exception?.message,Toast.LENGTH_SHORT)
-                                toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
-                                toast.show()
+                                showToast(task.exception?.message.toString())
                             }
-                        }
-                        .addOnFailureListener{
-                            val toast = Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT)
-                            toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
-                            toast.show()
                         }
                 }
             }
@@ -206,5 +224,64 @@ class SignInFragment : Fragment() {
         )
         tvForgotPwd.movementMethod = LinkMovementMethod.getInstance()
         tvForgotPwd.text = spanForgotPwd
+
+        //Send Verification mail
+        val spanVerification = SpannableString("Send Verification mail")
+
+        val clickableSpanVerification = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                if(validateCredentials()) {
+                    val countDownTimer = object : CountDownTimer(30000, 1000) {
+
+                        override fun onTick(millisUntilFinished: Long) {
+                            tvSendVerificationMail.text =
+                                getString(R.string.countdown,millisUntilFinished/1000)
+                        }
+
+                        override fun onFinish() {
+                            tvSendVerificationMail.text = spanVerification
+                        }
+                    }.start()
+
+                    auth.signInWithEmailAndPassword(emailEt.text.toString(), pwdEt.text.toString())
+                        .addOnSuccessListener {
+                            if (auth.currentUser?.isEmailVerified == true) {
+                                countDownTimer.cancel()
+                                tvSendVerificationMail.text = spanVerification
+                                showToast("Email Address has already been verified")
+                            } else {
+                                auth.currentUser?.sendEmailVerification()
+                                    ?.addOnSuccessListener {
+                                        showToast("We have sent a verification link on your e-mail address.")
+                                    }
+                                    ?.addOnFailureListener {
+                                        showToast(it.message.toString())
+                                    }
+                            }
+                        }
+                        .addOnFailureListener {
+                            countDownTimer.cancel()
+                            tvSendVerificationMail.text = spanVerification
+                            showToast(it.message.toString())
+                        }
+                }
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = false
+                ds.color = Color.parseColor("#312E5F")
+            }
+        }
+
+        spanVerification.setSpan(
+            clickableSpanVerification,
+            0,
+            spanVerification.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        tvSendVerificationMail.movementMethod = LinkMovementMethod.getInstance()
+        tvSendVerificationMail.text = spanVerification
     }
 }

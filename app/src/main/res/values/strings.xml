@@ -26,9 +26,11 @@
     <string name="third">3rd</string>
     <string name="fourth">4th</string>
     <string name="Upload">Upload Official College ID</string>
-    <string name="Uploadbtn">Upload</string>
+    <string name="Uploadbtn">Choose</string>
     <string name="verification">Team will verify your ID for security purposes within 24 hours</string>
     <string name="accepttnc">I accept Terms and Conditions</string>
     <string name="Save">Save</string>
     <string name="upload_profile">Upload Profile</string>
+    <string name="uploadClgIdChanged">Change</string>
+    <string name="countdown">Resend Verification Mail in %ds</string>
 </resources>

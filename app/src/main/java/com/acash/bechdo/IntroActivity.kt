@@ -1,9 +1,6 @@
 package com.acash.bechdo
 
-import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.acash.bechdo.adapters.ViewPagerAdapter
 import com.acash.bechdo.fragments.introactivity.ClickPhotoFragment
