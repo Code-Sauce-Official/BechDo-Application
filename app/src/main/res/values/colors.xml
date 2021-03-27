@@ -8,4 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#007500</color>
+    <color name="yellow">#FFDC5D</color>
+    <color name="turquoise">#65CBC3</color>
+    <color name="pink">#E3386A</color>
+
+    <array name="random_colors">
+        <item>@color/pink</item>
+        <item>@color/turquoise</item>
+        <item>@color/yellow</item>
+    </array>
 </resources>
