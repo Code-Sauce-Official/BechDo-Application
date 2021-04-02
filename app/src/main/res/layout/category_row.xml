@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:layout_marginEnd="8dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <com.google.android.material.imageview.ShapeableImageView
-            app:shapeAppearanceOverlay="@style/CircularImageView"
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:cardCornerRadius="20dp"
+        android:background="?android:selectableItemBackground"
+        android:clickable="true">
+
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image"
-            android:src="@drawable/compare_prices"
-            android:background="@color/black"
-            android:layout_width="80dp"
-            android:layout_height="80dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentPadding="8dp"
+            app:shapeAppearanceOverlay="@style/RoundedImageView"
+            tools:background="@color/yellow"
+            tools:src="@drawable/electronics" />
+
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/tvCategory"
@@ -22,8 +34,8 @@
         android:layout_marginTop="7dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
-        android:text="@string/books"
         android:textColor="#312e5f"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        tools:text="@string/books" />
 
 </LinearLayout>

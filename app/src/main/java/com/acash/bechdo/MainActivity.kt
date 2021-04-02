@@ -3,6 +3,10 @@ package com.acash.bechdo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.acash.bechdo.adapters.CategoryAdapter
+import com.acash.bechdo.adapters.RecentAdapter
+import com.acash.bechdo.models.Categories
+import com.acash.bechdo.models.Recents
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,17 +20,20 @@ class MainActivity : AppCompatActivity() {
         val categories = Categories.getCategories()
         val categoryAdapter = CategoryAdapter(categories, activityRef)
 
-        rvCategory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
-        (rvCategory.layoutManager as LinearLayoutManager).scrollToPosition(categories.size-1)
-        rvCategory.adapter = categoryAdapter
+        rvCategory.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+            scrollToPosition(0)
+            adapter = categoryAdapter
+        }
 
         val recents = Recents.getRecents()
         val recentAdapter = RecentAdapter(recents)
 
-        rvRecent.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
-        (rvRecent.layoutManager as LinearLayoutManager).scrollToPosition(recents.size-1)
-        rvRecent.adapter = recentAdapter
+        rvRecent.apply{
+            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+            scrollToPosition(0)
+            adapter = recentAdapter
+        }
+
     }
-
-
 }
