@@ -226,7 +226,7 @@ class SignInFragment : Fragment() {
         tvForgotPwd.text = spanForgotPwd
 
         //Send Verification mail
-        val spanVerification = SpannableString("Send Verification mail")
+        val spanVerification = SpannableString("Resend Verification mail")
 
         val clickableSpanVerification = object : ClickableSpan() {
             override fun onClick(widget: View) {
@@ -248,6 +248,7 @@ class SignInFragment : Fragment() {
                             if (auth.currentUser?.isEmailVerified == true) {
                                 countDownTimer.cancel()
                                 tvSendVerificationMail.text = spanVerification
+                                auth.signOut()
                                 showToast("Email Address has already been verified")
                             } else {
                                 auth.currentUser?.sendEmailVerification()

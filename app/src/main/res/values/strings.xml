@@ -9,7 +9,7 @@
     <string name="sign_up">Sign up</string>
     <string name="sign_in">Sign in</string>
     <string name="buy_sell_amp_rent_products"><![CDATA[Buy, Sell & Rent Products]]></string>
-    <string name="one_step_solution_for_all_your_n_college_necessities_like_books_n_drafters_and_so_much_more">One step solution for all your\n  college necessities like books,\n drafters and so much more...</string>
+    <string name="one_step_solution_for_all_your_n_college_necessities_like_books_n_drafters_and_so_much_more">One step solution for all your\n  college necessities like books,\n drafters and so much more…</string>
     <string name="choose_from_a_n_range_of_options">Choose from a\n range of options</string>
     <string name="compare_the_prices_and_n_choose_the_best_product_n_for_you">Compare the prices and\n choose the best product\n for you</string>
     <string name="contact_with_the_n_seller_buyer">Contact with the\n seller/buyer</string>
@@ -33,4 +33,14 @@
     <string name="upload_profile">Upload Profile</string>
     <string name="uploadClgIdChanged">Change</string>
     <string name="countdown">Resend Verification Mail in %ds</string>
+    <string name="books">Books</string>
+    <string name="welcome">Welcome</string>
+    <string name="lydia_culhane">Lydia Culhane</string>
+    <string name="want_to_rent_sell_something">Want to rent/sell something?</string>
+    <string name="show_all">Show all</string>
+    <string name="recently_added">Recently Added</string>
+    <string name="categories">Categories</string>
+    <string name="todo">TODO</string>
+    <string name="_200">200$</string>
+    <string name="to">To</string>
 </resources>

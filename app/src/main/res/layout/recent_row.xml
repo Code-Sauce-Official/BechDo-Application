@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="180dp"
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="5dp"
+    android:background="?android:selectableItemBackground"
+    android:clickable="true"
+    app:cardCornerRadius="20dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            app:shapeAppearanceOverlay="@style/RoundedImageView"
+            tools:src="@drawable/phone" />
+
+        <TextView
+            android:id="@+id/tvRecentProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/saveProduct"
+            android:fontFamily="@font/montserrat"
+            android:textColor="#312e5f"
+            android:textSize="14sp"
+            tools:text="@string/books" />
+
+        <TextView
+            android:id="@+id/tvRecentPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvRecentProduct"
+            android:layout_toStartOf="@id/saveProduct"
+            android:layout_alignParentStart="true"
+            android:fontFamily="@font/montserrat"
+            android:textColor="#312e5f"
+            android:textSize="14sp"
+            tools:text="@string/_200" />
+
+        <ImageView
+            android:id="@+id/saveProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/to"
+            android:src="@drawable/ic_baseline_bookmark_border_24"
+            app:tint="@color/black" />
+
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

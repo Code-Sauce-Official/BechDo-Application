@@ -32,7 +32,7 @@
 
         <activity android:name=".IntroActivity" />
 
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"/>
 
     </application>
 
