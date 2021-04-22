@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/home"
+        android:title="Home"
+        android:checkable="true"
+        android:checked="true"/>
+
+    <item android:id="@+id/products"
+        android:checkable="true"
+        android:title="Products"/>
+
+    <item android:id="@+id/sellProducts"
+        android:checkable="true"
+        android:title="Sell Products"/>
+
+
+    <item android:id="@+id/help"
+        android:checkable="true"
+        android:title="Help"/>
+
+    <item android:id="@+id/request"
+        android:checkable="true"
+        android:title="Request"/>
+
+    <item android:id="@+id/messages"
+        android:checkable="true"
+        android:title="Messages"/>
+
+    <item android:id="@+id/logout"
+        android:checkable="true"
+        android:title="Log out"/>
+
+</menu>

@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Toast
+import com.acash.bechdo.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+
+const val CURRENT_USER = "Current User"
 
 class SplashActivity : AppCompatActivity() {
 
@@ -30,8 +33,10 @@ class SplashActivity : AppCompatActivity() {
                     database.collection("users").document(auth.uid.toString()).get()
                         .addOnSuccessListener {
                             if (it.exists()) {
+                                val currentUser = it.toObject(User::class.java)!!
                                 startActivity(
                                     Intent(this@SplashActivity, MainActivity::class.java)
+                                        .putExtra(CURRENT_USER, arrayOf(currentUser.name,currentUser.downloadUrlDp))
                                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                                 )
                             } else {
