@@ -23,7 +23,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginBottom="10dp"
             android:adjustViewBounds="true"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/RoundedImageView"
             tools:src="@drawable/phone" />
 
@@ -37,6 +37,10 @@
             android:fontFamily="@font/montserrat"
             android:textColor="#312e5f"
             android:textSize="14sp"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             tools:text="@string/books" />
 
         <TextView
@@ -49,6 +53,10 @@
             android:fontFamily="@font/montserrat"
             android:textColor="#312e5f"
             android:textSize="14sp"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             tools:text="@string/_200" />
 
         <ImageView

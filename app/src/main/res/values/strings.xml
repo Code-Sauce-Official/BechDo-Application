@@ -43,4 +43,12 @@
     <string name="todo">TODO</string>
     <string name="_200">200$</string>
     <string name="to">To</string>
+    <string name="post_information">Post Information</string>
+    <string name="add_title">Add Title</string>
+    <string name="set_a_price">Set a price</string>
+    <string name="description_quality">Description/Quality</string>
+    <string name="add_photos">Add Photos</string>
+    <string name="select_tags">Select Tags</string>
+    <string name="cancel">Cancel</string>
+    <string name="post">Post</string>
 </resources>

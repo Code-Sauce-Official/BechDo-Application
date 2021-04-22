@@ -32,7 +32,8 @@
 
         <activity android:name=".IntroActivity" />
 
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustNothing"/>
 
     </application>
 
