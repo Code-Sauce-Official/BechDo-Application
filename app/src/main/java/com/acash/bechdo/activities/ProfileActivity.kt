@@ -1,15 +1,21 @@
-package com.acash.bechdo
+package com.acash.bechdo.activities
 
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.acash.bechdo.R
+import com.acash.bechdo.activities.MainActivity
 import com.acash.bechdo.models.User
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
@@ -19,6 +25,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_profile.*
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -206,13 +213,13 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun uploadImages() {
-        lateinit var uploadTask: UploadTask
         lateinit var ref:StorageReference
+        lateinit var imgUri: Uri
 
         if(imgUploadCount==0) {
             if (::dpUri.isInitialized) {
                 ref = storage.reference.child("uploads/" + auth.uid.toString() + "/Dp")
-                uploadTask = ref.putFile(dpUri)
+                imgUri = dpUri
             }else {
                 imgUploadCount++
                 uploadImages()
@@ -220,8 +227,20 @@ class ProfileActivity : AppCompatActivity() {
             }
         }else {
             ref = storage.reference.child("uploads/" + auth.uid.toString() + "/ClgId")
-            uploadTask = ref.putFile(clgIdUri)
+            imgUri = clgIdUri
         }
+
+        val bitmap: Bitmap = if(Build.VERSION.SDK_INT<=28) {
+            MediaStore.Images.Media.getBitmap(contentResolver, imgUri)
+        }else{
+            val source = ImageDecoder.createSource(contentResolver,imgUri)
+            ImageDecoder.decodeBitmap(source)
+        }
+
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG,25,baos)
+        val fileInBytes = baos.toByteArray()
+        val uploadTask = ref.putBytes(fileInBytes)
 
         uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
             if (!task.isSuccessful) {

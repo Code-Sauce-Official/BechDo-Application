@@ -51,4 +51,10 @@
     <string name="select_tags">Select Tags</string>
     <string name="cancel">Cancel</string>
     <string name="post">Post</string>
+    <string name="sports">Sports</string>
+    <string name="instrument">Instrument</string>
+    <string name="rent">Rent</string>
+    <string name="stationery">Stationery</string>
+    <string name="electronics">Electronics</string>
+    <string name="other">Other</string>
 </resources>

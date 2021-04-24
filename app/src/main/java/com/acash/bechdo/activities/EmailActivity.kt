@@ -1,7 +1,8 @@
-package com.acash.bechdo
+package com.acash.bechdo.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.acash.bechdo.R
 import com.acash.bechdo.fragments.emailactivity.SignInFragment
 
 class EmailActivity : AppCompatActivity() {

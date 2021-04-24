@@ -6,7 +6,7 @@ class Product(
     val description:String,
     val price:String,
     val downLoadUrlsPics:ArrayList<String>,
-    val tag:String
+    val tags:ArrayList<String>
 ) {
-    constructor():this("","","","",ArrayList<String>(),"")
+    constructor():this("","","","",ArrayList<String>(),ArrayList<String>())
 }

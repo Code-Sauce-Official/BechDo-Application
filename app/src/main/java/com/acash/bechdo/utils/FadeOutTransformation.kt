@@ -1,4 +1,4 @@
-package com.acash.bechdo
+package com.acash.bechdo.utils
 
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2

@@ -1,4 +1,4 @@
-package com.acash.bechdo
+package com.acash.bechdo.activities
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -7,10 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.acash.bechdo.R
 import com.acash.bechdo.fragments.mainactivity.HomeFragment
 import com.acash.bechdo.fragments.mainactivity.PostProductsFragment
+import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener,DrawerLayout.DrawerListener {
@@ -26,7 +27,9 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         val userNameDp = intent.getStringArrayExtra(CURRENT_USER)
         userNameDp?.let{
             tvUserName.text = it[0]
-            Picasso.get().load(it[1]).placeholder(R.drawable.defaultavatar).error(R.drawable.defaultavatar).into(dp)
+            if(it[1]!="") {
+                Glide.with(this).load(it[1]).placeholder(R.drawable.defaultavatar).into(dp)
+            }
         }
 
         options.setOnClickListener {
