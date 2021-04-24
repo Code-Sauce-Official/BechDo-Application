@@ -14,7 +14,7 @@
         android:theme="@style/Theme.BechDo">
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:theme="@style/SplashTheme">
 
             <intent-filter>
@@ -24,15 +24,15 @@
 
         </activity>
 
-        <activity android:name=".ProfileActivity"/>
+        <activity android:name=".activities.ProfileActivity"/>
 
         <activity
-            android:name=".EmailActivity"
+            android:name=".activities.EmailActivity"
             android:windowSoftInputMode="adjustResize" />
 
-        <activity android:name=".IntroActivity" />
+        <activity android:name=".activities.IntroActivity" />
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".activities.MainActivity"
             android:windowSoftInputMode="adjustNothing"/>
 
     </application>

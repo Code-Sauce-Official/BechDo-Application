@@ -17,10 +17,10 @@ import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import com.acash.bechdo.MainActivity
-import com.acash.bechdo.ProfileActivity
+import com.acash.bechdo.activities.MainActivity
 import com.acash.bechdo.R
-import com.acash.bechdo.createProgressDialog
+import com.acash.bechdo.activities.ProfileActivity
+import com.acash.bechdo.activities.createProgressDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_sign_in.*

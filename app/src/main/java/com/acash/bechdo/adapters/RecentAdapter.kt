@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.acash.bechdo.R
 import com.acash.bechdo.models.Product
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.recent_row.view.*
 
 class RecentAdapter(private val list: ArrayList<Product>): RecyclerView.Adapter<RecentAdapter.RecentViewHolder>() {
@@ -21,7 +21,7 @@ class RecentAdapter(private val list: ArrayList<Product>): RecyclerView.Adapter<
         val product: Product = list[position]
 
         holder.itemView.apply{
-            Picasso.get().load(product.downLoadUrlsPics[0]).into(image)
+            Glide.with(this).load(product.downLoadUrlsPics[0]).placeholder(R.drawable.defaultavatar).into(image)
             tvRecentProduct.isSelected = true
             tvRecentPrice.isSelected = true
             tvRecentProduct.text = product.title

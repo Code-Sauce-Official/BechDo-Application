@@ -1,10 +1,12 @@
-package com.acash.bechdo
+package com.acash.bechdo.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Toast
+import com.acash.bechdo.activities.IntroActivity
+import com.acash.bechdo.activities.MainActivity
 import com.acash.bechdo.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
