@@ -48,7 +48,7 @@
                 android:layout_toEndOf="@id/options"
                 android:fontFamily="@font/montserrat"
                 android:gravity="end"
-                android:text="@string/lydia_culhane"
+                android:text=""
                 android:textColor="#e3386a"
                 android:textSize="15sp" />
 
@@ -78,6 +78,7 @@
         app:menu="@menu/navigation_menu"
         android:background="#E3386A"
         app:itemTextColor="@color/white"
+        app:itemIconTint="@color/white"
         app:itemTextAppearance="@style/TextAppearance.AppCompat.Title"
         app:headerLayout="@layout/navigation_header"
         app:itemBackground="@drawable/selected_item"

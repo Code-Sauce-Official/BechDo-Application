@@ -22,8 +22,6 @@ class HomeFragment : Fragment() {
         FirebaseFirestore.getInstance()
     }
 
-    private val recents = ArrayList<Product>()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,6 +32,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val activityRef = requireContext()
 
         val categories = Categories.getCategories()
@@ -45,6 +44,7 @@ class HomeFragment : Fragment() {
             adapter = categoryAdapter
         }
 
+        val recents = ArrayList<Product>()
         val recentAdapter = RecentAdapter(recents)
 
         rvRecent.apply{
@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
                         recents.add(snapshot.toObject(Product::class.java))
                     }
                     recentAdapter.notifyDataSetChanged()
-                    rvRecent.scrollToPosition(recents.size-1)
+                    rvRecent?.scrollToPosition(recents.size-1)
                 }
             }
             .addOnFailureListener {
@@ -68,7 +68,7 @@ class HomeFragment : Fragment() {
             }
 
         btnAddProduct.setOnClickListener {
-            (activity as MainActivity).changeFragment(2)
+            (activity as MainActivity).changeFragmentFromDrawer(2)
         }
 
     }
