@@ -12,11 +12,15 @@
         tools:context=".fragments.mainactivity.PostProductsFragment">
 
         <TextView
+            android:id="@+id/tvHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:fontFamily="@font/montserrat"
             android:text="@string/post_information"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:textStyle="bold"
             android:textColor="#312E5F"
             android:textSize="18sp" />
 
@@ -24,7 +28,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
-            android:layout_marginTop="5dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/add_title"
             android:textColor="#312E5F"
@@ -64,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/description_quality"
             android:textColor="#312E5F"
@@ -102,10 +105,11 @@
 
 
         <TextView
+            android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/set_a_price"
             android:textColor="#312E5F"
@@ -145,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/add_photos"
             android:textColor="#312E5F"
@@ -155,14 +159,15 @@
             android:id="@+id/picsRview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:overScrollMode="never"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
             android:fontFamily="@font/montserrat"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="@string/select_tags"
             android:textColor="#312E5F"
             android:textSize="16sp" />
@@ -283,6 +288,7 @@
             android:layout_marginStart="54dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="54dp"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton

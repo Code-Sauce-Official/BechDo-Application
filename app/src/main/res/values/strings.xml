@@ -35,7 +35,6 @@
     <string name="countdown">Resend Verification Mail in %ds</string>
     <string name="books">Books</string>
     <string name="welcome">Welcome</string>
-    <string name="lydia_culhane">Lydia Culhane</string>
     <string name="want_to_rent_sell_something">Want to rent/sell something?</string>
     <string name="show_all">Show all</string>
     <string name="recently_added">Recently Added</string>
@@ -57,4 +56,18 @@
     <string name="stationery">Stationery</string>
     <string name="electronics">Electronics</string>
     <string name="other">Other</string>
+    <string name="get_started">Get Started</string>
+    <string name="home">Home</string>
+    <string name="products">Products</string>
+    <string name="sell_products">Sell Products</string>
+    <string name="help">Help</string>
+    <string name="request">Request</string>
+    <string name="messages">Messages</string>
+    <string name="sign_out">Sign out</string>
+    <string name="confirm_sign_out">Confirm Sign Out</string>
+    <string name="rent_products">Rent Products</string>
+    <string name="active_products">Active Products</string>
+    <string name="sold_products">Sold Products</string>
+    <string name="price_per_month">Set a Price(per month)</string>
+    <string name="rent_info">Rent Information</string>
 </resources>

@@ -56,6 +56,8 @@ class PostProductsFragment : Fragment() {
     private val selectedTags = ArrayList<String>()
     private val pics = ArrayList<Uri>()
     private lateinit var productPicsAdapter:ProductPicsAdapter
+    private var forRent = false
+    private var storageLocation = "uploads/" + auth.uid.toString() + "/Products Posted/"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,22 +71,24 @@ class PostProductsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
-                if(pics.size>=7) {
+                if(pics.size==7) {
                     pics.clear()
                 }
 
-                result.data?.clipData?.let { clipData ->
-                    for (i in 0 until clipData.itemCount) {
-                        val item = clipData.getItemAt(i)
+                result.data?.apply {
+                    clipData?.let { clipData ->
+                        for (i in 0 until clipData.itemCount) {
+                            val item = clipData.getItemAt(i)
 
-                        if(i>6){
-                            break
+                            if (pics.size == 7) {
+                                break
+                            }
+
+                            pics.add(item.uri)
                         }
-
-                        pics.add(item.uri)
+                    }?:data?.let { uri->
+                        pics.add(uri)
                     }
-                }?:result.data?.data?.let {
-                    pics.add(it)
                 }
 
                 productPicsAdapter.notifyDataSetChanged()
@@ -95,6 +99,13 @@ class PostProductsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if(arguments?.getBoolean("Rent")==true){
+            tvHeading.text = getString(R.string.rent_info)
+            tvPrice.text = getString(R.string.price_per_month)
+            forRent = true
+            storageLocation += "For Rent/"
+        }else storageLocation += "For Sale/"
 
         productPicsAdapter = ProductPicsAdapter(pics, requireContext())
         productPicsAdapter.onClick = {
@@ -180,7 +191,7 @@ class PostProductsFragment : Fragment() {
         bitmap.compress(Bitmap.CompressFormat.JPEG,25,baos)
         val fileInBytes = baos.toByteArray()
 
-        val ref = storage.reference.child("uploads/" + auth.uid.toString() + "/Products Posted/${productId}/Image_${currIdx}")
+        val ref = storage.reference.child(storageLocation + "${productId}/Image_${currIdx}")
         val uploadTask = ref.putBytes(fileInBytes)
 
         uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
@@ -207,7 +218,8 @@ class PostProductsFragment : Fragment() {
             descriptionEt.text.toString(),
             priceEt.text.toString(),
             downloadUrls,
-            selectedTags
+            selectedTags,
+            forRent
         )
 
         database.collection("Products").document(productId).set(product)

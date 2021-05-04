@@ -2,33 +2,39 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/home"
-        android:title="Home"
+        android:title="@string/home"
         android:checkable="true"
+        android:icon="@drawable/home_icon"
         android:checked="true"/>
 
     <item android:id="@+id/products"
         android:checkable="true"
-        android:title="Products"/>
+        android:icon="@drawable/products_icon"
+        android:title="@string/products"/>
 
     <item android:id="@+id/sellProducts"
         android:checkable="true"
-        android:title="Sell Products"/>
+        android:icon="@drawable/sell_products_icon"
+        android:title="@string/sell_products"/>
 
 
     <item android:id="@+id/help"
         android:checkable="true"
-        android:title="Help"/>
+        android:icon="@drawable/help_icon"
+        android:title="@string/help"/>
 
     <item android:id="@+id/request"
         android:checkable="true"
-        android:title="Request"/>
+        android:icon="@drawable/request_icon"
+        android:title="@string/request"/>
 
     <item android:id="@+id/messages"
         android:checkable="true"
-        android:title="Messages"/>
+        android:icon="@drawable/messages_icon"
+        android:title="@string/messages"/>
 
-    <item android:id="@+id/logout"
-        android:checkable="true"
-        android:title="Log out"/>
+    <item android:id="@+id/signout"
+        android:icon="@drawable/signout_icon"
+        android:title="@string/sign_out"/>
 
 </menu>

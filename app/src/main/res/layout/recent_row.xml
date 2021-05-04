@@ -24,8 +24,7 @@
             android:layout_marginBottom="10dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            app:shapeAppearanceOverlay="@style/RoundedImageView"
-            tools:src="@drawable/phone" />
+            app:shapeAppearanceOverlay="@style/RoundedImageView"/>
 
         <TextView
             android:id="@+id/tvRecentProduct"
