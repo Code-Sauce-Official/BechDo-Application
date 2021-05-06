@@ -1,35 +1,25 @@
 package com.acash.bechdo.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.acash.bechdo.ProductViewHolder
 import com.acash.bechdo.R
 import com.acash.bechdo.models.Product
-import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.recent_row.view.*
 
-class RecentAdapter(private val list: ArrayList<Product>): RecyclerView.Adapter<RecentAdapter.RecentViewHolder>() {
+class RecentAdapter(private val list: ArrayList<Product>): RecyclerView.Adapter<ProductViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecentViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         LayoutInflater.from(parent.context).inflate(
-            R.layout.recent_row, parent, false
+            R.layout.list_item_product, parent, false
         )
     )
 
-    override fun onBindViewHolder(holder: RecentViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product: Product = list[position]
-
-        holder.itemView.apply{
-            Glide.with(this).load(product.downLoadUrlsPics[0]).placeholder(R.drawable.defaultavatar).into(image)
-            tvRecentProduct.isSelected = true
-            tvRecentPrice.isSelected = true
-            tvRecentProduct.text = product.title
-            tvRecentPrice.text = "₹ ${product.price}"
-        }
+        holder.bind(product)
     }
 
     override fun getItemCount(): Int = list.size
 
-    class RecentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
 }

@@ -14,8 +14,8 @@
     <color name="light_black">#D9000000</color>
 
     <array name="random_colors">
-        <item>@color/pink</item>
-        <item>@color/turquoise</item>
         <item>@color/yellow</item>
+        <item>@color/turquoise</item>
+        <item>@color/pink</item>
     </array>
 </resources>

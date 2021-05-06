@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.acash.bechdo.R
 import com.acash.bechdo.fragments.mainactivity.HomeFragment
+import com.acash.bechdo.fragments.mainactivity.PostsFragment
 import com.acash.bechdo.fragments.mainactivity.SellProductsFragment
 import com.acash.bechdo.models.User
 import com.bumptech.glide.Glide
@@ -84,6 +85,11 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             R.id.home -> {
                 fragmentToSet = HomeFragment()
                 nextFragment = 0
+            }
+
+            R.id.products -> {
+                fragmentToSet = PostsFragment()
+                nextFragment = 1
             }
 
             R.id.sellProducts -> {
@@ -169,9 +175,12 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     }
 
     //Used to set Fragments which are also present as an option in the Navigation drawer
-    fun changeFragmentFromDrawer(index:Int){
+    fun changeFragmentFromDrawer(index:Int,bundle: Bundle?=null){
         navigation_view.menu.getItem(index).isChecked = true
         onNavigationItemSelected(navigation_view.menu.getItem(index))
+        if(bundle!=null){
+            fragmentToSet.arguments = bundle
+        }
         onDrawerClosed(navigation_view)
     }
 

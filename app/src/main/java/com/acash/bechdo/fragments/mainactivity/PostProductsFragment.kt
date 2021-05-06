@@ -34,6 +34,8 @@ import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_post_products.*
 import java.io.ByteArrayOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PostProductsFragment : Fragment() {
     private val storage by lazy{
@@ -69,7 +71,7 @@ class PostProductsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result->
+        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 if(pics.size==7) {
                     pics.clear()
@@ -102,7 +104,7 @@ class PostProductsFragment : Fragment() {
 
         if(arguments?.getBoolean("Rent")==true){
             tvHeading.text = getString(R.string.rent_info)
-            tvPrice.text = getString(R.string.price_per_month)
+            tvPrice.text = getString(R.string.price_per_day)
             forRent = true
             storageLocation += "For Rent/"
         }else storageLocation += "For Sale/"
@@ -120,9 +122,12 @@ class PostProductsFragment : Fragment() {
 
         postBtn.setOnClickListener {
             if(isAcceptableInput()){
-                progressDialog = requireContext().createProgressDialog("Saving Data, Please wait...",false)
+                progressDialog = requireContext().createProgressDialog(
+                    "Saving Data, Please wait...",
+                    false
+                )
                 progressDialog.show()
-                productId = "PRD_${System.currentTimeMillis()}"
+                productId = database.collection("Products").document().id
                 uploadPics(0)
             }
         }
@@ -155,7 +160,11 @@ class PostProductsFragment : Fragment() {
 
         if(pics.isEmpty()){
             rv=false
-            Toast.makeText(requireContext(),"You need to upload at-least one image of the product!",Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "You need to upload at-least one image of the product!",
+                Toast.LENGTH_SHORT
+            ).show()
         }else{
 
             tagsGroup.children
@@ -167,14 +176,18 @@ class PostProductsFragment : Fragment() {
 
             if(selectedTags.isEmpty()){
                 rv=false
-                Toast.makeText(requireContext(),"You need to select at-least one tag",Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "You need to select at-least one tag",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
         return rv
     }
 
-    private fun uploadPics(currIdx:Int) {
+    private fun uploadPics(currIdx: Int) {
         if(currIdx==pics.size){
             uploadDataToFirestore()
             return
@@ -183,12 +196,12 @@ class PostProductsFragment : Fragment() {
         val bitmap:Bitmap = if(Build.VERSION.SDK_INT<=28) {
             MediaStore.Images.Media.getBitmap(requireContext().contentResolver, pics[currIdx])
         }else{
-            val source = ImageDecoder.createSource(requireContext().contentResolver,pics[currIdx])
+            val source = ImageDecoder.createSource(requireContext().contentResolver, pics[currIdx])
             ImageDecoder.decodeBitmap(source)
         }
 
         val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG,25,baos)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 25, baos)
         val fileInBytes = baos.toByteArray()
 
         val ref = storage.reference.child(storageLocation + "${productId}/Image_${currIdx}")
@@ -203,7 +216,7 @@ class PostProductsFragment : Fragment() {
         }).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 downloadUrls.add(task.result.toString())
-                uploadPics(currIdx+1)
+                uploadPics(currIdx + 1)
             }else{
                 progressDialog.dismiss()
                 Toast.makeText(requireContext(), task.exception?.message, Toast.LENGTH_SHORT).show()
@@ -212,11 +225,23 @@ class PostProductsFragment : Fragment() {
     }
 
     private fun uploadDataToFirestore() {
+        var price = priceEt.text.toString()
+
+        price = if (price.toLong() == 0L)
+            "FREE"
+        else "₹ $price"
+
+        if(forRent){
+            selectedTags.add("Rent")
+            price+="/day"
+        }
+
         val product = Product(
             auth.uid.toString(),
             titleEt.text.toString(),
+            titleEt.text.toString().toLowerCase(Locale.ROOT),
             descriptionEt.text.toString(),
-            priceEt.text.toString(),
+            price,
             downloadUrls,
             selectedTags,
             forRent
@@ -237,11 +262,17 @@ class PostProductsFragment : Fragment() {
 
     private fun checkPermissionsForImage() {
         if (requireContext().checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-            activity?.requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 121)
+            activity?.requestPermissions(
+                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                121
+            )
         }
 
         if (requireContext().checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-            activity?.requestPermissions(arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 131)
+            activity?.requestPermissions(
+                arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                131
+            )
         }
 
         if (requireContext().checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
@@ -255,6 +286,6 @@ class PostProductsFragment : Fragment() {
         intent.type = "image/*"
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.action = Intent.ACTION_GET_CONTENT
-        resultLauncher.launch(Intent.createChooser(intent,"Select images(at max 7)"))
+        resultLauncher.launch(Intent.createChooser(intent, "Select images(at max 7)"))
     }
 }

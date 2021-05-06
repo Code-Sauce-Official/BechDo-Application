@@ -7,7 +7,9 @@ class User(
     val clg:String,
     val year:String,
     val downloadUrlClgId: String,
-    val downloadUrlDp:String
+    val downloadUrlDp:String,
+    @field:JvmField
+    val isAccountActivated:Boolean=true,
     ){
-    constructor():this("","","","","","","")
+    constructor():this("","","","","","","",true)
 }
