@@ -181,63 +181,6 @@
             app:chipSpacing="2dp">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/sports"
-                app:chipBackgroundColor="#F1F3FD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:text="@string/sports"
-                android:textColor="#312E5F"
-                android:checkable="true"
-                android:clickable="true"
-                android:focusable="true"
-                android:textSize="15sp"
-                android:fontFamily="@font/montserrat" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/books"
-                app:chipBackgroundColor="#F1F3FD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:text="@string/books"
-                android:textColor="#312E5F"
-                android:checkable="true"
-                android:clickable="true"
-                android:focusable="true"
-                android:textSize="15sp"
-                android:fontFamily="@font/montserrat" />
-
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/instrument"
-                app:chipBackgroundColor="#F1F3FD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:text="@string/instrument"
-                android:textColor="#312E5F"
-                android:checkable="true"
-                android:clickable="true"
-                android:focusable="true"
-                android:textSize="15sp"
-                android:fontFamily="@font/montserrat" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/rent"
-                app:chipBackgroundColor="#F1F3FD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:text="@string/rent"
-                android:textColor="#312E5F"
-                android:checkable="true"
-                android:clickable="true"
-                android:focusable="true"
-                android:textSize="15sp"
-                android:fontFamily="@font/montserrat" />
-
-            <com.google.android.material.chip.Chip
                 android:id="@+id/stationery"
                 app:chipBackgroundColor="#F1F3FD"
                 android:layout_width="wrap_content"
@@ -265,6 +208,47 @@
                 android:textSize="15sp"
                 android:fontFamily="@font/montserrat" />
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/books"
+                app:chipBackgroundColor="#F1F3FD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="@string/books"
+                android:textColor="#312E5F"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:textSize="15sp"
+                android:fontFamily="@font/montserrat" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/sports"
+                app:chipBackgroundColor="#F1F3FD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="@string/sports"
+                android:textColor="#312E5F"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:textSize="15sp"
+                android:fontFamily="@font/montserrat" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/instrument"
+                app:chipBackgroundColor="#F1F3FD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="@string/instrument"
+                android:textColor="#312E5F"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:textSize="15sp"
+                android:fontFamily="@font/montserrat" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/other"

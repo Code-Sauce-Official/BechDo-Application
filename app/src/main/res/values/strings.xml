@@ -68,6 +68,6 @@
     <string name="rent_products">Rent Products</string>
     <string name="active_products">Active Products</string>
     <string name="sold_products">Sold Products</string>
-    <string name="price_per_month">Set a Price(per month)</string>
+    <string name="price_per_day">Set a Price(per day)</string>
     <string name="rent_info">Rent Information</string>
 </resources>

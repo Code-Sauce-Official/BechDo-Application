@@ -27,7 +27,7 @@
             app:shapeAppearanceOverlay="@style/RoundedImageView"/>
 
         <TextView
-            android:id="@+id/tvRecentProduct"
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/image"
@@ -43,15 +43,16 @@
             tools:text="@string/books" />
 
         <TextView
-            android:id="@+id/tvRecentPrice"
+            android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvRecentProduct"
+            android:layout_below="@id/tvTitle"
             android:layout_toStartOf="@id/saveProduct"
             android:layout_alignParentStart="true"
             android:fontFamily="@font/montserrat"
             android:textColor="#312e5f"
             android:textSize="14sp"
+            android:textStyle="bold"
             android:singleLine="true"
             android:ellipsize="marquee"
             android:focusable="true"

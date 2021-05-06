@@ -54,6 +54,22 @@ class SellProductsFragment : Fragment() {
             fragmentToSet.arguments = bundle
             (activity as MainActivity).setFragment(fragmentToSet)
         }
+
+        cardActiveProducts.setOnClickListener {
+            fragmentToSet = PostsFragment()
+            val bundle = Bundle()
+            bundle.putStringArray("Task", arrayOf("","Active"))
+            fragmentToSet.arguments = bundle
+            (activity as MainActivity).setFragment(fragmentToSet)
+        }
+
+        cardSoldProducts.setOnClickListener {
+            fragmentToSet = PostsFragment()
+            val bundle = Bundle()
+            bundle.putStringArray("Task", arrayOf("","Sold"))
+            fragmentToSet.arguments = bundle
+            (activity as MainActivity).setFragment(fragmentToSet)
+        }
     }
 
 }

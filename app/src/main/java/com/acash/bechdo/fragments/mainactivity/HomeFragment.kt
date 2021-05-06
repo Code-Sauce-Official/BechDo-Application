@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.acash.bechdo.activities.MainActivity
 import com.acash.bechdo.R
+import com.acash.bechdo.activities.MainActivity
 import com.acash.bechdo.adapters.CategoryAdapter
 import com.acash.bechdo.adapters.RecentAdapter
 import com.acash.bechdo.models.Categories
 import com.acash.bechdo.models.Product
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
@@ -48,28 +49,48 @@ class HomeFragment : Fragment() {
         val recentAdapter = RecentAdapter(recents)
 
         rvRecent.apply{
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
-            scrollToPosition(recents.size-1)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            scrollToPosition(0)
             adapter = recentAdapter
         }
 
-        database.collection("Products").get()
+        database.collection("Products").whereEqualTo("isActive",true).orderBy("createdDate",Query.Direction.DESCENDING).limit(10).get()
             .addOnSuccessListener {queryDocumentSnapshots->
                 if(!queryDocumentSnapshots.isEmpty) {
                     for (snapshot in queryDocumentSnapshots) {
                         recents.add(snapshot.toObject(Product::class.java))
                     }
                     recentAdapter.notifyDataSetChanged()
-                    rvRecent?.scrollToPosition(recents.size-1)
+                    rvRecent?.scrollToPosition(0)
                 }
             }
             .addOnFailureListener {
                 Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
             }
 
+        btnShowAll.setOnClickListener {
+            (activity as MainActivity).changeFragmentFromDrawer(1)
+        }
+
         btnAddProduct.setOnClickListener {
             (activity as MainActivity).changeFragmentFromDrawer(2)
         }
 
+        search_bar.setOnQueryTextListener(object:androidx.appcompat.widget.SearchView.OnQueryTextListener{
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                search_bar.setQuery("",false)
+                search_bar.clearFocus()
+                val  bundle = Bundle()
+                bundle.putStringArray("Task", arrayOf(query,"Products"))
+                (activity as MainActivity).changeFragmentFromDrawer(1,bundle)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+        })
     }
 }
