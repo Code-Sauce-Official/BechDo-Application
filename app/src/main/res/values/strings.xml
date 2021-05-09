@@ -70,4 +70,6 @@
     <string name="sold_products">Sold Products</string>
     <string name="price_per_day">Set a Price(per day)</string>
     <string name="rent_info">Rent Information</string>
+    <string name="ProductName">Product Name</string>
+    <string name="Chat">Chat</string>
 </resources>
