@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.imageview.ShapeableImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/image_post"
+    android:layout_width="80dp"
+    android:layout_height="70dp"
+    android:layout_marginEnd="10dp"
+    android:clickable="true"
+    android:scaleType="centerCrop"
+    android:src="@drawable/mobile_phone"
+    app:shapeAppearanceOverlay="@style/RoundedImageView">
+
+
+</com.google.android.material.imageview.ShapeableImageView>
