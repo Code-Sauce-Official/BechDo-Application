@@ -225,15 +225,8 @@ class PostProductsFragment : Fragment() {
     }
 
     private fun uploadDataToFirestore() {
-        var price = priceEt.text.toString()
-
-        price = if (price.toLong() == 0L)
-            "FREE"
-        else "₹ $price"
-
         if(forRent){
             selectedTags.add("Rent")
-            price+="/day"
         }
 
         val product = Product(
@@ -241,7 +234,7 @@ class PostProductsFragment : Fragment() {
             titleEt.text.toString(),
             titleEt.text.toString().toLowerCase(Locale.ROOT),
             descriptionEt.text.toString(),
-            price,
+            priceEt.text.toString().toLong(),
             downloadUrls,
             selectedTags,
             forRent

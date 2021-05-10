@@ -51,7 +51,7 @@
     <string name="cancel">Cancel</string>
     <string name="post">Post</string>
     <string name="sports">Sports</string>
-    <string name="instrument">Instrument</string>
+    <string name="instruments">Instruments</string>
     <string name="rent">Rent</string>
     <string name="stationery">Stationery</string>
     <string name="electronics">Electronics</string>
@@ -70,4 +70,7 @@
     <string name="sold_products">Sold Products</string>
     <string name="price_per_day">Set a Price(per day)</string>
     <string name="rent_info">Rent Information</string>
+    <string name="click_to_apply_filter">Click to apply filter</string>
+    <string name="category">Category</string>
+    <string name="apply">Apply</string>
 </resources>

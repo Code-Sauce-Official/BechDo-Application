@@ -9,7 +9,7 @@ class Product(
     val title:String,
     val titleLowerCase:String,
     val description:String,
-    val price:String,
+    val price:Long,
     val downLoadUrlsPics:ArrayList<String>,
     val tags:ArrayList<String>,
     val forRent:Boolean,
@@ -18,5 +18,5 @@ class Product(
     @ServerTimestamp
     val createdDate:Date?=null
 ) {
-    constructor():this("","","","","",ArrayList<String>(),ArrayList<String>(),false,true,null)
+    constructor():this("","","","",0L,ArrayList<String>(),ArrayList<String>(),false,true,null)
 }

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".FiltersFragment"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_marginTop="25dp"
+        android:text="@string/click_to_apply_filter"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_marginTop="53dp"
+        android:layout_marginStart="23dp"
+        android:text="@string/category"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/tagsGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginTop="17dp"
+        app:chipSpacing="2dp">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Stationery"
+            app:chipBackgroundColor="#312E5F"
+            app:chipStrokeColor="@color/white"
+            app:chipStrokeWidth="1dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:checkedIconTint="@color/white"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:text="@string/stationery"
+            android:textColor="@color/white"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Electronics"
+            app:chipBackgroundColor="#312E5F"
+            app:chipStrokeColor="@color/white"
+            app:chipStrokeWidth="1dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:checkedIconTint="@color/white"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:text="@string/electronics"
+            android:textColor="@color/white"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Instruments"
+            app:chipBackgroundColor="#312E5F"
+            app:chipStrokeColor="@color/white"
+            app:chipStrokeWidth="1dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:checkedIconTint="@color/white"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:text="@string/instruments"
+            android:textColor="@color/white"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Books"
+            app:chipBackgroundColor="#312E5F"
+            app:chipStrokeColor="@color/white"
+            app:chipStrokeWidth="1dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:checkedIconTint="@color/white"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:text="@string/books"
+            android:textColor="@color/white"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Sports"
+            app:chipBackgroundColor="#312E5F"
+            app:chipStrokeColor="@color/white"
+            app:chipStrokeWidth="1dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:checkedIconTint="@color/white"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:text="@string/sports"
+            android:textColor="@color/white"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat"/>
+
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Rent"
+            app:chipBackgroundColor="#312E5F"
+            app:chipStrokeColor="@color/white"
+            app:chipStrokeWidth="1dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:checkedIconTint="@color/white"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:text="@string/rent"
+            android:textColor="@color/white"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="65dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancelBtn"
+            android:layout_width="125dp"
+            android:layout_height="60dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:backgroundTint="#E3386A"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            app:cornerRadius="30dp"
+            android:fontFamily="@font/montserrat"
+            android:layout_marginEnd="40dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/applyBtn"
+            android:layout_width="125dp"
+            android:layout_height="60dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/white"
+            android:backgroundTint="#E3386A"
+            android:text="@string/apply"
+            app:cornerRadius="30dp"
+            android:textAllCaps="false"/>
+    </LinearLayout>
+
+</LinearLayout>

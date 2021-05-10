@@ -58,7 +58,7 @@ class SellProductsFragment : Fragment() {
         cardActiveProducts.setOnClickListener {
             fragmentToSet = PostsFragment()
             val bundle = Bundle()
-            bundle.putStringArray("Task", arrayOf("","Active"))
+            bundle.putString("Task","Active")
             fragmentToSet.arguments = bundle
             (activity as MainActivity).setFragment(fragmentToSet)
         }
@@ -66,7 +66,7 @@ class SellProductsFragment : Fragment() {
         cardSoldProducts.setOnClickListener {
             fragmentToSet = PostsFragment()
             val bundle = Bundle()
-            bundle.putStringArray("Task", arrayOf("","Sold"))
+            bundle.putString("Task","Sold")
             fragmentToSet.arguments = bundle
             (activity as MainActivity).setFragment(fragmentToSet)
         }
