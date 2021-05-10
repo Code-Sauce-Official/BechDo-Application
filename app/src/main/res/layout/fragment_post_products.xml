@@ -181,7 +181,7 @@
             app:chipSpacing="2dp">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/stationery"
+                android:id="@+id/Stationery"
                 app:chipBackgroundColor="#F1F3FD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -195,7 +195,7 @@
                 android:fontFamily="@font/montserrat" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/electronics"
+                android:id="@+id/Electronics"
                 app:chipBackgroundColor="#F1F3FD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -209,7 +209,7 @@
                 android:fontFamily="@font/montserrat" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/books"
+                android:id="@+id/Books"
                 app:chipBackgroundColor="#F1F3FD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -223,7 +223,7 @@
                 android:fontFamily="@font/montserrat" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/sports"
+                android:id="@+id/Sports"
                 app:chipBackgroundColor="#F1F3FD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -237,12 +237,12 @@
                 android:fontFamily="@font/montserrat" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/instrument"
+                android:id="@+id/Instruments"
                 app:chipBackgroundColor="#F1F3FD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:text="@string/instrument"
+                android:text="@string/instruments"
                 android:textColor="#312E5F"
                 android:checkable="true"
                 android:clickable="true"
@@ -251,7 +251,7 @@
                 android:fontFamily="@font/montserrat" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/other"
+                android:id="@+id/Other"
                 app:chipBackgroundColor="#F1F3FD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
