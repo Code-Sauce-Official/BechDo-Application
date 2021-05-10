@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val activityRef = requireContext()
+        val activityRef = requireActivity()
 
         val categories = Categories.getCategories()
         val categoryAdapter = CategoryAdapter(categories, activityRef)
@@ -82,7 +82,8 @@ class HomeFragment : Fragment() {
                 search_bar.setQuery("",false)
                 search_bar.clearFocus()
                 val  bundle = Bundle()
-                bundle.putStringArray("Task", arrayOf(query,"Products"))
+                bundle.putString("Task", "Products")
+                bundle.putString("Query",query)
                 (activity as MainActivity).changeFragmentFromDrawer(1,bundle)
                 return true
             }

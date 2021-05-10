@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.acash.bechdo.FiltersFragment
 import com.acash.bechdo.ProductViewHolder
 import com.acash.bechdo.R
 import com.acash.bechdo.activities.MainActivity
@@ -20,18 +21,21 @@ import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_posts.*
 import kotlinx.android.synthetic.main.fragment_posts.view.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class PostsFragment : Fragment() {
 
     private lateinit var postAdapter: FirestorePagingAdapter<Product, ProductViewHolder>
-    private lateinit var useCase: String
+    private lateinit var task: String
     private lateinit var query: String
+    lateinit var newQuery: String
+    lateinit var filterTags: ArrayList<String>
 
     private val auth by lazy {
         FirebaseAuth.getInstance()
     }
 
-    private lateinit var database : Query
+    private lateinit var database: Query
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,24 +44,70 @@ class PostsFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_posts, container, false)
 
-        query = arguments?.let{
-            it.getStringArray("Task")?.get(0).toString()
-        } ?: ""
+        task = arguments?.getString("Task") ?: "Products"
 
-        useCase = arguments?.let{
-            it.getStringArray("Task")?.get(1).toString()
-        } ?: "Products"
+        query = arguments?.getString("Query") ?: ""
+
+        filterTags = arguments?.getStringArrayList("FilterTags") ?: ArrayList()
+
+        newQuery = query
 
         val queryLower = query.toLowerCase(Locale.ROOT)
 
-        when (useCase) {
+        when (task) {
             "Products" -> {
-                database = FirebaseFirestore.getInstance().collection("Products")
-                    .whereEqualTo("isActive", true)
-                    .orderBy("titleLowerCase")
-                    .orderBy("createdDate", Query.Direction.DESCENDING)
-                    .startAt(queryLower)
-                    .endAt("$queryLower~")
+                database = if (query == "") {
+                    FirebaseFirestore.getInstance().collection("Products")
+                        .whereEqualTo("isActive", true)
+                        .orderBy("createdDate", Query.Direction.DESCENDING)
+                } else {
+                    FirebaseFirestore.getInstance().collection("Products")
+                        .whereEqualTo("isActive", true)
+                        .orderBy("titleLowerCase")
+                        .orderBy("createdDate", Query.Direction.DESCENDING)
+                        .startAt(queryLower)
+                        .endAt("$queryLower~")
+                }
+            }
+
+            "Category" ->{
+                view.apply {
+                    tvStatus.text = filterTags[0]
+                    tvStatus.visibility = View.VISIBLE
+                    filterBtn.visibility = View.GONE
+                }
+
+                database = if (query == "") {
+                    FirebaseFirestore.getInstance().collection("Products")
+                        .whereEqualTo("isActive", true)
+                        .whereArrayContains("tags", filterTags[0])
+                        .orderBy("createdDate", Query.Direction.DESCENDING)
+                } else {
+                    FirebaseFirestore.getInstance().collection("Products")
+                        .whereEqualTo("isActive", true)
+                        .whereArrayContains("tags", filterTags[0])
+                        .orderBy("titleLowerCase")
+                        .orderBy("createdDate", Query.Direction.DESCENDING)
+                        .startAt(queryLower)
+                        .endAt("$queryLower~")
+                }
+            }
+
+            "Filters" -> {
+                database = if (query == "") {
+                    FirebaseFirestore.getInstance().collection("Products")
+                        .whereEqualTo("isActive", true)
+                        .whereArrayContainsAny("tags", filterTags)
+                        .orderBy("createdDate", Query.Direction.DESCENDING)
+                } else{
+                    FirebaseFirestore.getInstance().collection("Products")
+                        .whereEqualTo("isActive", true)
+                        .whereArrayContainsAny("tags", filterTags)
+                        .orderBy("titleLowerCase")
+                        .orderBy("createdDate", Query.Direction.DESCENDING)
+                        .startAt(queryLower)
+                        .endAt("$queryLower~")
+                }
             }
 
             "Active" -> {
@@ -66,13 +116,21 @@ class PostsFragment : Fragment() {
                     tvStatus.visibility = View.VISIBLE
                     filterBtn.visibility = View.GONE
                 }
-                database = FirebaseFirestore.getInstance().collection("Products")
-                    .whereEqualTo("isActive", true)
-                    .whereEqualTo("postedBy", auth.uid.toString())
-                    .orderBy("titleLowerCase")
-                    .orderBy("createdDate", Query.Direction.DESCENDING)
-                    .startAt(queryLower)
-                    .endAt("$queryLower~")
+
+                database = if (query == "") {
+                    FirebaseFirestore.getInstance().collection("Products")
+                        .whereEqualTo("isActive", true)
+                        .whereEqualTo("postedBy", auth.uid.toString())
+                        .orderBy("createdDate", Query.Direction.DESCENDING)
+                } else {
+                    FirebaseFirestore.getInstance().collection("Products")
+                        .whereEqualTo("isActive", true)
+                        .whereEqualTo("postedBy", auth.uid.toString())
+                        .orderBy("titleLowerCase")
+                        .orderBy("createdDate", Query.Direction.DESCENDING)
+                        .startAt(queryLower)
+                        .endAt("$queryLower~")
+                }
             }
 
             "Sold" -> {
@@ -81,13 +139,21 @@ class PostsFragment : Fragment() {
                     tvStatus.visibility = View.VISIBLE
                     filterBtn.visibility = View.GONE
                 }
-                database = FirebaseFirestore.getInstance().collection("Products")
-                    .whereEqualTo("isActive", false)
-                    .whereEqualTo("postedBy", auth.uid.toString())
-                    .orderBy("titleLowerCase")
-                    .orderBy("createdDate", Query.Direction.DESCENDING)
-                    .startAt(queryLower)
-                    .endAt("$queryLower~")
+
+                database = if (query == "") {
+                    FirebaseFirestore.getInstance().collection("Products")
+                        .whereEqualTo("isActive", false)
+                        .whereEqualTo("postedBy", auth.uid.toString())
+                        .orderBy("createdDate", Query.Direction.DESCENDING)
+                } else {
+                    FirebaseFirestore.getInstance().collection("Products")
+                        .whereEqualTo("isActive", false)
+                        .whereEqualTo("postedBy", auth.uid.toString())
+                        .orderBy("titleLowerCase")
+                        .orderBy("createdDate", Query.Direction.DESCENDING)
+                        .startAt(queryLower)
+                        .endAt("$queryLower~")
+                }
             }
         }
 
@@ -96,6 +162,7 @@ class PostsFragment : Fragment() {
     }
 
     private fun setupAdapter() {
+
         val config = PagedList.Config.Builder()
             .setPageSize(10)
             .setEnablePlaceholders(false)
@@ -135,7 +202,7 @@ class PostsFragment : Fragment() {
             adapter = postAdapter
         }
 
-        search_bar.setQuery(query,false)
+        search_bar.setQuery(query, false)
 
         search_bar.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -143,7 +210,13 @@ class PostsFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 search_bar.clearFocus()
                 val bundle = Bundle()
-                bundle.putStringArray("Task", arrayOf(query, useCase))
+                bundle.putString("Task",task)
+                bundle.putString("Query",query)
+
+                if(task=="Category" || task=="Filters"){
+                    bundle.putStringArrayList("FilterTags",filterTags)
+                }
+
                 val fragmentToSet = PostsFragment()
                 fragmentToSet.arguments = bundle
                 (activity as MainActivity).setFragment(fragmentToSet)
@@ -151,14 +224,22 @@ class PostsFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    newQuery = it
+                }
                 return false
             }
-
         })
+
+        filterBtn.setOnClickListener {
+            search_bar.clearFocus()
+            val filtersFragment = FiltersFragment()
+            filtersFragment.show(childFragmentManager, null)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        search_bar.setQuery(query,false)
+        search_bar.setQuery(query, false)
     }
 }

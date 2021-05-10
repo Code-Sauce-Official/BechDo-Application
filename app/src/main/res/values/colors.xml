@@ -12,6 +12,7 @@
     <color name="turquoise">#65CBC3</color>
     <color name="pink">#E3386A</color>
     <color name="light_black">#D9000000</color>
+    <color name="light_blue">#DBDFF5</color>
 
     <array name="random_colors">
         <item>@color/yellow</item>

@@ -1,6 +1,5 @@
 package com.acash.bechdo.activities
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -24,6 +23,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_posts.*
 import java.util.*
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener,DrawerLayout.DrawerListener {
@@ -171,6 +171,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             }
 
             else -> super.onBackPressed()
+
         }
     }
 
@@ -196,7 +197,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             .addToBackStack(null)
             .commit()
 
-        if(fragmentToSet is HomeFragment){
+        if(fragment is HomeFragment){
             supportFragmentManager.popBackStackImmediate(null,FragmentManager.POP_BACK_STACK_INCLUSIVE)
             navDrawerBackStackIndices.clear()
         }
