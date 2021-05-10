@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/imageviews"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".fragments.mainactivity.PostInformation">
+
+    <com.google.android.material.imageview.ShapeableImageView
+
+        android:layout_width="355dp"
+        android:layout_height="240dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/mobile_phone"
+        app:shapeAppearance="@style/RoundedImageViewPostProduct">
+
+    </com.google.android.material.imageview.ShapeableImageView>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/rvpostpics"
+        android:layout_width="355dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/post_pictures_row" />
+
+    <RelativeLayout
+
+
+        android:layout_width="355dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/tvProduct_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/ProductName"
+            android:textColor="#312E5F"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvProduct_name"
+            android:fontFamily="@font/montserrat"
+            android:text="2000$"
+            android:textColor="#312E5F"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/saveProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/to"
+            android:src="@drawable/ic_baseline_bookmark_border_24"
+            app:tint="@color/black" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvprice"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia."
+            android:textColor="#312E5F">
+
+        </TextView>
+
+    </RelativeLayout>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/tagsGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        app:chipSpacing="2dp">
+
+        <com.google.android.material.chip.Chip
+
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/stationery"
+            android:textColor="#312E5F"
+            android:textSize="15sp"
+            app:chipBackgroundColor="#F1F3FD" />
+
+        <com.google.android.material.chip.Chip
+
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/electronics"
+            android:textColor="#312E5F"
+            android:textSize="15sp"
+            app:chipBackgroundColor="#F1F3FD" />
+
+        <com.google.android.material.chip.Chip
+
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/books"
+            android:textColor="#312E5F"
+            android:textSize="15sp"
+            app:chipBackgroundColor="#F1F3FD" />
+
+        <com.google.android.material.chip.Chip
+
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/sports"
+            android:textColor="#312E5F"
+            android:textSize="15sp"
+            app:chipBackgroundColor="#F1F3FD" />
+
+        <com.google.android.material.chip.Chip
+
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/instrument"
+            android:textColor="#312E5F"
+            android:textSize="15sp"
+            app:chipBackgroundColor="#F1F3FD" />
+
+        <com.google.android.material.chip.Chip
+
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/other"
+            android:textColor="#312E5F"
+            android:textSize="15sp"
+            app:chipBackgroundColor="#F1F3FD" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+
+    <com.google.android.material.button.MaterialButton
+
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="37dp"
+        android:elevation="0dp"
+        android:fontFamily="@font/montserrat"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:backgroundTint="#312E5F"
+        app:cornerRadius="30dp"
+        app:icon="@drawable/chat_icon"
+        app:iconGravity="textStart" />
+
+
+</LinearLayout>
