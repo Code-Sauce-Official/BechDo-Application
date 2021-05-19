@@ -1,5 +1,6 @@
 package com.acash.bechdo.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -13,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.acash.bechdo.R
+import com.acash.bechdo.fragments.mainactivity.EditProfileFragment
 import com.acash.bechdo.fragments.mainactivity.HomeFragment
 import com.acash.bechdo.fragments.mainactivity.PostsFragment
 import com.acash.bechdo.fragments.mainactivity.SellProductsFragment
@@ -24,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_posts.*
+import kotlinx.android.synthetic.main.fragment_product_info.view.*
 import java.util.*
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener,DrawerLayout.DrawerListener {
@@ -31,7 +34,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     private var fragmentToSet:Fragment = HomeFragment()
     private var wantToChangeFragment = false
     private var signOutPressed = false
-    private var currentUserInfo: User? = null
+    var currentUserInfo: User? = null
     private var navDrawerBackStackIndices = Stack<Int>()
     private var currentFragment = 0
     private var nextFragment = 0
@@ -52,15 +55,8 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             .addOnSuccessListener {
                 if (it.exists()) {
                     currentUserInfo = it.toObject(User::class.java)
-                    tvUserName.text = currentUserInfo?.name ?: ""
-
-                    currentUserInfo?.downloadUrlDp.let {url->
-                        if(url!="") {
-                            Glide.with(this).load(url)
-                                .placeholder(R.drawable.defaultavatar)
-                                .error(R.drawable.defaultavatar).into(dp)
-                        }
-                    }
+                    setName()
+                    setDp()
                 }
             }
             .addOnFailureListener {
@@ -70,6 +66,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
         options.setOnClickListener {
             drawer_layout.openDrawer(GravityCompat.START)
+        }
+
+        dp.setOnClickListener {
+            setFragment(EditProfileFragment())
         }
 
         navigation_view.setNavigationItemSelectedListener(this)
@@ -123,31 +123,18 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
         }else if(signOutPressed){
 
-            val tvTitle = TextView(this)
-            tvTitle.apply{
-                text = getString(R.string.confirm_sign_out)
-                setTextAppearance(android.R.style.TextAppearance_Material_Title)
-                setTextColor(ContextCompat.getColor(this@MainActivity,R.color.light_black))
-                setPadding(45,30,0,0)
-            }
+            this.createAlertDialog(
+                "Confirm Sign Out",
+                "${currentUserInfo?.name?:""}, you are signing out of BechDo on this device.",
+                "Sign out",
+                "Cancel"
 
-            val dialog = MaterialAlertDialogBuilder(this)
-                .setCustomTitle(tvTitle)
-                .setMessage("${currentUserInfo?.name?:""}, you are signing out of BechDo on this device.")
-                .setPositiveButton("Sign out"){_,_->
-                    auth.signOut()
-                    startActivity(Intent(this, EmailActivity::class.java)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
-                }
-                .setNegativeButton("Cancel"){dialog,_->
-                    dialog.dismiss()
-                }
-                .show()
-
-            val tvMessage = dialog.findViewById<TextView>(android.R.id.message)
-            tvMessage?.apply {
-                textSize = 15F
-                setTextColor(ContextCompat.getColor(this@MainActivity,R.color.light_black))
+            ) {
+                auth.signOut()
+                startActivity(
+                    Intent(this, EmailActivity::class.java)
+                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                )
             }
 
             signOutPressed = false
@@ -165,9 +152,11 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
             supportFragmentManager.backStackEntryCount>0 ->{
                 supportFragmentManager.popBackStack()
-                currentFragment  = navDrawerBackStackIndices.pop()
-                nextFragment = currentFragment
-                navigation_view.menu.getItem(currentFragment).isChecked = true
+                if(!navDrawerBackStackIndices.isEmpty()) {
+                    currentFragment = navDrawerBackStackIndices.pop()
+                    nextFragment = currentFragment
+                    navigation_view.menu.getItem(currentFragment).isChecked = true
+                }
             }
 
             else -> super.onBackPressed()
@@ -176,13 +165,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     }
 
     //Used to set Fragments which are also present as an option in the Navigation drawer
-    fun changeFragmentFromDrawer(index:Int,bundle: Bundle?=null){
+    fun changeFragmentFromDrawer(index:Int,fragment: Fragment){
         navigation_view.menu.getItem(index).isChecked = true
-        onNavigationItemSelected(navigation_view.menu.getItem(index))
-        if(bundle!=null){
-            fragmentToSet.arguments = bundle
-        }
-        onDrawerClosed(navigation_view)
+        nextFragment = index
+        setFragment(fragment)
     }
 
     //Used to set Fragments which may or may not be present as an option in the Navigation drawer
@@ -202,4 +188,54 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             navDrawerBackStackIndices.clear()
         }
     }
+
+    fun setDp(){
+        currentUserInfo?.downloadUrlDp.let {url->
+            if(url!="") {
+                Glide.with(this).load(url)
+                    .placeholder(R.drawable.defaultavatar)
+                    .error(R.drawable.defaultavatar).into(dp)
+            }
+        }
+    }
+
+    fun setName(){
+        tvUserName.text = currentUserInfo?.name ?: ""
+    }
 }
+
+fun Context.createAlertDialog(title:String,msg:String,positiveText:String,negativeText:String,positiveCallback:()->Unit){
+    val tvTitle = TextView(this)
+
+    tvTitle.apply {
+        text = title
+        setTextAppearance(android.R.style.TextAppearance_Material_Title)
+        setTextColor(ContextCompat.getColor(this@createAlertDialog, R.color.light_black))
+        setPadding(45, 30, 0, 0)
+    }
+
+    val dialog = MaterialAlertDialogBuilder(this)
+        .setCustomTitle(tvTitle)
+        .setMessage(msg)
+        .setPositiveButton(positiveText) { _, _ ->
+            positiveCallback.invoke()
+        }
+        .setNegativeButton(negativeText) { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
+
+    val tvMessage = dialog.findViewById<TextView>(android.R.id.message)
+    tvMessage?.apply {
+        textSize = 15F
+        setTextColor(
+            ContextCompat.getColor(
+                this@createAlertDialog,
+                R.color.light_black
+            )
+        )
+    }
+}
+
+
+

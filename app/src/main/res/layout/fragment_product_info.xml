@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".fragments.mainactivity.ProductInfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/largeImgView"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="18dp"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/defaultavatar"
+            app:shapeAppearance="@style/RoundedImageViewProductPicLarge"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/picsRview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="7"
+            tools:listitem="@layout/list_item_product_pic_view" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/saveProduct"
+                android:fontFamily="@font/montserrat"
+                android:textColor="#312E5F"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="@string/ProductName" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvTitle"
+                android:fontFamily="@font/montserrat"
+                android:textColor="#312E5F"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="2000$" />
+
+            <ImageView
+                android:id="@+id/saveProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/to"
+                android:src="@drawable/ic_baseline_bookmark_border_24"
+                app:tint="#312E5F" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvPrice"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserrat"
+                android:textColor="#B3312E5F"
+                android:textSize="14sp"
+                tools:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.">
+
+            </TextView>
+
+        </RelativeLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/tagsGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="20dp"
+            app:chipSpacing="2dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/Stationery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/stationery"
+                android:textColor="#312E5F"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:chipBackgroundColor="#F1F3FD" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/Electronics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/electronics"
+                android:textColor="#312E5F"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:chipBackgroundColor="#F1F3FD" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/Books"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/books"
+                android:textColor="#312E5F"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:chipBackgroundColor="#F1F3FD" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/Sports"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/sports"
+                android:textColor="#312E5F"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:chipBackgroundColor="#F1F3FD" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/Instruments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/instruments"
+                android:textColor="#312E5F"
+                android:visibility="gone"
+                android:textSize="14sp"
+                app:chipBackgroundColor="#F1F3FD" />
+
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/Rent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/rent"
+                android:textColor="#312E5F"
+                android:visibility="gone"
+                android:textSize="14sp"
+                app:chipBackgroundColor="#F1F3FD" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/Other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/other"
+                android:textColor="#312E5F"
+                android:visibility="gone"
+                android:textSize="14sp"
+                app:chipBackgroundColor="#F1F3FD" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="34dp"
+            android:elevation="0dp"
+            android:fontFamily="@font/montserrat"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:backgroundTint="#312E5F"
+            app:cornerRadius="30dp"
+            app:icon="@drawable/messages_icon"
+            android:text="@string/Chat"
+            android:textStyle="bold"
+            app:iconGravity="textStart"
+            app:iconSize="30dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/removeBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="34dp"
+            android:elevation="0dp"
+            android:fontFamily="@font/montserrat"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:backgroundTint="#903365"
+            app:cornerRadius="30dp"
+            android:text="@string/remove"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+</ScrollView>

@@ -4,7 +4,9 @@ import com.google.firebase.firestore.ServerTimestamp
 import java.util.*
 import kotlin.collections.ArrayList
 
-class Product(
+class
+Product(
+    val productId:String,
     val postedBy:String,
     val title:String,
     val titleLowerCase:String,
@@ -14,9 +16,9 @@ class Product(
     val tags:ArrayList<String>,
     val forRent:Boolean,
     @field:JvmField
-    val isActive:Boolean=true,
+    var isActive:Boolean=true,
     @ServerTimestamp
     val createdDate:Date?=null
 ) {
-    constructor():this("","","","",0L,ArrayList<String>(),ArrayList<String>(),false,true,null)
+    constructor():this("","","","","",0L,ArrayList<String>(),ArrayList<String>(),false,true,null)
 }

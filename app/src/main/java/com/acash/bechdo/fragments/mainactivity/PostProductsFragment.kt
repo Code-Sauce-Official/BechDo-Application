@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.acash.bechdo.R
 import com.acash.bechdo.activities.createProgressDialog
-import com.acash.bechdo.adapters.ProductPicsAdapter
+import com.acash.bechdo.adapters.ProductPicsPostAdapter
 import com.acash.bechdo.models.Product
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
@@ -57,7 +57,7 @@ class PostProductsFragment : Fragment() {
 
     private val selectedTags = ArrayList<String>()
     private val pics = ArrayList<Uri>()
-    private lateinit var productPicsAdapter:ProductPicsAdapter
+    private lateinit var productPicsPostAdapter:ProductPicsPostAdapter
     private var forRent = false
     private var storageLocation = "uploads/" + auth.uid.toString() + "/Products Posted/"
 
@@ -93,7 +93,7 @@ class PostProductsFragment : Fragment() {
                     }
                 }
 
-                productPicsAdapter.notifyDataSetChanged()
+                productPicsPostAdapter.notifyDataSetChanged()
 
             }
         }
@@ -109,15 +109,15 @@ class PostProductsFragment : Fragment() {
             storageLocation += "For Rent/"
         }else storageLocation += "For Sale/"
 
-        productPicsAdapter = ProductPicsAdapter(pics, requireContext())
-        productPicsAdapter.onClick = {
+        productPicsPostAdapter = ProductPicsPostAdapter(pics, requireContext())
+        productPicsPostAdapter.onClick = {
             checkPermissionsForImage()
         }
 
         picsRview.apply {
             layoutManager =
                 GridLayoutManager(requireContext(), 4, LinearLayoutManager.VERTICAL, false)
-            adapter = productPicsAdapter
+            adapter = productPicsPostAdapter
         }
 
         postBtn.setOnClickListener {
@@ -230,6 +230,7 @@ class PostProductsFragment : Fragment() {
         }
 
         val product = Product(
+            productId,
             auth.uid.toString(),
             titleEt.text.toString(),
             titleEt.text.toString().toLowerCase(Locale.ROOT),

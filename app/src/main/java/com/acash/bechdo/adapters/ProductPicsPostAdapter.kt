@@ -9,14 +9,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.acash.bechdo.R
-import kotlinx.android.synthetic.main.list_item_product_pic.view.*
+import kotlinx.android.synthetic.main.list_item_product_pic_post.view.*
 
-class ProductPicsAdapter(private val pics:ArrayList<Uri>, val context:Context):RecyclerView.Adapter<ProductPicsAdapter.ProductPicsHolder>() {
+class ProductPicsPostAdapter(private val pics:ArrayList<Uri>, val context:Context):RecyclerView.Adapter<ProductPicsPostAdapter.ProductPicsHolder>() {
     var onClick: (() -> Unit)? = null
     class ProductPicsHolder(itemView: View) :RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductPicsHolder =
-        ProductPicsHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_product_pic,parent,false))
+        ProductPicsHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_product_pic_post,parent,false))
 
     override fun onBindViewHolder(holder: ProductPicsHolder, position: Int) {
         holder.itemView.imgView.setImageURI(null)

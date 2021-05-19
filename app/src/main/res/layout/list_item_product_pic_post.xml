@@ -18,5 +18,5 @@
         android:layout_margin="4dp"
         android:scaleType="centerCrop"
         android:background="@color/white"
-        app:shapeAppearanceOverlay="@style/RoundedImageViewProduct" />
+        app:shapeAppearanceOverlay="@style/RoundedImageViewProductPicPost" />
 </com.google.android.material.card.MaterialCardView>
