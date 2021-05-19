@@ -15,7 +15,8 @@
 
         <activity
             android:name=".activities.SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,16 +25,20 @@
 
         </activity>
 
-        <activity android:name=".activities.ProfileActivity"/>
+        <activity android:name=".activities.ProfileActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activities.EmailActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".activities.IntroActivity" />
+        <activity android:name=".activities.IntroActivity"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".activities.MainActivity"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing"
+            android:screenOrientation="portrait"/>
 
     </application>
 

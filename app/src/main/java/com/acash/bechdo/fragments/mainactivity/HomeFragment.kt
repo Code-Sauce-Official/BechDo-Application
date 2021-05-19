@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
         }
 
         val recents = ArrayList<Product>()
-        val recentAdapter = RecentAdapter(recents)
+        val recentAdapter = RecentAdapter(recents,requireActivity())
 
         rvRecent.apply{
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -69,11 +69,11 @@ class HomeFragment : Fragment() {
             }
 
         btnShowAll.setOnClickListener {
-            (activity as MainActivity).changeFragmentFromDrawer(1)
+            (activity as MainActivity).changeFragmentFromDrawer(1,PostsFragment())
         }
 
         btnAddProduct.setOnClickListener {
-            (activity as MainActivity).changeFragmentFromDrawer(2)
+            (activity as MainActivity).changeFragmentFromDrawer(2,SellProductsFragment())
         }
 
         search_bar.setOnQueryTextListener(object:androidx.appcompat.widget.SearchView.OnQueryTextListener{
@@ -81,10 +81,12 @@ class HomeFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 search_bar.setQuery("",false)
                 search_bar.clearFocus()
+                val fragmentToSet = PostsFragment()
                 val  bundle = Bundle()
                 bundle.putString("Task", "Products")
                 bundle.putString("Query",query)
-                (activity as MainActivity).changeFragmentFromDrawer(1,bundle)
+                fragmentToSet.arguments = bundle
+                (activity as MainActivity).changeFragmentFromDrawer(1,fragmentToSet)
                 return true
             }
 

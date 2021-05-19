@@ -1,12 +1,12 @@
-package com.acash.bechdo
+package com.acash.bechdo.fragments.mainactivity
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.children
+import com.acash.bechdo.R
 import com.acash.bechdo.activities.MainActivity
-import com.acash.bechdo.fragments.mainactivity.PostsFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.fragment_filters.*

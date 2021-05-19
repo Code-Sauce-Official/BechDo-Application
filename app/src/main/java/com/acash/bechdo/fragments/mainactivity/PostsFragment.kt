@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.acash.bechdo.FiltersFragment
 import com.acash.bechdo.ProductViewHolder
 import com.acash.bechdo.R
 import com.acash.bechdo.activities.MainActivity
@@ -180,7 +179,7 @@ class PostsFragment : Fragment() {
                 ProductViewHolder(
                     LayoutInflater.from(parent.context).inflate(
                         R.layout.list_item_product, parent, false
-                    )
+                    ), requireActivity()
                 )
 
             override fun onBindViewHolder(

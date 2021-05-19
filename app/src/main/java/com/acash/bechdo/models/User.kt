@@ -2,12 +2,12 @@ package com.acash.bechdo.models
 
 class User(
     val uid:String,
-    val name:String,
+    var name:String,
     val dob:String,
     val clg:String,
-    val year:String,
+    var year:String,
     val downloadUrlClgId: String,
-    val downloadUrlDp:String,
+    var downloadUrlDp:String,
     @field:JvmField
     val isAccountActivated:Boolean=true,
     ){

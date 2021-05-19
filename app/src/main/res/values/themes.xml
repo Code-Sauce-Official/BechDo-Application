@@ -47,14 +47,15 @@
         <item name="android:textColorSecondary">@color/white</item>
     </style>
 
-    <style name="CircularImageView">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
-    </style>
-
     <style name="SearchBar">
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+
+    <style name="CircularImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 
     <style name="RoundedImageView">
@@ -62,14 +63,19 @@
         <item name="cornerSize">20dp</item>
     </style>
 
-    <style name="RoundedImageViewProduct">
+    <style name="RoundedImageViewProductPicPost">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">5dp</item>
     </style>
 
-    <style name="RoundedImageViewPostProduct">
+    <style name="RoundedImageViewProductPicView">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">40dp</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="RoundedImageViewProductPicLarge">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30dp</item>
     </style>
   
 </resources>
