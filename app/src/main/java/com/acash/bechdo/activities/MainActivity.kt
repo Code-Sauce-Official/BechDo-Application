@@ -14,10 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.acash.bechdo.R
-import com.acash.bechdo.fragments.mainactivity.EditProfileFragment
-import com.acash.bechdo.fragments.mainactivity.HomeFragment
-import com.acash.bechdo.fragments.mainactivity.PostsFragment
-import com.acash.bechdo.fragments.mainactivity.SellProductsFragment
+import com.acash.bechdo.fragments.mainactivity.*
 import com.acash.bechdo.models.User
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -95,6 +92,11 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             R.id.sellProducts -> {
                 fragmentToSet = SellProductsFragment()
                 nextFragment = 2
+            }
+
+            R.id.messages->{
+                fragmentToSet = ChatsFragment()
+                nextFragment = 5
             }
 
             R.id.signout -> {

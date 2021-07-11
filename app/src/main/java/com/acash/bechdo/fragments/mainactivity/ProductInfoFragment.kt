@@ -1,6 +1,7 @@
 package com.acash.bechdo.fragments.mainactivity
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +11,10 @@ import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.acash.bechdo.R
-import com.acash.bechdo.activities.MainActivity
-import com.acash.bechdo.activities.createAlertDialog
-import com.acash.bechdo.activities.createProgressDialog
+import com.acash.bechdo.activities.*
 import com.acash.bechdo.adapters.ProductPicsViewAdapter
 import com.acash.bechdo.models.Product
+import com.acash.bechdo.models.User
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.firebase.auth.FirebaseAuth
@@ -75,6 +75,7 @@ class ProductInfoFragment : Fragment() {
             }
 
             Glide.with(this).load(product.downLoadUrlsPics[0]).placeholder(R.drawable.defaultavatar)
+                .error(R.drawable.defaultavatar)
                 .into(largeImgView)
 
             val productPicsViewAdapter = ProductPicsViewAdapter(product.downLoadUrlsPics)
@@ -82,6 +83,7 @@ class ProductInfoFragment : Fragment() {
             productPicsViewAdapter.onClick = { position ->
                 Glide.with(this).load(product.downLoadUrlsPics[position])
                     .placeholder(R.drawable.defaultavatar)
+                    .error(R.drawable.defaultavatar)
                     .into(largeImgView)
             }
 
@@ -142,8 +144,21 @@ class ProductInfoFragment : Fragment() {
                         }
                     }
                 }else{
-                    //Open Chat Fragment
-                    
+                    //Open Chat Activity
+                    database.collection("users").document(product.postedBy).get()
+                        .addOnSuccessListener {
+                            if (it.exists()) {
+                                val friend = it.toObject(User::class.java)!!
+                                val intent = Intent(requireContext(), ChatActivity::class.java)
+                                intent.putExtra(NAME, friend.name)
+                                intent.putExtra(UID, friend.uid)
+                                intent.putExtra(THUMBIMG, friend.downloadUrlDp)
+                                startActivity(intent)
+                            }
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
+                        }
                 }
             }
 
