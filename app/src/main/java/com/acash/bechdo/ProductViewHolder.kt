@@ -19,6 +19,7 @@ class ProductViewHolder(itemView: View,private val activity: Activity):RecyclerV
             cardProduct.setCardBackgroundColor(ContextCompat.getColor(context,R.color.white))
 
             Glide.with(this).load(product.downLoadUrlsPics[0]).placeholder(R.drawable.defaultavatar)
+                .error(R.drawable.defaultavatar)
                 .into(image)
 
             tvTitle.isSelected = true

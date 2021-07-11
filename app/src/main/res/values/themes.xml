@@ -3,7 +3,7 @@
     <style name="Theme.BechDo" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#312E5F</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant">#CC312E5F</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -15,6 +15,10 @@
         <item name="android:windowFullscreen">true</item>
         <item name="colorAccent">#312E5F</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+    </style>
+
+    <style name="ChatActivityTheme" parent="Theme.BechDo">
+        <item name="android:windowFullscreen">false</item>
     </style>
 
     <style name="CustomBottomSheetDialog" parent="Theme.MaterialComponents.BottomSheetDialog">
@@ -77,5 +81,21 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">30dp</item>
     </style>
-  
+
+    <style name="chatShapeAppearanceSent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">22dp</item>
+        <item name="cornerSizeBottomRight">8dp</item>
+        <item name="cornerSizeTopLeft">22dp</item>
+        <item name="cornerSizeTopRight">22dp</item>
+    </style>
+
+    <style name="chatShapeAppearanceReceive">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">8dp</item>
+        <item name="cornerSizeBottomRight">22dp</item>
+        <item name="cornerSizeTopLeft">22dp</item>
+        <item name="cornerSizeTopRight">22dp</item>
+    </style>
+
 </resources>
