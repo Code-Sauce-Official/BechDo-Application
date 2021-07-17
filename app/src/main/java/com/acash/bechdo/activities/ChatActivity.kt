@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.acash.bechdo.R
@@ -93,6 +94,21 @@ class ChatActivity : AppCompatActivity() {
                 }
             }
         }
+
+        db.reference.child("user_status/${friendId}").addValueEventListener(object :ValueEventListener{
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    onlineTv.visibility = View.VISIBLE
+                }else{
+                    onlineTv.visibility = View.GONE
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@ChatActivity,"Failed to get User Status",Toast.LENGTH_SHORT).show()
+            }
+        })
 
         updateReadCount()
     }
