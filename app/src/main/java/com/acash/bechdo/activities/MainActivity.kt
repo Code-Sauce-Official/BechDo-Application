@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_posts.*
@@ -43,6 +44,12 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     private val database by lazy {
         FirebaseFirestore.getInstance()
     }
+
+    private val realtimeDatabase by lazy {
+        FirebaseDatabase.getInstance("https://bech-do-2b48b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+    }
+
+    private val userStatusCollection = realtimeDatabase.reference.child("user_status/${auth.uid}")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -164,6 +171,12 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             else -> super.onBackPressed()
 
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        userStatusCollection.setValue(true)
+        userStatusCollection.onDisconnect().removeValue()
     }
 
     //Used to set Fragments which are also present as an option in the Navigation drawer
