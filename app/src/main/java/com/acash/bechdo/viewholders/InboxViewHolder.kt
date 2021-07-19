@@ -1,8 +1,9 @@
-package com.acash.bechdo
+package com.acash.bechdo.viewholders
 
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.acash.bechdo.R
 import com.acash.bechdo.models.Inbox
 import com.acash.bechdo.utils.formatAsListItem
 import com.bumptech.glide.Glide

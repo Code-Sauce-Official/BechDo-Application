@@ -4,7 +4,7 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.acash.bechdo.ProductViewHolder
+import com.acash.bechdo.viewholders.ProductViewHolder
 import com.acash.bechdo.R
 import com.acash.bechdo.models.Product
 
