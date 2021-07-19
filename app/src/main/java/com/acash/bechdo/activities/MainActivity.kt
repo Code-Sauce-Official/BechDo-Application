@@ -13,9 +13,11 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.work.*
 import com.acash.bechdo.R
 import com.acash.bechdo.fragments.mainactivity.*
 import com.acash.bechdo.models.User
+import com.acash.bechdo.workers.NotificationWorker
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
@@ -26,6 +28,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_posts.*
 import kotlinx.android.synthetic.main.fragment_product_info.view.*
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener,DrawerLayout.DrawerListener {
 
@@ -79,6 +82,24 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         navigation_view.setNavigationItemSelectedListener(this)
 
         drawer_layout.addDrawerListener(this)
+
+        initNotificationWorker()
+    }
+
+    private fun initNotificationWorker() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val notificationWork = PeriodicWorkRequestBuilder<NotificationWorker>(15,TimeUnit.MINUTES)
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
+            "New Message Received",
+            ExistingPeriodicWorkPolicy.KEEP,
+            notificationWork
+        )
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

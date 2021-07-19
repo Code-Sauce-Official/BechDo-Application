@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.acash.bechdo.InboxViewHolder
+import com.acash.bechdo.viewholders.InboxViewHolder
 import com.acash.bechdo.R
 import com.acash.bechdo.activities.*
 import com.acash.bechdo.models.Inbox
@@ -48,10 +48,10 @@ class ChatsFragment : Fragment() {
 
         inboxAdapter = object : FirebaseRecyclerAdapter<Inbox, InboxViewHolder>(options) {
 
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):InboxViewHolder =
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InboxViewHolder =
                 InboxViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_user, parent, false))
 
-            override fun onBindViewHolder(holder:InboxViewHolder, position: Int, inbox: Inbox) {
+            override fun onBindViewHolder(holder: InboxViewHolder, position: Int, inbox: Inbox) {
                 holder.bind(inbox) { name, uid, thumbImg ->
                     val intent = Intent(requireContext(), ChatActivity::class.java)
                     intent.putExtra(NAME, name)

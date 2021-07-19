@@ -1,10 +1,11 @@
-package com.acash.bechdo
+package com.acash.bechdo.viewholders
 
 import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.acash.bechdo.R
 import com.acash.bechdo.activities.MainActivity
 import com.acash.bechdo.fragments.mainactivity.ProductInfoFragment
 import com.acash.bechdo.models.Product
@@ -16,7 +17,7 @@ class ProductViewHolder(itemView: View,private val activity: Activity):RecyclerV
 
     fun bind(product:Product){
         itemView.apply {
-            cardProduct.setCardBackgroundColor(ContextCompat.getColor(context,R.color.white))
+            cardProduct.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white))
 
             Glide.with(this).load(product.downLoadUrlsPics[0]).placeholder(R.drawable.defaultavatar)
                 .error(R.drawable.defaultavatar)
@@ -32,7 +33,9 @@ class ProductViewHolder(itemView: View,private val activity: Activity):RecyclerV
 
             if(product.forRent){
                 price += "/day"
-                cardProduct.setCardBackgroundColor(ContextCompat.getColor(context,R.color.light_blue))
+                cardProduct.setCardBackgroundColor(ContextCompat.getColor(context,
+                    R.color.light_blue
+                ))
             }
 
             tvPrice.text = price

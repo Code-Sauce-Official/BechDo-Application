@@ -12,13 +12,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity"
-        android:theme="@style/Theme.BechDo">
+        android:theme="@style/Theme.BechDo"
+        tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity">
 
-        <activity android:name=".activities.ChatActivity"
+        <activity
+            android:name=".activities.ChatActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ChatActivityTheme"/>
-
+            android:theme="@style/ChatActivityTheme" />
         <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
@@ -29,20 +29,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.ProfileActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.EmailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-
         <activity
             android:name=".activities.IntroActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
