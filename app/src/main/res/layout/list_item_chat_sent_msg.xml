@@ -9,9 +9,12 @@
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
     android:paddingTop="4dp"
-    android:paddingBottom="4dp">
+    android:paddingBottom="4dp"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/sentMsgCardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="#312E5F"
@@ -24,6 +27,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/flexBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:alignContent="flex_end"
@@ -55,4 +59,17 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/heartImg"
+        android:layout_width="22dp"
+        android:layout_height="14dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/sentMsgCardView"
+        app:layout_constraintVertical_bias="1.0"
+        android:background="#C6CFFF"
+        android:src="@drawable/heart"
+        android:scaleType="fitCenter"
+        android:elevation="1dp"
+        app:shapeAppearanceOverlay="@style/HeartImageView"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
