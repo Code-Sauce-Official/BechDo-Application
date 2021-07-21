@@ -71,6 +71,10 @@ class ChatActivity : AppCompatActivity() {
             adapter = chatAdapter
         }
 
+        chatAdapter.likeMsg= {msgId, isLiked ->  
+            getMessages(friendId).child(msgId).child("liked").setValue(isLiked)
+        }
+
         val emojiPopup = EmojiPopup.Builder.fromRootView(rootView).build(msgEdtv)
         smileBtn.setOnClickListener{
             emojiPopup.toggle()
@@ -125,7 +129,8 @@ class ChatActivity : AppCompatActivity() {
                 }
 
                 override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                    TODO("Not yet implemented")
+                    val msgMap = snapshot.getValue(Messages::class.java)!!
+                    updateMessage(msgMap)
                 }
 
                 override fun onChildRemoved(snapshot: DataSnapshot) {
@@ -142,6 +147,18 @@ class ChatActivity : AppCompatActivity() {
             })
     }
 
+    private fun updateMessage(msgMap: Messages) {
+        val position = listChatEvents.indexOfFirst {
+            when(it){
+                is Messages -> it.msgId == msgMap.msgId
+                else -> false
+            }
+        }
+
+        listChatEvents[position] = msgMap
+        chatAdapter.notifyItemChanged(position)
+    }
+
     private fun addMessage(msgMap: Messages) {
         val eventBefore = listChatEvents.lastOrNull()
         if((eventBefore!=null) && !eventBefore.sentAt.isSameDayAs(msgMap.sentAt) || (eventBefore==null)){
@@ -151,7 +168,7 @@ class ChatActivity : AppCompatActivity() {
         }
 
         listChatEvents.add(msgMap)
-        chatAdapter.notifyDataSetChanged()
+        chatAdapter.notifyItemInserted(listChatEvents.size-1)
         msgRv.scrollToPosition(listChatEvents.size-1)
     }
 

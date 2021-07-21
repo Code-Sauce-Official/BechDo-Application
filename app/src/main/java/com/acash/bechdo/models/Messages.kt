@@ -14,7 +14,7 @@ data class Messages(
     val msgId: String,
     val type: String = "Text",
     val status: Int = 1,
-    val liked: Boolean = false,
+    var liked: Boolean = false,
     override val sentAt: Date = Date()
 ) : ChatEvent {
     constructor() : this("", "", "", "Text", 1, false, Date())
