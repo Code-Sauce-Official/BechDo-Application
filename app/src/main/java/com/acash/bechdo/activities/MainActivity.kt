@@ -1,5 +1,7 @@
 package com.acash.bechdo.activities
 
+import android.app.NotificationManager
+import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -30,9 +32,10 @@ import kotlinx.android.synthetic.main.fragment_product_info.view.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener,DrawerLayout.DrawerListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    DrawerLayout.DrawerListener {
 
-    private var fragmentToSet:Fragment = HomeFragment()
+    private var fragmentToSet: Fragment = HomeFragment()
     private var wantToChangeFragment = false
     private var signOutPressed = false
     var currentUserInfo: User? = null
@@ -67,7 +70,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 }
             }
             .addOnFailureListener {
-                Toast.makeText(this,it.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                 finish()
             }
 
@@ -91,7 +94,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
-        val notificationWork = PeriodicWorkRequestBuilder<NotificationWorker>(15,TimeUnit.MINUTES)
+        val notificationWork = PeriodicWorkRequestBuilder<NotificationWorker>(15, TimeUnit.MINUTES)
             .setConstraints(constraints)
             .build()
 
@@ -122,7 +125,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 nextFragment = 2
             }
 
-            R.id.messages->{
+            R.id.messages -> {
                 fragmentToSet = ChatsFragment()
                 nextFragment = 5
             }
@@ -147,20 +150,24 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     override fun onDrawerOpened(drawerView: View) {}
 
     override fun onDrawerClosed(drawerView: View) {
-        if(wantToChangeFragment) {
+        if (wantToChangeFragment) {
             setFragment(fragmentToSet)
             wantToChangeFragment = false
 
-        }else if(signOutPressed){
+        } else if (signOutPressed) {
 
             this.createAlertDialog(
                 "Confirm Sign Out",
-                "${currentUserInfo?.name?:""}, you are signing out of BechDo on this device.",
+                "${currentUserInfo?.name ?: ""}, you are signing out of BechDo on this device.",
                 "Sign out",
                 "Cancel"
 
             ) {
                 auth.signOut()
+                val nm: NotificationManager =
+                    getSystemService(Service.NOTIFICATION_SERVICE) as NotificationManager
+                nm.cancelAll()
+
                 startActivity(
                     Intent(this, EmailActivity::class.java)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -180,9 +187,9 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 drawer_layout.closeDrawer(GravityCompat.START)
             }
 
-            supportFragmentManager.backStackEntryCount>0 ->{
+            supportFragmentManager.backStackEntryCount > 0 -> {
                 supportFragmentManager.popBackStack()
-                if(!navDrawerBackStackIndices.isEmpty()) {
+                if (!navDrawerBackStackIndices.isEmpty()) {
                     currentFragment = navDrawerBackStackIndices.pop()
                     nextFragment = currentFragment
                     navigation_view.menu.getItem(currentFragment).isChecked = true
@@ -201,33 +208,36 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     }
 
     //Used to set Fragments which are also present as an option in the Navigation drawer
-    fun changeFragmentFromDrawer(index:Int,fragment: Fragment){
+    fun changeFragmentFromDrawer(index: Int, fragment: Fragment) {
         navigation_view.menu.getItem(index).isChecked = true
         nextFragment = index
         setFragment(fragment)
     }
 
     //Used to set Fragments which may or may not be present as an option in the Navigation drawer
-    fun setFragment(fragment:Fragment){
+    fun setFragment(fragment: Fragment) {
         navDrawerBackStackIndices.push(currentFragment)
         currentFragment = nextFragment
 
         supportFragmentManager.beginTransaction()
             .setReorderingAllowed(true)
-            .setCustomAnimations(R.anim.slide_in,R.anim.fade_out,R.anim.slide_in,R.anim.fade_out)
+            .setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.slide_in, R.anim.fade_out)
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
             .commit()
 
-        if(fragment is HomeFragment){
-            supportFragmentManager.popBackStackImmediate(null,FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        if (fragment is HomeFragment) {
+            supportFragmentManager.popBackStackImmediate(
+                null,
+                FragmentManager.POP_BACK_STACK_INCLUSIVE
+            )
             navDrawerBackStackIndices.clear()
         }
     }
 
-    fun setDp(){
-        currentUserInfo?.downloadUrlDp.let {url->
-            if(url!="") {
+    fun setDp() {
+        currentUserInfo?.downloadUrlDp.let { url ->
+            if (url != "") {
                 Glide.with(this).load(url)
                     .placeholder(R.drawable.defaultavatar)
                     .error(R.drawable.defaultavatar).into(dp)
@@ -235,12 +245,18 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         }
     }
 
-    fun setName(){
+    fun setName() {
         tvUserName.text = currentUserInfo?.name ?: ""
     }
 }
 
-fun Context.createAlertDialog(title:String,msg:String,positiveText:String,negativeText:String,positiveCallback:()->Unit){
+fun Context.createAlertDialog(
+    title: String,
+    msg: String,
+    positiveText: String,
+    negativeText: String,
+    positiveCallback: () -> Unit
+) {
     val tvTitle = TextView(this)
 
     tvTitle.apply {
