@@ -41,23 +41,24 @@ class NotificationWorker(private val context: Context, params: WorkerParameters)
 
     override fun doWork(): Result {
         var isSuccessful = false
+
         val task = rtDb.reference.child("inbox/${auth.uid.toString()}").get()
-            .addOnSuccessListener {
-                for ((index, inboxSnapshot) in it.children.withIndex()) {
-                    val friendInInbox = inboxSnapshot.getValue(Inbox::class.java)
-                    friendInInbox?.apply {
-                        if (count > 0) {
-                            showNotification(index, this)
-                        }
-                    }
-                }
-                isSuccessful = true
-            }
-            .addOnFailureListener {
-                isSuccessful = false
-            }
 
         Tasks.await(task)
+
+        val inboxListSnapshot = task.result
+
+        if(inboxListSnapshot?.exists()==true) {
+            for ((index, inboxSnapshot) in inboxListSnapshot.children.withIndex()) {
+                val friendInInbox = inboxSnapshot.getValue(Inbox::class.java)
+                friendInInbox?.apply {
+                    if (count > 0) {
+                        showNotification(index, this)
+                    }
+                }
+            }
+            isSuccessful = true
+        }
 
         return if(isSuccessful)
             Result.success()
@@ -140,6 +141,7 @@ class NotificationWorker(private val context: Context, params: WorkerParameters)
             .setSound(defaultSoundUri)
             .setAutoCancel(true)
             .setOnlyAlertOnce(true)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(friendInInbox.msg))
             .build()
 
         nm.notify(id, newMsgNotification)
