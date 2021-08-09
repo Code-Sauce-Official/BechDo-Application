@@ -125,9 +125,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 nextFragment = 2
             }
 
+            R.id.favourites -> {
+
+                val postsFragment = PostsFragment()
+                val bundle = Bundle()
+                bundle.putString("Task","Favourites")
+                postsFragment.arguments = bundle
+
+                fragmentToSet = postsFragment
+                nextFragment = 3
+            }
+
             R.id.messages -> {
                 fragmentToSet = ChatsFragment()
-                nextFragment = 5
+                nextFragment = 4
             }
 
             R.id.signout -> {

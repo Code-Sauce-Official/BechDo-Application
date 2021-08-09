@@ -1,15 +1,16 @@
 package com.acash.bechdo.models
 
 class User(
-    val uid:String,
-    var name:String,
-    val dob:String,
-    val clg:String,
-    var year:String,
+    val uid: String,
+    var name: String,
+    val dob: String,
+    val clg: String,
+    var year: String,
     val downloadUrlClgId: String,
-    var downloadUrlDp:String,
+    var downloadUrlDp: String,
+    val favouriteProducts:ArrayList<String> = ArrayList(),
     @field:JvmField
-    val isAccountActivated:Boolean=true,
-    ){
-    constructor():this("","","","","","","",true)
+    val isAccountActivated: Boolean = true,
+) {
+    constructor() : this("", "", "", "", "", "", "", ArrayList<String>(), true)
 }

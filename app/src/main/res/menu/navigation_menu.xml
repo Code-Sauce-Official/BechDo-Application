@@ -17,21 +17,20 @@
         android:icon="@drawable/sell_products_icon"
         android:title="@string/sell_products"/>
 
-
-    <item android:id="@+id/help"
-        android:checkable="true"
-        android:icon="@drawable/help_icon"
-        android:title="@string/help"/>
-
-    <item android:id="@+id/request"
+    <item android:id="@+id/favourites"
         android:checkable="true"
         android:icon="@drawable/request_icon"
-        android:title="@string/request"/>
+        android:title="@string/favourites"/>
 
     <item android:id="@+id/messages"
         android:checkable="true"
         android:icon="@drawable/messages_icon"
         android:title="@string/messages"/>
+
+    <item android:id="@+id/help"
+        android:checkable="true"
+        android:icon="@drawable/help_icon"
+        android:title="@string/help"/>
 
     <item android:id="@+id/signout"
         android:icon="@drawable/signout_icon"
