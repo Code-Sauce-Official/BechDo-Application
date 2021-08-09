@@ -1,6 +1,7 @@
 package com.acash.bechdo.fragments.mainactivity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,9 @@ import com.acash.bechdo.activities.MainActivity
 import com.acash.bechdo.models.Product
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_posts.*
@@ -92,6 +95,37 @@ class PostsFragment : Fragment() {
                 }
             }
 
+            "Favourites" -> {
+                view.apply {
+                    tvStatus.text = getString(R.string.favourites)
+                    tvStatus.visibility = View.VISIBLE
+                    filterBtn.visibility = View.GONE
+                }
+
+                val favouritesUserRef = (activity as MainActivity).currentUserInfo?.favouriteProducts
+
+                val favourites = favouritesUserRef?.let{
+                    ArrayList(it)
+                } ?: ArrayList()
+
+                if(favourites.size>0)
+                    updateFavourites(favourites)
+                else favourites.add("")
+
+                database = if (query == "") {
+                    FirebaseFirestore.getInstance().collection("Products")
+                        .whereIn("productId", favourites)
+                        .orderBy("createdDate", Query.Direction.DESCENDING)
+                }else{
+                    FirebaseFirestore.getInstance().collection("Products")
+                        .whereIn("productId", favourites)
+                        .orderBy("titleLowerCase")
+                        .orderBy("createdDate", Query.Direction.DESCENDING)
+                        .startAt(queryLower)
+                        .endAt("$queryLower~")
+                }
+            }
+
             "Filters" -> {
                 database = if (query == "") {
                     FirebaseFirestore.getInstance().collection("Products")
@@ -158,6 +192,32 @@ class PostsFragment : Fragment() {
 
         setupAdapter()
         return view
+    }
+
+    private fun updateFavourites(favourites:ArrayList<String>) {
+        FirebaseFirestore.getInstance().collection("Products")
+            .whereIn("productId", favourites)
+            .get()
+            .addOnSuccessListener { productListSnapshot->
+                val favouriteProductIds:ArrayList<String> = (activity as MainActivity).currentUserInfo?.favouriteProducts ?: ArrayList()
+
+                if (productListSnapshot.size() != favouriteProductIds.size) {
+                    val listProducts = productListSnapshot.toObjects(Product::class.java)
+                    favouriteProductIds.clear()
+
+                    for (product in listProducts) {
+                        favouriteProductIds.add(product.productId)
+                    }
+
+                    FirebaseFirestore.getInstance()
+                        .collection("users").document(auth.uid.toString())
+                        .update(
+                            mapOf(
+                                "favouriteProducts" to favouriteProductIds
+                            )
+                        )
+                }
+            }
     }
 
     private fun setupAdapter() {

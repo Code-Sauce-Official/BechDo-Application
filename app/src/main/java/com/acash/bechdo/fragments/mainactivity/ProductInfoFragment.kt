@@ -18,9 +18,11 @@ import com.acash.bechdo.models.User
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.fragment_product_info.*
 import kotlinx.android.synthetic.main.fragment_product_info.view.*
 
 class ProductInfoFragment : Fragment() {
@@ -33,13 +35,14 @@ class ProductInfoFragment : Fragment() {
         FirebaseFirestore.getInstance()
     }
 
-    private val storage by lazy{
+    private val storage by lazy {
         FirebaseStorage.getInstance()
     }
 
-    private lateinit var progressDialog:ProgressDialog
-    private lateinit var product:Product
-    private lateinit var productJsonString:String
+    private lateinit var progressDialog: ProgressDialog
+    private lateinit var product: Product
+    private lateinit var productJsonString: String
+    private var favourites:ArrayList<String>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,23 +50,26 @@ class ProductInfoFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_product_info, container, false)
-        progressDialog = requireContext().createProgressDialog("Please Wait...",false)
+        progressDialog = requireContext().createProgressDialog("Please Wait...", false)
 
         productJsonString = arguments?.getString("ProductJsonString").toString()
         val gson = Gson()
-        product = gson.fromJson(productJsonString,Product::class.java)
+        product = gson.fromJson(productJsonString, Product::class.java)
 
         var price = if (product.price == 0L)
             "FREE"
         else "₹ ${product.price}"
 
-        if(product.forRent)
+        if (product.forRent)
             price += "/day"
+
+        favourites = (activity as MainActivity).currentUserInfo?.favouriteProducts
 
         view.apply {
             tvTitle.text = product.title
             tvPrice.text = price
             tvDescription.text = product.description
+            btnSaveProduct.isSelected = favourites?.contains(product.productId) ?: false
 
             for (tag in product.tags) {
                 tagsGroup.children
@@ -143,7 +149,7 @@ class ProductInfoFragment : Fragment() {
                                 }
                         }
                     }
-                }else{
+                } else {
                     //Open Chat Activity
                     database.collection("users").document(product.postedBy).get()
                         .addOnSuccessListener {
@@ -157,7 +163,7 @@ class ProductInfoFragment : Fragment() {
                             }
                         }
                         .addOnFailureListener {
-                            Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                         }
                 }
             }
@@ -168,14 +174,92 @@ class ProductInfoFragment : Fragment() {
                     "Are you sure you want to delete this product permanently?",
                     "Yes",
                     "No"
-                ){
+                ) {
                     progressDialog.show()
                     deleteProductFromFirestore()
+                }
+            }
+
+            btnSaveProduct.setOnClickListener {
+                if (btnSaveProduct.isSelected) {
+                    requireContext().createAlertDialog(
+                        "Confirmation",
+                        "Do you want to remove this product from Favourites?",
+                        "Yes",
+                        "No"
+                    ) {
+                        progressDialog.show()
+                        removeProductFromFavourites()
+                    }
+                } else {
+                    favourites?.let {
+                        if (it.size < 10) {
+                            requireContext().createAlertDialog(
+                                "Confirmation",
+                                "Do you want to add this product to Favourites?",
+                                "Yes",
+                                "No"
+                            ) {
+                                progressDialog.show()
+                                addProductToFavourites()
+                            }
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "You can save at most 10 products only!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
                 }
             }
         }
 
         return view
+    }
+
+    private fun removeProductFromFavourites() {
+        database.collection("users").document(auth.uid.toString())
+            .update("favouriteProducts", FieldValue.arrayRemove(product.productId))
+            .addOnCompleteListener { task ->
+                progressDialog.dismiss()
+
+                if (task.isSuccessful) {
+                    btnSaveProduct.isSelected = false
+                    favourites?.remove(product.productId)
+                    Toast.makeText(
+                        requireContext(),
+                        "Product has been successfully removed from Favourites",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(requireContext(), task.exception?.message, Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            }
+    }
+
+    private fun addProductToFavourites() {
+        database.collection("users").document(auth.uid.toString())
+            .update("favouriteProducts", FieldValue.arrayUnion(product.productId))
+            .addOnCompleteListener { task ->
+                progressDialog.dismiss()
+
+                if (task.isSuccessful) {
+                    btnSaveProduct.isSelected = true
+                    favourites?.add(product.productId)
+                    Toast.makeText(
+                        requireContext(),
+                        "Product has been successfully added to Favourites",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(requireContext(), task.exception?.message, Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            }
     }
 
     private fun deleteProductFromFirestore() {
@@ -186,14 +270,15 @@ class ProductInfoFragment : Fragment() {
             }
             .addOnFailureListener {
                 progressDialog.dismiss()
-                Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
             }
     }
 
-    private fun deleteProductPics(currIdx:Int) {
-        if(currIdx==product.downLoadUrlsPics.size){
+    private fun deleteProductPics(currIdx: Int) {
+        if (currIdx == product.downLoadUrlsPics.size) {
             progressDialog.dismiss()
-            Toast.makeText(requireContext(),"Product removed successfully",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Product removed successfully", Toast.LENGTH_SHORT)
+                .show()
             (activity as MainActivity).onBackPressed()
             return
         }
@@ -201,11 +286,11 @@ class ProductInfoFragment : Fragment() {
         val picRef = storage.getReferenceFromUrl(product.downLoadUrlsPics[currIdx])
         picRef.delete()
             .addOnSuccessListener {
-                deleteProductPics(currIdx+1)
+                deleteProductPics(currIdx + 1)
             }
             .addOnFailureListener {
                 progressDialog.dismiss()
-                Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 (activity as MainActivity).onBackPressed()
             }
     }
