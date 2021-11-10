@@ -71,7 +71,6 @@
     <string name="rent_info">Rent Information</string>
     <string name="ProductName">Product Name</string>
     <string name="Chat">Chat</string>
-    <string name="click_to_apply_filter">Click to apply filter</string>
     <string name="category">Category</string>
     <string name="apply">Apply</string>
     <string name="mark_as_unavailable">Mark as Unavailable</string>
@@ -89,4 +88,6 @@
     <string name="type_your_message">Type your message</string>
     <string name="online">Online</string>
     <string name="favourites">Favourites</string>
+    <string name="select_one_or_more_filters">Select one or more filters</string>
+    <string name="price_range">Price Range</string>
 </resources>

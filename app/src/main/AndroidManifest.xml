@@ -31,7 +31,8 @@
         </activity>
         <activity
             android:name=".activities.ProfileActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".activities.EmailActivity"
             android:screenOrientation="portrait"

@@ -71,14 +71,7 @@ class ProductInfoFragment : Fragment() {
             tvDescription.text = product.description
             btnSaveProduct.isSelected = favourites?.contains(product.productId) ?: false
 
-            for (tag in product.tags) {
-                tagsGroup.children
-                    .toList()
-                    .filter { (it as Chip).text == tag }
-                    .forEach {
-                        (it as Chip).visibility = View.VISIBLE
-                    }
-            }
+            categoryChip.text = product.category
 
             Glide.with(this).load(product.downLoadUrlsPics[0]).placeholder(R.drawable.defaultavatar)
                 .error(R.drawable.defaultavatar)

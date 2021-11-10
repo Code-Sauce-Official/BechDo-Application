@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.acash.bechdo.R
+import com.acash.bechdo.activities.MainActivity
 import com.acash.bechdo.activities.createProgressDialog
 import com.acash.bechdo.adapters.ProductPicsPostAdapter
 import com.acash.bechdo.models.Product
@@ -55,7 +57,6 @@ class PostProductsFragment : Fragment() {
     private lateinit var progressDialog: ProgressDialog
     private val downloadUrls = ArrayList<String>()
 
-    private val selectedTags = ArrayList<String>()
     private val pics = ArrayList<Uri>()
     private lateinit var productPicsPostAdapter:ProductPicsPostAdapter
     private var forRent = false
@@ -165,23 +166,6 @@ class PostProductsFragment : Fragment() {
                 "You need to upload at-least one image of the product!",
                 Toast.LENGTH_SHORT
             ).show()
-        }else{
-
-            tagsGroup.children
-                .toList()
-                .filter { (it as Chip).isChecked }
-                .forEach {
-                    selectedTags.add((it as Chip).text.toString())
-                }
-
-            if(selectedTags.isEmpty()){
-                rv=false
-                Toast.makeText(
-                    requireContext(),
-                    "You need to select at-least one tag",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
         }
 
         return rv
@@ -225,9 +209,10 @@ class PostProductsFragment : Fragment() {
     }
 
     private fun uploadDataToFirestore() {
-        if(forRent){
-            selectedTags.add("Rent")
-        }
+
+        val price = priceEt.text.toString().toLong()
+        var priceFilterIndex = price/200
+        priceFilterIndex = if(priceFilterIndex<5L) priceFilterIndex else 5L
 
         val product = Product(
             productId,
@@ -235,10 +220,12 @@ class PostProductsFragment : Fragment() {
             titleEt.text.toString(),
             titleEt.text.toString().toLowerCase(Locale.ROOT),
             descriptionEt.text.toString(),
-            priceEt.text.toString().toLong(),
+            price,
             downloadUrls,
-            selectedTags,
-            forRent
+            tagsGroup.findViewById<Chip>(tagsGroup.checkedChipId).text.toString(),
+            forRent,
+            priceFilterIndex,
+            (activity as MainActivity).currentUserInfo?.clg?:"",
         )
 
         database.collection("Products").document(productId).set(product)

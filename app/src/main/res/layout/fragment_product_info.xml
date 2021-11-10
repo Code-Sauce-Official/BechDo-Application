@@ -19,15 +19,15 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="18dp"
             android:scaleType="centerCrop"
-            tools:src="@drawable/defaultavatar"
-            app:shapeAppearance="@style/RoundedImageViewProductPicLarge"/>
+            app:shapeAppearance="@style/RoundedImageViewProductPicLarge"
+            tools:src="@drawable/defaultavatar" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/picsRview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -55,10 +55,10 @@
 
             <TextView
                 android:id="@+id/tvPrice"
-                android:layout_marginTop="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvTitle"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/montserrat"
                 android:textColor="#312E5F"
                 android:textSize="14sp"
@@ -89,94 +89,16 @@
 
         </RelativeLayout>
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/tagsGroup"
-            android:layout_width="match_parent"
+        <com.google.android.material.chip.Chip
+            android:id="@+id/categoryChip"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
-            android:layout_marginEnd="18dp"
             android:layout_marginTop="20dp"
-            app:chipSpacing="2dp">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/Stationery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/stationery"
-                android:textColor="#312E5F"
-                android:textSize="14sp"
-                android:visibility="gone"
-                app:chipBackgroundColor="#F1F3FD" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/Electronics"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/electronics"
-                android:textColor="#312E5F"
-                android:textSize="14sp"
-                android:visibility="gone"
-                app:chipBackgroundColor="#F1F3FD" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/Books"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/books"
-                android:textColor="#312E5F"
-                android:textSize="14sp"
-                android:visibility="gone"
-                app:chipBackgroundColor="#F1F3FD" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/Sports"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/sports"
-                android:textColor="#312E5F"
-                android:textSize="14sp"
-                android:visibility="gone"
-                app:chipBackgroundColor="#F1F3FD" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/Instruments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/instruments"
-                android:textColor="#312E5F"
-                android:visibility="gone"
-                android:textSize="14sp"
-                app:chipBackgroundColor="#F1F3FD" />
-
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/Rent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/rent"
-                android:textColor="#312E5F"
-                android:visibility="gone"
-                android:textSize="14sp"
-                app:chipBackgroundColor="#F1F3FD" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/Other"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/other"
-                android:textColor="#312E5F"
-                android:visibility="gone"
-                android:textSize="14sp"
-                app:chipBackgroundColor="#F1F3FD" />
-
-        </com.google.android.material.chip.ChipGroup>
+            android:fontFamily="@font/montserrat"
+            android:textColor="#312E5F"
+            android:textSize="14sp"
+            app:chipBackgroundColor="#F1F3FD" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn"
@@ -184,36 +106,36 @@
             android:layout_height="60dp"
             android:layout_marginStart="34dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginEnd="34dp"
+            android:layout_marginBottom="10dp"
             android:elevation="0dp"
             android:fontFamily="@font/montserrat"
+            android:text="@string/Chat"
             android:textAllCaps="false"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:backgroundTint="#312E5F"
             app:cornerRadius="30dp"
             app:icon="@drawable/messages_icon"
-            android:text="@string/Chat"
-            android:textStyle="bold"
             app:iconGravity="textStart"
-            app:iconSize="30dp"/>
+            app:iconSize="30dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/removeBtn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="34dp"
-            android:layout_marginBottom="16dp"
             android:layout_marginEnd="34dp"
+            android:layout_marginBottom="16dp"
             android:elevation="0dp"
             android:fontFamily="@font/montserrat"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            app:backgroundTint="#903365"
-            app:cornerRadius="30dp"
             android:text="@string/remove"
-            android:visibility="gone"/>
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:backgroundTint="#903365"
+            app:cornerRadius="30dp" />
 
     </LinearLayout>
 </ScrollView>
