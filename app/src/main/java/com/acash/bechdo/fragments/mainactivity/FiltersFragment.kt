@@ -4,14 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.RadioButton
 import androidx.core.view.children
+import androidx.core.widget.addTextChangedListener
 import com.acash.bechdo.R
 import com.acash.bechdo.activities.MainActivity
+import com.acash.bechdo.models.Colleges
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_filters.*
+import java.util.*
+import kotlin.collections.HashSet
 
 class FiltersFragment : BottomSheetDialogFragment() {
+
+    private lateinit var clgSet: HashSet<String>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,43 +32,128 @@ class FiltersFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val postsFragment = parentFragment as PostsFragment
-        val chips = tagsGroup.children
-            .toList()
+        clgDropDown.setDropDownBackgroundResource(R.color.white)
 
-        for(filter in postsFragment.filterTags) {
-            chips.filter { (it as Chip).text == filter }
+        val postsFragment = parentFragment as PostsFragment
+
+        if(postsFragment.task=="Category"){
+            tvCategory.visibility = View.GONE
+            tagsGroup.visibility = View.GONE
+        }
+
+        val clgList = ArrayList<String>()
+
+        val clgAdapter = ArrayAdapter(
+            requireContext(),
+            R.layout.list_item_dropdown_menu,
+            R.id.tvClgName,
+            clgList
+        )
+
+        clgDropDown.setAdapter(clgAdapter)
+
+        FirebaseFirestore.getInstance().collection("Colleges").document("Names")
+            .get()
+            .addOnSuccessListener {
+                if (it.exists()) {
+                    val colleges = it.toObject(Colleges::class.java)
+                    colleges?.apply {
+                        clgList.clear()
+                        clgList.addAll(listOfColleges)
+                        clgList.sort()
+                        clgSet = HashSet(clgList)
+                        clgAdapter.notifyDataSetChanged()
+
+                        if(postsFragment.clg!="")
+                            clgDropDown.setText(postsFragment.clg)
+                    }
+                }
+            }
+
+        clgDropDown.addTextChangedListener {
+            clgInput.isErrorEnabled = false
+        }
+
+        if(postsFragment.category!="" && postsFragment.task!="Category") {
+            tagsGroup.children
+                .toList()
+                .filter { (it as Chip).text == postsFragment.category }
                 .forEach {
                     (it as Chip).isChecked = true
                 }
         }
+
+        if(postsFragment.priceRange!="") {
+            priceRangeGroup.children
+                .toList()
+                .filter { (it as Chip).text == postsFragment.priceRange }
+                .forEach {
+                    (it as Chip).isChecked = true
+                }
+        }
+
+        if(postsFragment.type!=-1)
+            typeRadio.check(typeRadio.getChildAt(postsFragment.type).id)
 
         cancelBtn.setOnClickListener {
             dismiss()
         }
 
         applyBtn.setOnClickListener {
-            val filters = ArrayList<String>()
+            val clg = clgDropDown.text.toString()
 
-            chips.filter { (it as Chip).isChecked }
-                .forEach {
-                    filters.add((it as Chip).text.toString())
-                }
-
+            if (clg != "" && !clgSet.contains(clg)) {
+                clgInput.error = "Please select a college from the given list.."
+            } else {
                 val fragmentToSet = PostsFragment()
+                var isFilterSelected = false
                 val bundle = Bundle()
                 bundle.putString("Query", postsFragment.newQuery)
 
-                if(filters.isEmpty()){
-                    bundle.putString("Task", "Products")
-                }else {
-                    bundle.putString("Task", "Filters")
-                    bundle.putStringArrayList("FilterTags", filters)
+                if(postsFragment.task!="Category") {
+                    tagsGroup.findViewById<Chip>(tagsGroup.checkedChipId)
+                        ?.let {
+                            bundle.putString("CategoryFilter", it.text.toString())
+                            isFilterSelected = true
+                        }
+                }else{
+                    bundle.putString("CategoryFilter", postsFragment.category)
+                }
+
+                if (typeRadio.checkedRadioButtonId != -1) {
+                    val type =
+                        typeRadio.indexOfChild(typeRadio.findViewById<RadioButton>(typeRadio.checkedRadioButtonId))
+                    bundle.putInt("Type", type)
+                    isFilterSelected = true
+                }
+
+                priceRangeGroup.findViewById<Chip>(priceRangeGroup.checkedChipId)
+                    ?.let {
+                        val priceRange = it.text.toString()
+
+                        bundle.putString("PriceRange", priceRange)
+                        isFilterSelected = true
+                    }
+
+                if (clg != "") {
+                    bundle.putString("College", clg)
+                    isFilterSelected = true
+                }
+
+                when {
+                    postsFragment.task=="Category" -> {
+                        bundle.putString("Task", "Category")
+                    }
+                    isFilterSelected -> {
+                        bundle.putString("Task", "Filters")
+                    }
+                    else -> bundle.putString("Task", "Products")
                 }
 
                 fragmentToSet.arguments = bundle
                 dismiss()
                 (activity as MainActivity).setFragment(fragmentToSet)
+            }
         }
     }
 }

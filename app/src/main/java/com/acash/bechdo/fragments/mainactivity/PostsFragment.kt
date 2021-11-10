@@ -1,7 +1,6 @@
 package com.acash.bechdo.fragments.mainactivity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.acash.bechdo.viewholders.ProductViewHolder
 import com.acash.bechdo.R
 import com.acash.bechdo.activities.MainActivity
 import com.acash.bechdo.models.Product
+import com.acash.bechdo.viewholders.ProductViewHolder
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
-import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_posts.*
@@ -28,10 +25,13 @@ import kotlin.collections.ArrayList
 class PostsFragment : Fragment() {
 
     private lateinit var postAdapter: FirestorePagingAdapter<Product, ProductViewHolder>
-    private lateinit var task: String
+    lateinit var task: String
     private lateinit var query: String
     lateinit var newQuery: String
-    lateinit var filterTags: ArrayList<String>
+    lateinit var category: String
+    var type = -1
+    lateinit var priceRange:String
+    lateinit var clg:String
 
     private val auth by lazy {
         FirebaseAuth.getInstance()
@@ -50,7 +50,13 @@ class PostsFragment : Fragment() {
 
         query = arguments?.getString("Query") ?: ""
 
-        filterTags = arguments?.getStringArrayList("FilterTags") ?: ArrayList()
+        category = arguments?.getString("CategoryFilter") ?: ""
+
+        type = arguments?.getInt("Type",-1) ?: -1
+
+        priceRange = arguments?.getString("PriceRange") ?: ""
+
+        clg = arguments?.getString("College") ?: ""
 
         newQuery = query
 
@@ -74,25 +80,11 @@ class PostsFragment : Fragment() {
 
             "Category" ->{
                 view.apply {
-                    tvStatus.text = filterTags[0]
+                    tvStatus.text = category
                     tvStatus.visibility = View.VISIBLE
-                    filterBtn.visibility = View.GONE
                 }
 
-                database = if (query == "") {
-                    FirebaseFirestore.getInstance().collection("Products")
-                        .whereEqualTo("isActive", true)
-                        .whereArrayContains("tags", filterTags[0])
-                        .orderBy("createdDate", Query.Direction.DESCENDING)
-                } else {
-                    FirebaseFirestore.getInstance().collection("Products")
-                        .whereEqualTo("isActive", true)
-                        .whereArrayContains("tags", filterTags[0])
-                        .orderBy("titleLowerCase")
-                        .orderBy("createdDate", Query.Direction.DESCENDING)
-                        .startAt(queryLower)
-                        .endAt("$queryLower~")
-                }
+                setFilters(queryLower)
             }
 
             "Favourites" -> {
@@ -127,20 +119,7 @@ class PostsFragment : Fragment() {
             }
 
             "Filters" -> {
-                database = if (query == "") {
-                    FirebaseFirestore.getInstance().collection("Products")
-                        .whereEqualTo("isActive", true)
-                        .whereArrayContainsAny("tags", filterTags)
-                        .orderBy("createdDate", Query.Direction.DESCENDING)
-                } else{
-                    FirebaseFirestore.getInstance().collection("Products")
-                        .whereEqualTo("isActive", true)
-                        .whereArrayContainsAny("tags", filterTags)
-                        .orderBy("titleLowerCase")
-                        .orderBy("createdDate", Query.Direction.DESCENDING)
-                        .startAt(queryLower)
-                        .endAt("$queryLower~")
-                }
+                setFilters(queryLower)
             }
 
             "Active" -> {
@@ -192,6 +171,48 @@ class PostsFragment : Fragment() {
 
         setupAdapter()
         return view
+    }
+
+    private fun setFilters(queryLower:String){
+        database = FirebaseFirestore.getInstance().collection("Products")
+            .whereEqualTo("isActive",true)
+
+        if(type!=-1 && type!=2){
+            var forRent = false
+            if(type==0){
+                forRent = true
+            }
+
+            database = database.whereEqualTo("forRent",forRent)
+        }
+
+        if(category!=""){
+            database = database.whereEqualTo("category",category)
+        }
+
+        if(priceRange!=""){
+            val priceRangeIndex: Int = when {
+                priceRange[0] == '0' -> {
+                    0
+                }
+                priceRange[0] == '1' -> {
+                    5
+                }
+                else -> {
+                    (Integer.parseInt(priceRange.substring(0, 3))) / 200
+                }
+            }
+            database = database.whereEqualTo("priceFilterIndex",priceRangeIndex)
+        }
+
+        if(clg!=""){
+            database = database.whereEqualTo("clg",clg)
+        }
+
+        database = database.orderBy("titleLowerCase")
+            .startAt(queryLower)
+            .endAt("$queryLower~")
+
     }
 
     private fun updateFavourites(favourites:ArrayList<String>) {
@@ -273,7 +294,10 @@ class PostsFragment : Fragment() {
                 bundle.putString("Query",query)
 
                 if(task=="Category" || task=="Filters"){
-                    bundle.putStringArrayList("FilterTags",filterTags)
+                    bundle.putString("CategoryFilter",category)
+                    bundle.putInt("Type",type)
+                    bundle.putString("PriceRange",priceRange)
+                    bundle.putString("College",clg)
                 }
 
                 val fragmentToSet = PostsFragment()

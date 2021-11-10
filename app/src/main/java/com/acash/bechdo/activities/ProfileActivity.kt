@@ -11,10 +11,13 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import com.acash.bechdo.R
+import com.acash.bechdo.models.Colleges
 import com.acash.bechdo.models.User
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
@@ -27,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_profile.*
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashSet
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -58,9 +62,37 @@ class ProfileActivity : AppCompatActivity() {
 
     private var imgUploadCount = 0
 
+    private lateinit var clgSet:HashSet<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+        val clgList = ArrayList<String>()
+
+        val clgAdapter = ArrayAdapter(
+            this,
+            R.layout.list_item_dropdown_menu,
+            R.id.tvClgName,
+            clgList
+        )
+
+        clgDropDown.setAdapter(clgAdapter)
+
+        database.collection("Colleges").document("Names")
+            .get()
+            .addOnSuccessListener {
+                if(it.exists()) {
+                    val colleges = it.toObject(Colleges::class.java)
+                    colleges?.apply {
+                        clgList.clear()
+                        clgList.addAll(listOfColleges)
+                        clgList.sort()
+                        clgSet = HashSet(clgList)
+                        clgAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
 
         dobEt.setOnClickListener {
             val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
@@ -103,10 +135,18 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
 
-        clgEt.setOnFocusChangeListener { _, hasFocus ->
+        clgDropDown.setOnFocusChangeListener { _, hasFocus ->
             if(!hasFocus){
                 checkClgErrors()
             }
+        }
+
+        nameEt.addTextChangedListener {
+            nameInput.isErrorEnabled = false
+        }
+
+        clgDropDown.addTextChangedListener {
+            clgInput.isErrorEnabled = false
         }
 
         saveBtn.setOnClickListener{
@@ -161,17 +201,22 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun checkNameErrors():Boolean {
         if(nameEt.text.isNullOrEmpty()){
-            nameEt.error = "Name cannot be empty!"
+            nameInput.error = "Name cannot be empty!"
             return false
         }
         return true
     }
 
     private fun checkClgErrors():Boolean {
-        if(clgEt.text.isNullOrEmpty()){
-            clgEt.error = "College cannot be empty!"
+
+        if(clgDropDown.text.isNullOrEmpty()){
+            clgInput.error = "College cannot be empty!"
+            return false
+        }else if(::clgSet.isInitialized && !clgSet.contains(clgDropDown.text.toString())){
+            clgInput.error = "Please select a college from the given list.."
             return false
         }
+
         return true
     }
 
@@ -269,7 +314,7 @@ class ProfileActivity : AppCompatActivity() {
             auth.uid.toString(),
             nameEt.text.toString(),
             dobEt.text.toString(),
-            clgEt.text.toString(),
+            clgDropDown.text.toString(),
             (findViewById<RadioButton>(yearRadio.checkedRadioButtonId)).text.toString(),
             downloadUrlClgId,
             downloadUrlDp

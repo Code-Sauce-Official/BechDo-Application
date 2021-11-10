@@ -48,7 +48,7 @@ class ChatActivity : AppCompatActivity() {
     private var listChatEvents = mutableListOf<ChatEvent>()
     private lateinit var chatAdapter: ChatAdapter
     private lateinit var currentUser: User
-    private lateinit var updateReadCountListener:ValueEventListener
+    private lateinit var updateUnreadCountListener:ValueEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,7 +115,7 @@ class ChatActivity : AppCompatActivity() {
             }
         })
 
-        updateReadCount()
+        updateUnreadCount()
     }
 
     private fun listenMessages() {
@@ -212,8 +212,8 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateReadCount(){
-        updateReadCountListener = getInbox(currentUid,friendId).addValueEventListener(object:
+    private fun updateUnreadCount(){
+        updateUnreadCountListener = getInbox(currentUid,friendId).addValueEventListener(object:
             ValueEventListener{
 
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -247,6 +247,6 @@ class ChatActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        getInbox(currentUid,friendId).removeEventListener(updateReadCountListener)
+        getInbox(currentUid,friendId).removeEventListener(updateUnreadCountListener)
     }
 }

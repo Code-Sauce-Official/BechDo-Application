@@ -34,7 +34,7 @@ class CategoryAdapter(private val list: ArrayList<Categories>, private val activ
                 val fragmentToSet = PostsFragment()
                 val bundle = Bundle()
                 bundle.putString("Task","Category")
-                bundle.putStringArrayList("FilterTags", arrayListOf(tvCategory.text.toString()))
+                bundle.putString("CategoryFilter", tvCategory.text.toString())
                 fragmentToSet.arguments = bundle
                 (activity as MainActivity).setFragment(fragmentToSet)
             }

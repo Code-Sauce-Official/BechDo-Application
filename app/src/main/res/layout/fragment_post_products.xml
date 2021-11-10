@@ -140,6 +140,8 @@
                 android:lines="1"
                 android:padding="13dp"
                 android:textColor="#312E5F"
+                android:maxLength="18"
+                android:digits="0123456789"
                 android:textCursorDrawable="@null"
                 android:textSize="16sp" />
 
@@ -178,16 +180,19 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
-            app:chipSpacing="2dp">
+            app:chipSpacing="2dp"
+            app:selectionRequired="true"
+            app:singleSelection="true"
+            app:checkedChip="@id/Stationery">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/Stationery"
-                app:chipBackgroundColor="#F1F3FD"
+                app:chipBackgroundColor="@color/chip_bg_color_post_products"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:text="@string/stationery"
-                android:textColor="#312E5F"
+                android:textColor="@color/chip_text_color_post_products"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -196,12 +201,12 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/Electronics"
-                app:chipBackgroundColor="#F1F3FD"
+                app:chipBackgroundColor="@color/chip_bg_color_post_products"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:text="@string/electronics"
-                android:textColor="#312E5F"
+                android:textColor="@color/chip_text_color_post_products"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -210,12 +215,12 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/Books"
-                app:chipBackgroundColor="#F1F3FD"
+                app:chipBackgroundColor="@color/chip_bg_color_post_products"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:text="@string/books"
-                android:textColor="#312E5F"
+                android:textColor="@color/chip_text_color_post_products"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -224,12 +229,12 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/Sports"
-                app:chipBackgroundColor="#F1F3FD"
+                app:chipBackgroundColor="@color/chip_bg_color_post_products"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:text="@string/sports"
-                android:textColor="#312E5F"
+                android:textColor="@color/chip_text_color_post_products"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -238,12 +243,12 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/Instruments"
-                app:chipBackgroundColor="#F1F3FD"
+                app:chipBackgroundColor="@color/chip_bg_color_post_products"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:text="@string/instruments"
-                android:textColor="#312E5F"
+                android:textColor="@color/chip_text_color_post_products"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -252,12 +257,12 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/Other"
-                app:chipBackgroundColor="#F1F3FD"
+                app:chipBackgroundColor="@color/chip_bg_color_post_products"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:text="@string/other"
-                android:textColor="#312E5F"
+                android:textColor="@color/chip_text_color_post_products"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"

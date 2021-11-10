@@ -6,7 +6,6 @@ class Categories (val id: Int, val caption: String) {
 
     companion object{
         fun getCategories(): ArrayList<Categories> = arrayListOf(
-            Categories(R.drawable.rent, "Rent"),
             Categories(R.drawable.stationery, "Stationery"),
             Categories(R.drawable.electronics, "Electronics"),
             Categories(R.drawable.books, "Books"),

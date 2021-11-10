@@ -13,12 +13,14 @@ Product(
     val description:String,
     val price:Long,
     val downLoadUrlsPics:ArrayList<String>,
-    val tags:ArrayList<String>,
+    val category:String,
     val forRent:Boolean,
+    val priceFilterIndex:Long,
+    val clg:String,
     @field:JvmField
     var isActive:Boolean=true,
     @ServerTimestamp
     val createdDate:Date?=null
 ) {
-    constructor():this("","","","","",0L,ArrayList<String>(),ArrayList<String>(),false,true,null)
+    constructor():this("","","","","",0L,ArrayList<String>(),"",false,0L,"",true,null)
 }

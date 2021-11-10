@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.work.*
 import com.acash.bechdo.R
 import com.acash.bechdo.fragments.mainactivity.*
+import com.acash.bechdo.models.Colleges
 import com.acash.bechdo.models.User
 import com.acash.bechdo.workers.NotificationWorker
 import com.bumptech.glide.Glide
@@ -31,6 +32,7 @@ import kotlinx.android.synthetic.main.fragment_posts.*
 import kotlinx.android.synthetic.main.fragment_product_info.view.*
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.HashSet
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     DrawerLayout.DrawerListener {
