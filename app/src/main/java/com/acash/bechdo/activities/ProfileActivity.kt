@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.method.LinkMovementMethod
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Toast
@@ -67,6 +68,7 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+        tvTnC.movementMethod = LinkMovementMethod.getInstance()
 
         val clgList = ArrayList<String>()
 

@@ -102,6 +102,8 @@ class ProductInfoFragment : Fragment() {
                     btn.text = getString(R.string.mark_as_available)
                 }
 
+            }else if(!product.isActive){
+                tvUnavailable.visibility = View.VISIBLE
             }
 
             btn.setOnClickListener {

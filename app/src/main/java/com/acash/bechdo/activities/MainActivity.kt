@@ -143,6 +143,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 nextFragment = 4
             }
 
+            R.id.help -> {
+                fragmentToSet = HelpFragment()
+                nextFragment = 5
+            }
+
             R.id.signout -> {
                 wantToChangeFragment = false
                 signOutPressed = true

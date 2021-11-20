@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.mainactivity.HelpFragment">
+
+    <TextView
+        android:id="@+id/tvFaq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/frequently_asked_questions"
+        android:textSize="18sp"
+        android:textColor="#312E5F" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFaq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvFaq"
+        android:layout_above="@id/btnContact"
+        android:paddingTop="18dp"
+        android:overScrollMode="never"
+        tools:listitem="@layout/list_item_faq" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="@string/contact_us"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:fontFamily="@font/montserrat"
+        app:cornerRadius="0dp"/>
+</RelativeLayout>

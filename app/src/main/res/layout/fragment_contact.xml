@@ -56,7 +56,7 @@
         android:textSize="18sp"
         android:text="@string/get_started"
         android:textAllCaps="false"
-        app:cornerRadius="20dp"
+        app:cornerRadius="10dp"
         android:layout_marginBottom="10dp"
         android:textColor="@color/white"/>
 
