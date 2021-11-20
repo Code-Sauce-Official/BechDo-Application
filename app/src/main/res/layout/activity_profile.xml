@@ -58,12 +58,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/Name"
             android:textColor="#312E5F"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"/>
+            android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nameInput"
@@ -150,7 +150,6 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/clgInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            app:endIconTint="#312E5F"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
@@ -162,6 +161,7 @@
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
+            app:endIconTint="#312E5F"
             app:errorIconDrawable="@null">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -248,13 +248,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/Upload"
             android:textAlignment="center"
             android:textColor="#31215F"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"/>
+            android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/uploadClgIdBtn"
@@ -278,26 +278,40 @@
             android:text="@string/verification"
             android:textAlignment="center"
             android:textColor="#E3366A"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/tncCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="28dp"
-            android:layout_gravity="center"
-            android:buttonTint="#E3366A"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/accepttnc"
-            android:textAlignment="center"
-            android:textColor="#E3366A"
-            android:textSize="12sp"
-            android:layout_marginTop="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp">
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/tncCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#E3366A" />
+
+            <TextView
+                android:id="@+id/tvTnC"
+                android:lineSpacingExtra="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/accepttnc"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="#E3366A"
+                android:textSize="12sp"/>
+        </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/saveBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="5dp"
             android:elevation="0dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/Save"

@@ -28,7 +28,7 @@
     <string name="Upload">Upload Official College ID</string>
     <string name="Uploadbtn">Choose</string>
     <string name="verification">Team will verify your ID for security purposes within 24 hours</string>
-    <string name="accepttnc">I accept Terms and Conditions</string>
+    <string name="accepttnc">I accept <a href="https://bechdo.netlify.app/tnc.html">Terms and Conditions</a> and <a href="https://bechdo.netlify.app/privacy.html">Privacy Policy</a></string>
     <string name="Save">Save</string>
     <string name="upload_profile">Upload Profile</string>
     <string name="uploadClgIdChanged">Change</string>
@@ -90,4 +90,7 @@
     <string name="favourites">Favourites</string>
     <string name="select_one_or_more_filters">Select one or more filters</string>
     <string name="price_range">Price Range</string>
+    <string name="frequently_asked_questions">Frequently Asked Questions</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="this_product_is_currently_unavailable">This Product is currently unavailable</string>
 </resources>
