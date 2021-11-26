@@ -214,7 +214,9 @@ class ProfileActivity : AppCompatActivity() {
         if(clgDropDown.text.isNullOrEmpty()){
             clgInput.error = "College cannot be empty!"
             return false
-        }else if(::clgSet.isInitialized && !clgSet.contains(clgDropDown.text.toString())){
+        }
+
+        if(::clgSet.isInitialized && !clgSet.contains(clgDropDown.text.toString())){
             clgInput.error = "Please select a college from the given list.."
             return false
         }
@@ -255,7 +257,9 @@ class ProfileActivity : AppCompatActivity() {
             }
 
             return true
-        } else return false
+        }
+
+        return false
     }
 
     private fun uploadImages() {

@@ -2,7 +2,6 @@ package com.acash.bechdo.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -49,6 +48,8 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var chatAdapter: ChatAdapter
     private lateinit var currentUser: User
     private lateinit var updateUnreadCountListener:ValueEventListener
+    private lateinit var userStatusListener: ValueEventListener
+    private lateinit var msgListener:ChildEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,14 +81,12 @@ class ChatActivity : AppCompatActivity() {
             emojiPopup.toggle()
         }
 
-        listenMessages()
-
         FirebaseFirestore.getInstance().collection("users").document(currentUid).get()
             .addOnSuccessListener{
                 currentUser = it.toObject(User::class.java)!!
             }
             .addOnFailureListener {
-                Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,it.message.toString(),Toast.LENGTH_SHORT).show()
                 finish()
             }
 
@@ -99,8 +98,17 @@ class ChatActivity : AppCompatActivity() {
                 }
             }
         }
+    }
 
-        db.reference.child("user_status/${friendId}").addValueEventListener(object :ValueEventListener{
+    override fun onStart() {
+        super.onStart()
+        listenMessages()
+        getUserStatus()
+        updateUnreadCount()
+    }
+
+    private fun getUserStatus() {
+        userStatusListener = db.reference.child("user_status/${friendId}").addValueEventListener(object :ValueEventListener{
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
@@ -111,15 +119,19 @@ class ChatActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@ChatActivity,"Failed to get User Status",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ChatActivity,"Failed to get User Status:${error.message}",Toast.LENGTH_SHORT).show()
             }
         })
-
-        updateUnreadCount()
     }
 
     private fun listenMessages() {
-        getMessages(friendId)
+
+        if(listChatEvents.size>0){
+            listChatEvents.clear()
+            chatAdapter.notifyDataSetChanged()
+        }
+
+        msgListener = getMessages(friendId)
             .orderByKey()
             .addChildEventListener(object : ChildEventListener {
 
@@ -142,7 +154,7 @@ class ChatActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                    Toast.makeText(this@ChatActivity,"Failed to listen messages:${error.message}",Toast.LENGTH_SHORT).show()
                 }
             })
     }
@@ -177,39 +189,46 @@ class ChatActivity : AppCompatActivity() {
         checkNotNull(id){"Cannot be null"}
         val msgMap = Messages(msg,currentUid,id)
         getMessages(friendId).child(id).setValue(msgMap)
-            .addOnSuccessListener {
-                Log.i("here","here")
-            }
             .addOnFailureListener {
-                Log.i("error",it.message.toString())
+                Toast.makeText(this,it.message.toString(),Toast.LENGTH_SHORT).show()
             }
         updateLastMsg(msgMap)
     }
 
     private fun updateLastMsg(msgMap: Messages) {
-        val inboxMap = Inbox(msgMap.msg,friendId,friendName,friendImg,0)
-        getInbox(currentUid,friendId).setValue(inboxMap).addOnSuccessListener {
-            getInbox(friendId,currentUid).addListenerForSingleValueEvent(object:
-                ValueEventListener {
+        val inboxMap = Inbox(msgMap.msg, friendId, friendName, friendImg, 0)
+        getInbox(currentUid, friendId).setValue(inboxMap)
+            .addOnSuccessListener {
+                getInbox(friendId, currentUid).addListenerForSingleValueEvent(object :
+                    ValueEventListener {
 
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val value = snapshot.getValue(Inbox::class.java)
-                    inboxMap.apply {
-                        from=currentUid
-                        name=currentUser.name
-                        image=currentUser.downloadUrlDp
-                        count=1
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val value = snapshot.getValue(Inbox::class.java)
+                        inboxMap.apply {
+                            from = currentUid
+                            name = currentUser.name
+                            image = currentUser.downloadUrlDp
+                            count = 1
+                        }
+
+                        value?.let {
+                            inboxMap.count = value.count + 1
+                        }
+                        getInbox(friendId, currentUid).setValue(inboxMap)
                     }
 
-                    value?.let {
-                        inboxMap.count = value.count+1
+                    override fun onCancelled(error: DatabaseError) {
+                        Toast.makeText(
+                            this@ChatActivity,
+                            "Failed to update Friend's inbox:${error.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                    getInbox(friendId,currentUid).setValue(inboxMap)
-                }
-
-                override fun onCancelled(error: DatabaseError) {}
-            })
-        }
+                })
+            }
+            .addOnFailureListener {
+                Toast.makeText(this,it.message.toString(),Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun updateUnreadCount(){
@@ -222,7 +241,9 @@ class ChatActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onCancelled(error: DatabaseError) {}
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@ChatActivity,"Failed to update Unread Count:${error.message}",Toast.LENGTH_SHORT).show()
+            }
         })
     }
 
@@ -245,8 +266,15 @@ class ChatActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        getInbox(currentUid,friendId).removeEventListener(updateUnreadCountListener)
+    override fun onStop() {
+        super.onStop()
+        if(::updateUnreadCountListener.isInitialized)
+            getInbox(currentUid,friendId).removeEventListener(updateUnreadCountListener)
+
+        if(::userStatusListener.isInitialized)
+            db.reference.child("user_status/${friendId}").removeEventListener(userStatusListener)
+
+        if(::msgListener.isInitialized)
+            getMessages(friendId).removeEventListener(msgListener)
     }
 }

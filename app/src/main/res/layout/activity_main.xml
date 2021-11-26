@@ -76,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:menu="@menu/navigation_menu"
-        android:background="#E3386A"
+        android:background="#312E5F"
         app:itemTextColor="@color/white"
         app:itemIconTint="@color/white"
         app:itemTextAppearance="@style/TextAppearance.AppCompat.Title"

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_posts.*
 import kotlinx.android.synthetic.main.fragment_posts.view.*
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -269,6 +271,11 @@ class PostsFragment : Fragment() {
                 model: Product
             ) {
                 holder.bind(model)
+            }
+
+            override fun onError(e: Exception) {
+                super.onError(e)
+                Toast.makeText(requireContext(),"Failed to fetch posts",Toast.LENGTH_SHORT).show()
             }
         }
     }

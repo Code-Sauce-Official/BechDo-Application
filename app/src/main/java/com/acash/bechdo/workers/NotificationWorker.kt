@@ -40,29 +40,32 @@ class NotificationWorker(private val context: Context, params: WorkerParameters)
     }
 
     override fun doWork(): Result {
-        var isSuccessful = false
+        if (auth.currentUser != null) {
+            var isSuccessful = false
 
-        val task = rtDb.reference.child("inbox/${auth.uid.toString()}").get()
+            val task = rtDb.reference.child("inbox/${auth.uid.toString()}").get()
 
-        Tasks.await(task)
+            Tasks.await(task)
 
-        val inboxListSnapshot = task.result
+            val inboxListSnapshot = task.result
 
-        if(inboxListSnapshot?.exists()==true) {
-            for ((index, inboxSnapshot) in inboxListSnapshot.children.withIndex()) {
-                val friendInInbox = inboxSnapshot.getValue(Inbox::class.java)
-                friendInInbox?.apply {
-                    if (count > 0) {
-                        showNotification(index, this)
+            if (inboxListSnapshot?.exists() == true) {
+                for ((index, inboxSnapshot) in inboxListSnapshot.children.withIndex()) {
+                    val friendInInbox = inboxSnapshot.getValue(Inbox::class.java)
+                    friendInInbox?.apply {
+                        if (count > 0) {
+                            showNotification(index, this)
+                        }
                     }
                 }
+                isSuccessful = true
             }
-            isSuccessful = true
-        }
 
-        return if(isSuccessful)
-            Result.success()
-        else Result.retry()
+            return if (isSuccessful)
+                Result.success()
+            else Result.retry()
+        }
+        return Result.retry()
     }
 
 
