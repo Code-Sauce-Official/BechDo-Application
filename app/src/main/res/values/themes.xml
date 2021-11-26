@@ -15,6 +15,8 @@
         <item name="android:windowFullscreen">true</item>
         <item name="colorAccent">#312E5F</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+        <item name="android:textColorHint">#312E5F</item>
+        <item name="android:editTextColor">#312E5F</item>
     </style>
 
     <style name="ChatActivityTheme" parent="Theme.BechDo">

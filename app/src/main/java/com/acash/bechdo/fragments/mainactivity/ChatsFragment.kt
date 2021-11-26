@@ -14,6 +14,7 @@ import com.acash.bechdo.models.Inbox
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_chats.*
 
@@ -59,6 +60,13 @@ class ChatsFragment : Fragment() {
                     intent.putExtra(THUMBIMG, thumbImg)
                     startActivity(intent)
                 }
+            }
+
+            override fun onError(error: DatabaseError) {
+                super.onError(error)
+
+                if(::inboxAdapter.isInitialized)
+                    inboxAdapter.stopListening()
             }
         }
     }

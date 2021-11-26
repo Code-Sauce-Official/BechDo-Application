@@ -8,36 +8,40 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnAddProduct"
+        android:layout_alignParentTop="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="45dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="10dp">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/bg_rounded"
                 android:clickable="true"
                 android:focusable="true"
                 android:imeOptions="actionSearch"
-                android:textColor="@color/white"
+                android:textColor="#312E5F"
                 android:textSize="14sp"
-                android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-                app:iconifiedByDefault="false" />
+                android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
+                app:iconifiedByDefault="false"
+                app:searchIcon="@drawable/ic_baseline_search_24"
+                app:closeIcon="@drawable/ic_baseline_close_24"/>
 
             <TextView
                 android:id="@+id/tvCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/montserrat"
                 android:text="@string/categories"
                 android:textColor="#312e5f"
@@ -47,7 +51,7 @@
                 android:id="@+id/rvCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/category_row" />
@@ -55,15 +59,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="25dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tvRecent"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:fontFamily="@font/montserrat"
@@ -71,17 +75,15 @@
                     android:textColor="#312e5f"
                     android:textSize="18sp" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <TextView
                     android:id="@+id/btnShowAll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/gradient_colour"
+                    android:layout_gravity="center_vertical"
                     android:fontFamily="@font/montserrat"
                     android:text="@string/show_all"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    app:cornerRadius="5dp" />
+                    android:textColor="#E3386A"
+                    android:textSize="16sp"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -92,30 +94,21 @@
                 android:minHeight="240dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_product" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnAddProduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/gradient_colour"
-                android:fontFamily="@font/montserrat"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:text="@string/want_to_rent_sell_something"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:cornerRadius="5dp" />
-
         </LinearLayout>
     </ScrollView>
 
-    <View
-        android:id="@+id/bottomWave"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddProduct"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bottom_wave" />
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="@string/want_to_rent_sell_something"
+        android:fontFamily="@font/montserrat"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:cornerRadius="0dp"/>
 </RelativeLayout>
 

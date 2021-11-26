@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="10dp"
         android:orientation="horizontal">
 
@@ -24,10 +24,12 @@
             android:clickable="true"
             android:focusable="true"
             android:imeOptions="actionSearch"
-            android:textColor="@color/white"
+            android:textColor="#312E5F"
             android:textSize="14sp"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-            app:iconifiedByDefault="false" />
+            android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
+            app:iconifiedByDefault="false"
+            app:searchIcon="@drawable/ic_baseline_search_24"
+            app:closeIcon="@drawable/ic_baseline_close_24"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/filterBtn"

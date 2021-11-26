@@ -244,36 +244,56 @@
 
         </RadioGroup>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/Upload"
-            android:textAlignment="center"
-            android:textColor="#31215F"
-            android:textSize="16sp"
-            android:textStyle="bold" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/uploadClgIdBtn"
-            android:layout_width="wrap_content"
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:elevation="0dp"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/Uploadbtn"
-            android:textAllCaps="false"
-            android:textSize="14sp"
-            app:backgroundTint="#312E5F"
-            app:cornerRadius="50dp" />
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#F1F3FD"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/Upload"
+                    android:textAlignment="center"
+                    android:textColor="#31215F"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/uploadClgIdBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:elevation="0dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/Uploadbtn"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    app:backgroundTint="#312E5F"
+                    app:cornerRadius="50dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginEnd="35dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/verification"
             android:textAlignment="center"
@@ -283,8 +303,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp">
 
             <com.google.android.material.checkbox.MaterialCheckBox
@@ -295,15 +315,15 @@
 
             <TextView
                 android:id="@+id/tvTnC"
-                android:lineSpacingExtra="6dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/accepttnc"
-                android:gravity="center"
                 android:layout_gravity="center"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:lineSpacingExtra="6dp"
+                android:text="@string/accepttnc"
                 android:textColor="#E3366A"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton

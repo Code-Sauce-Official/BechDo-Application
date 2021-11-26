@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.acash.bechdo.R
@@ -16,7 +15,6 @@ import com.acash.bechdo.adapters.ProductPicsViewAdapter
 import com.acash.bechdo.models.Product
 import com.acash.bechdo.models.User
 import com.bumptech.glide.Glide
-import com.google.android.material.chip.Chip
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -69,6 +67,7 @@ class ProductInfoFragment : Fragment() {
             tvTitle.text = product.title
             tvPrice.text = price
             tvDescription.text = product.description
+            tvClgName.text = product.clg
             btnSaveProduct.isSelected = favourites?.contains(product.productId) ?: false
 
             categoryChip.text = product.category

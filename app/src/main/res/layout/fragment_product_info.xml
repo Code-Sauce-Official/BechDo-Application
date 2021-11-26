@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="280dp"
             android:layout_marginStart="18dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:layout_marginEnd="18dp"
             android:scaleType="centerCrop"
             app:shapeAppearance="@style/RoundedImageViewProductPicLarge"
@@ -89,12 +89,24 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/tvClgName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="20dp"
+            tools:text="Maharaja Agrasen Institute of Technology"
+            android:textColor="#312E5F"
+            android:fontFamily="@font/montserrat"
+            android:textSize="14sp" />
+
         <com.google.android.material.chip.Chip
             android:id="@+id/categoryChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/montserrat"
             android:textColor="#312E5F"
             android:textSize="14sp"

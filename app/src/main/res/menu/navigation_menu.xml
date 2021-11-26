@@ -19,7 +19,7 @@
 
     <item android:id="@+id/favourites"
         android:checkable="true"
-        android:icon="@drawable/request_icon"
+        android:icon="@drawable/star_icon"
         android:title="@string/favourites"/>
 
     <item android:id="@+id/messages"

@@ -120,25 +120,34 @@ class SignUpFragment : Fragment() {
         if(pwdEt.text.isNullOrEmpty()){
             pwdInput.error = "Password cannot be empty!"
             return false
-        }else if (pwdEt.text!!.length < 8) {
+        }
+
+        if (pwdEt.text!!.length < 8) {
             pwdInput.error = "Password should be at-least 8 characters long"
             return false
-        } else if (!pwdEt.text!!.any {
+        }
+
+        if (!pwdEt.text!!.any {
                 it.isLetter()
             }) {
             pwdInput.error = "Password must contain at-least one letter"
             return false
-        } else if (!pwdEt.text!!.any {
+        }
+
+        if (!pwdEt.text!!.any {
                 it.isDigit()
             }) {
             pwdInput.error = "Password must contain at-least one digit"
             return false
-        } else if (!pwdEt.text!!.any {
+        }
+
+        if (!pwdEt.text!!.any {
                 !it.isLetterOrDigit()
             }) {
             pwdInput.error = "Password must contain at-least one special character"
             return false
         }
+
         return true
     }
 
@@ -146,10 +155,13 @@ class SignUpFragment : Fragment() {
         if (confirmPwdEt.text.isNullOrEmpty()) {
             confirmPwdInput.error = "Required Field!"
             return false
-        }else if (!pwdEt.text.isNullOrEmpty() && (pwdEt.text.toString() != confirmPwdEt.text.toString())) {
+        }
+
+        if (!pwdEt.text.isNullOrEmpty() && (pwdEt.text.toString() != confirmPwdEt.text.toString())) {
             confirmPwdInput.error = "Passwords do not match"
             return false
         }
+
         return true
     }
 

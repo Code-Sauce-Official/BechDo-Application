@@ -40,7 +40,7 @@
             android:gravity="center"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:text="@string/one_step_solution_for_all_your_n_college_necessities_like_books_n_drafters_and_so_much_more"
+            android:text="@string/one_step_solution_for_all_your_college_necessities"
             android:textColor="#E3386A"
             android:textSize="18sp" />
     </LinearLayout>
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="30dp">
+        android:layout_marginBottom="15dp">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="30dp"
@@ -63,7 +63,7 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginStart="5dp"
-            android:backgroundTint="#65CBC3"
+            android:backgroundTint="#4DE3386A"
             app:cardCornerRadius="15dp"
             app:cardElevation="0dp" />
 
@@ -71,7 +71,7 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginStart="5dp"
-            android:backgroundTint="#65CBC3"
+            android:backgroundTint="#4DE3386A"
             app:cardCornerRadius="15dp"
             app:cardElevation="0dp" />
 
@@ -79,7 +79,7 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginStart="5dp"
-            android:backgroundTint="#65CBC3"
+            android:backgroundTint="#4DE3386A"
             app:cardCornerRadius="15dp"
             app:cardElevation="0dp" />
 
