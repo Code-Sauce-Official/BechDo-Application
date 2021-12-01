@@ -1,6 +1,5 @@
 package com.acash.bechdo.adapters
 
-import android.content.Context
 import android.graphics.Color
 import android.net.Uri
 import android.view.LayoutInflater
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.acash.bechdo.R
 import kotlinx.android.synthetic.main.list_item_product_pic_post.view.*
 
-class ProductPicsPostAdapter(private val pics:ArrayList<Uri>, val context:Context):RecyclerView.Adapter<ProductPicsPostAdapter.ProductPicsHolder>() {
+class ProductPicsPostAdapter(private val pics:ArrayList<Uri>):RecyclerView.Adapter<ProductPicsPostAdapter.ProductPicsHolder>() {
     var onClick: (() -> Unit)? = null
     class ProductPicsHolder(itemView: View) :RecyclerView.ViewHolder(itemView)
 

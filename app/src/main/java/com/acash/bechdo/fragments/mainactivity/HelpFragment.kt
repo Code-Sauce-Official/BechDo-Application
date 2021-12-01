@@ -16,21 +16,26 @@ import kotlinx.android.synthetic.main.fragment_help.*
 
 class HelpFragment : Fragment() {
 
-    private val arrQues = arrayOf("Lorem ipsum dolor sit amet, consectetur adipiscin elit.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscin elit.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscin elit.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscin elit.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscin elit.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscin elit."
+    private val arrQues = arrayOf(
+        R.string.faqs_ques_1,
+        R.string.faqs_ques_2,
+        R.string.faqs_ques_3,
+        R.string.faqs_ques_4,
+        R.string.faqs_ques_5,
+        R.string.faqs_ques_6,
+        R.string.faqs_ques_7,
+        R.string.faqs_ques_8
     )
 
-    private val arrAns = arrayOf("Lorem ipsum dolor sit amet, consectetur adipiscin elit. Morbi sagittis turpis quam, non venenatis risus sollicitudin non. Sed nec turpis.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscin elit. Morbi sagittis turpis quam, non venenatis risus sollicitudin non. Sed nec turpis.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscin elit. Morbi sagittis turpis quam, non venenatis risus sollicitudin non. Sed nec turpis.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscin elit. Morbi sagittis turpis quam, non venenatis risus sollicitudin non. Sed nec turpis.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscin elit. Morbi sagittis turpis quam, non venenatis risus sollicitudin non. Sed nec turpis.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscin elit. Morbi sagittis turpis quam, non venenatis risus sollicitudin non. Sed nec turpis.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscin elit. Morbi sagittis turpis quam, non venenatis risus sollicitudin non. Sed nec turpis."
+    private val arrAns = arrayOf(
+        R.string.faqs_ans_1,
+        R.string.faqs_ans_2,
+        R.string.faqs_ans_3,
+        R.string.faqs_ans_4,
+        R.string.faqs_ans_5,
+        R.string.faqs_ans_6,
+        R.string.faqs_ans_7,
+        R.string.faqs_ans_8
     )
 
     override fun onCreateView(

@@ -7,15 +7,13 @@ import android.text.SpannableString
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.acash.bechdo.R
+import com.acash.bechdo.activities.EmailActivity
 import com.acash.bechdo.activities.createProgressDialog
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_sign_up.*
@@ -40,22 +38,6 @@ class SignUpFragment : Fragment() {
         signUpBtn.setOnClickListener{
             if(validateCredentials()) {
                 signUpUser(emailEt.text.toString(), pwdEt.text.toString())
-            }
-        }
-
-        taglineBtn.setOnClickListener{
-            if(tvTagline.visibility==View.GONE) {
-                tvTagline.visibility = View.VISIBLE
-                emailPwdLayout.visibility = View.GONE
-                taglineBtn.setImageDrawable(
-                    ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_keyboard_arrow_up_24,null)
-                )
-            }else{
-                tvTagline.visibility = View.GONE
-                emailPwdLayout.visibility = View.VISIBLE
-                taglineBtn.setImageDrawable(
-                    ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_keyboard_arrow_down_24,null)
-                )
             }
         }
 
@@ -174,36 +156,26 @@ class SignUpFragment : Fragment() {
                     auth.currentUser?.sendEmailVerification()
                         ?.addOnSuccessListener {
                             progressDialog.dismiss()
-                            showToast("We have sent a verification link on your e-mail address.")
+                            (activity as EmailActivity).showToast("We have sent a verification link on your e-mail address.")
                         }
                         ?.addOnFailureListener {
                             progressDialog.dismiss()
-                            showToast(it.message.toString())
+                            (activity as EmailActivity).showToast(it.message.toString())
                         }
                 }else{
                     progressDialog.dismiss()
-                    showToast(task.exception?.message.toString())
+                    (activity as EmailActivity).showToast(task.exception?.message.toString())
                 }
             }
-    }
-
-    private fun showToast(message:String){
-        val toast = Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT)
-        toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
-        toast.show()
     }
 
     private fun setSpannableString(){
         val span = SpannableString("Already registered ? Sign in")
 
         val clickableSpan = object : ClickableSpan(){
-            /**
-             * Performs the click action associated with this span.
-             */
+
             override fun onClick(widget: View) {
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, SignInFragment())
-                    ?.commit()
+                (activity as EmailActivity).changeFragment(SignInFragment())
             }
 
             override fun updateDrawState(ds: TextPaint) {

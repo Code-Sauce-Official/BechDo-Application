@@ -262,7 +262,7 @@ class PostsFragment : Fragment() {
                 ProductViewHolder(
                     LayoutInflater.from(parent.context).inflate(
                         R.layout.list_item_product, parent, false
-                    ), requireActivity()
+                    )
                 )
 
             override fun onBindViewHolder(
@@ -270,7 +270,13 @@ class PostsFragment : Fragment() {
                 position: Int,
                 model: Product
             ) {
-                holder.bind(model)
+                holder.bind(model){ productJsonString->
+                    val fragmentToSet = ProductInfoFragment()
+                    val bundle = Bundle()
+                    bundle.putString("ProductJsonString",productJsonString)
+                    fragmentToSet.arguments = bundle
+                    (activity as MainActivity).setFragment(fragmentToSet)
+                }
             }
 
             override fun onError(e: Exception) {

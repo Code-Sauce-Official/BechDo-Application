@@ -110,7 +110,7 @@ class PostProductsFragment : Fragment() {
             storageLocation += "For Rent/"
         }else storageLocation += "For Sale/"
 
-        productPicsPostAdapter = ProductPicsPostAdapter(pics, requireContext())
+        productPicsPostAdapter = ProductPicsPostAdapter(pics)
         productPicsPostAdapter.onClick = {
             checkPermissionsForImage()
         }

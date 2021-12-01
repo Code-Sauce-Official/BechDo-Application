@@ -9,16 +9,14 @@ import android.text.SpannableString
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import com.acash.bechdo.activities.MainActivity
 import com.acash.bechdo.R
+import com.acash.bechdo.activities.EmailActivity
+import com.acash.bechdo.activities.MainActivity
 import com.acash.bechdo.activities.ProfileActivity
 import com.acash.bechdo.activities.createProgressDialog
 import com.google.firebase.auth.FirebaseAuth
@@ -49,22 +47,6 @@ class SignInFragment : Fragment() {
         signInBtn.setOnClickListener {
             if(validateCredentials()){
                 signInUser(emailEt.text.toString(), pwdEt.text.toString())
-            }
-        }
-
-        taglineBtn.setOnClickListener{
-            if(tvTagline.visibility==View.GONE) {
-                tvTagline.visibility = View.VISIBLE
-                emailPwdLayout.visibility = View.GONE
-                taglineBtn.setImageDrawable(
-                    ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_keyboard_arrow_up_24,null)
-                )
-            }else{
-                tvTagline.visibility = View.GONE
-                emailPwdLayout.visibility = View.VISIBLE
-                taglineBtn.setImageDrawable(
-                    ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_keyboard_arrow_down_24,null)
-                )
             }
         }
 
@@ -143,23 +125,17 @@ class SignInFragment : Fragment() {
                             }
                             .addOnFailureListener {
                                 progressDialog.dismiss()
-                                showToast(it.message.toString())
+                                (activity as EmailActivity).showToast(it.message.toString())
                             }
                     }else{
                         progressDialog.dismiss()
-                        showToast("Please verify your e-mail address!")
+                        (activity as EmailActivity).showToast("Please verify your e-mail address!")
                     }
                 }else{
                     progressDialog.dismiss()
-                    showToast(task.exception?.message.toString())
+                    (activity as EmailActivity).showToast(task.exception?.message.toString())
                 }
             }
-    }
-
-    private fun showToast(message:String){
-        val toast = Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT)
-        toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,0,-65)
-        toast.show()
     }
 
     private fun setSpannableStrings() {
@@ -168,9 +144,7 @@ class SignInFragment : Fragment() {
 
         val clickableSpanNewUser = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, SignUpFragment())
-                    ?.commit()
+                (activity as EmailActivity).changeFragment(SignUpFragment())
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -197,14 +171,14 @@ class SignInFragment : Fragment() {
              */
             override fun onClick(widget: View) {
                 if(emailEt.text.isNullOrEmpty()){
-                    showToast("Enter your registered Email id")
+                    (activity as EmailActivity).showToast("Enter your registered Email id")
                 }else {
                     auth.sendPasswordResetEmail(emailEt.text.toString())
                         .addOnCompleteListener{task->
                             if(task.isSuccessful){
-                                showToast("We have sent you instructions to reset password on your mail")
+                                (activity as EmailActivity).showToast("We have sent you instructions to reset password on your mail")
                             }else{
-                                showToast(task.exception?.message.toString())
+                                (activity as EmailActivity).showToast(task.exception?.message.toString())
                             }
                         }
                 }
@@ -250,21 +224,21 @@ class SignInFragment : Fragment() {
                                 countDownTimer.cancel()
                                 tvSendVerificationMail.text = spanVerification
                                 auth.signOut()
-                                showToast("Email Address has already been verified")
+                                (activity as EmailActivity).showToast("Email Address has already been verified")
                             } else {
                                 auth.currentUser?.sendEmailVerification()
                                     ?.addOnSuccessListener {
-                                        showToast("We have sent a verification link on your e-mail address.")
+                                        (activity as EmailActivity).showToast("We have sent a verification link on your e-mail address.")
                                     }
                                     ?.addOnFailureListener {
-                                        showToast(it.message.toString())
+                                        (activity as EmailActivity).showToast(it.message.toString())
                                     }
                             }
                         }
                         .addOnFailureListener {
                             countDownTimer.cancel()
                             tvSendVerificationMail.text = spanVerification
-                            showToast(it.message.toString())
+                            (activity as EmailActivity).showToast(it.message.toString())
                         }
                 }
             }

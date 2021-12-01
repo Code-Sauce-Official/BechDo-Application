@@ -5,16 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.acash.bechdo.utils.FadeOutTransformation
 import com.acash.bechdo.R
 import com.acash.bechdo.adapters.ViewPagerAdapter
-import com.acash.bechdo.fragments.introactivity.ClickPhotoFragment
-import com.acash.bechdo.fragments.introactivity.CompareFragment
-import com.acash.bechdo.fragments.introactivity.ContactFragment
-import com.acash.bechdo.fragments.introactivity.ViewProductsFragment
+import com.acash.bechdo.fragments.introactivity.IntroFragment2
+import com.acash.bechdo.fragments.introactivity.IntroFragment3
+import com.acash.bechdo.fragments.introactivity.IntroFragment4
+import com.acash.bechdo.fragments.introactivity.IntroFragment1
 import kotlinx.android.synthetic.main.activity_intro.*
 
 class IntroActivity : AppCompatActivity() {
     private val fragments = arrayListOf(
-            ViewProductsFragment(), ClickPhotoFragment(), CompareFragment(),
-            ContactFragment()
+            IntroFragment1(), IntroFragment2(), IntroFragment3(),
+            IntroFragment4()
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -63,7 +63,7 @@ class ChatActivity : AppCompatActivity() {
         nameTv.text = friendName
 
         if(friendImg!="")
-            Glide.with(this).load(friendImg).placeholder(R.drawable.defaultavatar).error(R.drawable.defaultavatar).into(userImgView)
+            Glide.with(this).load(friendImg).placeholder(R.drawable.default_avatar).error(R.drawable.default_avatar).into(userImgView)
 
         chatAdapter = ChatAdapter(listChatEvents,currentUid)
 
@@ -92,7 +92,7 @@ class ChatActivity : AppCompatActivity() {
 
         sendBtn.setOnClickListener{
             msgEdtv.text?.let {
-                if(it.isNotEmpty() && ::currentUser.isInitialized) {
+                if(it.isNotEmpty() && this::currentUser.isInitialized) {
                     sendMessage(it.toString())
                     it.clear()
                 }

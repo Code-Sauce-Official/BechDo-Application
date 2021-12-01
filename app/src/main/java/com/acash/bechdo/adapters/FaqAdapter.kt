@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.acash.bechdo.R
 import kotlinx.android.synthetic.main.list_item_faq.view.*
 
-class FaqAdapter(private val arrQues:Array<String>, private val arrAns:Array<String> ):RecyclerView.Adapter<FaqAdapter.FaqViewHolder>() {
+class FaqAdapter(private val arrQues: Array<Int>, private val arrAns: Array<Int>):RecyclerView.Adapter<FaqAdapter.FaqViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = FaqViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.list_item_faq,parent,false)
@@ -15,8 +15,8 @@ class FaqAdapter(private val arrQues:Array<String>, private val arrAns:Array<Str
 
     override fun onBindViewHolder(holder: FaqViewHolder, position: Int) {
         holder.itemView.apply {
-            tvQues.text = arrQues[position]
-            tvAns.text = arrAns[position]
+            tvQues.text = context.getString(arrQues[position])
+            tvAns.text = context.getString(arrAns[position])
             btnExpand.setOnClickListener {
                 if(tvAns.maxLines==2){
                     btnExpand.setImageResource(R.drawable.ic_arrow_bottom_circle)

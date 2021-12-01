@@ -1,20 +1,16 @@
 package com.acash.bechdo.adapters
 
-import android.app.Activity
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.acash.bechdo.R
-import com.acash.bechdo.activities.MainActivity
-import com.acash.bechdo.fragments.mainactivity.PostsFragment
 import com.acash.bechdo.models.Categories
 import kotlinx.android.synthetic.main.category_row.view.*
 
-class CategoryAdapter(private val list: ArrayList<Categories>, private val activity: Activity, private val colors: IntArray = activity.resources.getIntArray(
-    R.array.random_colors
-)): RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter(private val list: ArrayList<Categories>, private val colors: IntArray): RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+
+    var onClick: ((categoryName:String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CategoryViewHolder(
         LayoutInflater.from(parent.context).inflate(
@@ -31,12 +27,7 @@ class CategoryAdapter(private val list: ArrayList<Categories>, private val activ
             tvCategory.text = category.caption
 
             cardCategory.setOnClickListener {
-                val fragmentToSet = PostsFragment()
-                val bundle = Bundle()
-                bundle.putString("Task","Category")
-                bundle.putString("CategoryFilter", tvCategory.text.toString())
-                fragmentToSet.arguments = bundle
-                (activity as MainActivity).setFragment(fragmentToSet)
+                onClick?.invoke(tvCategory.text.toString())
             }
         }
     }
