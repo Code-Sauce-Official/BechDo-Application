@@ -21,8 +21,8 @@ class ProductPicsViewAdapter(private val downloadUrlsPics:ArrayList<String>) : R
 
     override fun onBindViewHolder(holder: PicViewHolder, position: Int) {
         holder.itemView.apply {
-            Glide.with(this).load(downloadUrlsPics[position]).placeholder(R.drawable.defaultavatar)
-                .error(R.drawable.defaultavatar)
+            Glide.with(this).load(downloadUrlsPics[position]).placeholder(R.drawable.default_image)
+                .error(R.drawable.default_image)
                 .into(imgView)
 
             imgView.setOnClickListener {

@@ -9,7 +9,6 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.media.RingtoneManager
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -116,20 +115,19 @@ class NotificationWorker(private val context: Context, params: WorkerParameters)
                 else "$count new messages from $name"
             }
 
-        var largeIcon = BitmapFactory.decodeResource(context.resources,R.drawable.defaultavatar)
+        var largeIcon = BitmapFactory.decodeResource(context.resources,R.drawable.default_avatar)
 
         if(friendInInbox.image!="") {
             runBlocking(Dispatchers.IO){
-                try {
+                largeIcon = try {
                     val url = URL(friendInInbox.image)
                     val httpUrlConnection = url.openConnection() as HttpURLConnection
                     val inputStream = httpUrlConnection.inputStream
-                    largeIcon = BitmapFactory.decodeStream(inputStream)
+                    BitmapFactory.decodeStream(inputStream)
                 }catch (e:MalformedURLException){
-                    Log.i("Notification img",e.message.toString())
-                }
-                catch (e:IOException){
-                    Log.i("Notification img",e.message.toString())
+                    BitmapFactory.decodeResource(context.resources,R.drawable.default_avatar)
+                } catch (e:IOException){
+                    BitmapFactory.decodeResource(context.resources,R.drawable.default_avatar)
                 }
             }
         }

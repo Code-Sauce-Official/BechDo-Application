@@ -18,7 +18,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.work.*
 import com.acash.bechdo.R
 import com.acash.bechdo.fragments.mainactivity.*
-import com.acash.bechdo.models.Colleges
 import com.acash.bechdo.models.User
 import com.acash.bechdo.workers.NotificationWorker
 import com.bumptech.glide.Glide
@@ -28,11 +27,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_posts.*
-import kotlinx.android.synthetic.main.fragment_product_info.view.*
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.collections.HashSet
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     DrawerLayout.DrawerListener {
@@ -257,8 +253,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         currentUserInfo?.downloadUrlDp.let { url ->
             if (url != "") {
                 Glide.with(this).load(url)
-                    .placeholder(R.drawable.defaultavatar)
-                    .error(R.drawable.defaultavatar).into(dp)
+                    .placeholder(R.drawable.default_avatar)
+                    .error(R.drawable.default_avatar).into(dp)
             }
         }
     }

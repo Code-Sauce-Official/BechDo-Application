@@ -30,7 +30,7 @@
                 android:contentDescription="@string/upload_profile"
                 android:padding="5dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/defaultavatar"
+                android:src="@drawable/default_avatar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

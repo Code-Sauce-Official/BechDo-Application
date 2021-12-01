@@ -19,8 +19,8 @@ class InboxViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         subtitleTv.text = inbox.msg
 
         if(inbox.image!="")
-            Glide.with(itemView).load(inbox.image).placeholder(R.drawable.defaultavatar).error(R.drawable.defaultavatar).into(userImgView)
-        else Glide.with(itemView).load(R.drawable.defaultavatar).into(userImgView)
+            Glide.with(itemView).load(inbox.image).placeholder(R.drawable.default_avatar).error(R.drawable.default_avatar).into(userImgView)
+        else Glide.with(itemView).load(R.drawable.default_avatar).into(userImgView)
 
         setOnClickListener{
             onClick.invoke(inbox.name,inbox.from,inbox.image)

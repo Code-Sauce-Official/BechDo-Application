@@ -65,7 +65,7 @@ class ChatsFragment : Fragment() {
             override fun onError(error: DatabaseError) {
                 super.onError(error)
 
-                if(::inboxAdapter.isInitialized)
+                if(this@ChatsFragment::inboxAdapter.isInitialized)
                     inboxAdapter.stopListening()
             }
         }

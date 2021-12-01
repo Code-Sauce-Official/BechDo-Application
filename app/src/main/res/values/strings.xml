@@ -15,7 +15,7 @@
     <string name="contact_the_seller_buyer">Contact the seller/buyer</string>
     <string name="get_in_touch_with_seller_buyer_in_your_own_college">Get in touch with seller/buyer in your own college</string>
     <string name="enter_your_email">Enter your Email</string>
-    <string name="enter_your_password">Enter your Password</string>
+    <string name="enter_a_password">Enter a Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="College">College</string>
     <string name="Year">Year</string>
@@ -93,4 +93,20 @@
     <string name="frequently_asked_questions">Frequently Asked Questions</string>
     <string name="contact_us">Contact Us</string>
     <string name="this_product_is_currently_unavailable">This Product is currently unavailable</string>
+    <string name="faqs_ques_1">Do we have a payment gateway?</string>
+    <string name="faqs_ans_1">No, we do not support any online payments as of now, the buyer can interact with the seller using the inbuilt chat functionality and discuss the mode of payment. This also makes the prices negotiable.😉</string>
+    <string name="faqs_ques_2">How do we verify your college Id?</string>
+    <string name="faqs_ans_2">Our team verifies the college ID manually within 24 hours of uploading the same. Although the app is usable within that time frame, if found incorrect, the account would be disabled and one needs to contact us with an authentic college id for it to be activated.</string>
+    <string name="faqs_ques_3">Can I only see products from my own college?</string>
+    <string name="faqs_ans_3">No, products from all the listed colleges will be visible and available to every user. However one can use the college filter to see products of only their or a particular college.</string>
+    <string name="faqs_ques_4">What should I keep in mind while posting a product?</string>
+    <string name="faqs_ans_4">While posting a product for rent or sale, add a proper title and description related to the product. The price should be reasonable and product photos should be clear. Also, keep in mind that an appropriate category should be selected while putting up the product on the app.</string>
+    <string name="faqs_ques_5">How do I delete the product once the transaction has taken place?</string>
+    <string name="faqs_ans_5">Once the transaction has taken place, you can mark the product as unavailable (in cases of rent) or you can remove the product permanently from the application as well. Both the options have been listed &amp; can be seen once you open the product description.</string>
+    <string name="faqs_ques_6">How can I update my account information?</string>
+    <string name="faqs_ans_6">On the top right corner of the app dashboard, you can open your profile by clicking on the image icon. There, you are given the option to edit your name, year or profile photo if you want to. Rest of the fields cannot be updated/changed once saved while creating the profile.</string>
+    <string name="faqs_ques_7">Can I delete my account?</string>
+    <string name="faqs_ans_7">No, the account cannot be deleted once created.</string>
+    <string name="faqs_ques_8">How do I search for a product?</string>
+    <string name="faqs_ans_8">Go to the search bar at the top of your screen and search for a product by name. You can also filter products by type(rent or sale), college, price and/or category.</string>
 </resources>

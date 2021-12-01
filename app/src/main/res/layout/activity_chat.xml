@@ -34,7 +34,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/defaultavatar"
+                android:src="@drawable/default_avatar"
                 app:shapeAppearanceOverlay="@style/RoundedImageView" />
 
             <TextView

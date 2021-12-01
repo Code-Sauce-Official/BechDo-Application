@@ -72,16 +72,16 @@ class ProductInfoFragment : Fragment() {
 
             categoryChip.text = product.category
 
-            Glide.with(this).load(product.downLoadUrlsPics[0]).placeholder(R.drawable.defaultavatar)
-                .error(R.drawable.defaultavatar)
+            Glide.with(this).load(product.downLoadUrlsPics[0]).placeholder(R.drawable.default_image)
+                .error(R.drawable.default_image)
                 .into(largeImgView)
 
             val productPicsViewAdapter = ProductPicsViewAdapter(product.downLoadUrlsPics)
 
             productPicsViewAdapter.onClick = { position ->
                 Glide.with(this).load(product.downLoadUrlsPics[position])
-                    .placeholder(R.drawable.defaultavatar)
-                    .error(R.drawable.defaultavatar)
+                    .placeholder(R.drawable.default_image)
+                    .error(R.drawable.default_image)
                     .into(largeImgView)
             }
 

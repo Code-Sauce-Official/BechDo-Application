@@ -34,10 +34,19 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val activityRef = requireActivity()
-
         val categories = Categories.getCategories()
-        val categoryAdapter = CategoryAdapter(categories, activityRef)
+        val categoryAdapter = CategoryAdapter(categories, resources.getIntArray(
+            R.array.random_colors
+        ))
+
+        categoryAdapter.onClick = {categoryName ->
+            val fragmentToSet = PostsFragment()
+            val bundle = Bundle()
+            bundle.putString("Task","Category")
+            bundle.putString("CategoryFilter", categoryName)
+            fragmentToSet.arguments = bundle
+            (activity as MainActivity).setFragment(fragmentToSet)
+        }
 
         rvCategory.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -46,7 +55,15 @@ class HomeFragment : Fragment() {
         }
 
         val recents = ArrayList<Product>()
-        val recentAdapter = RecentAdapter(recents,requireActivity())
+        val recentAdapter = RecentAdapter(recents)
+
+        recentAdapter.onClick = {productJsonString ->
+            val fragmentToSet = ProductInfoFragment()
+            val bundle = Bundle()
+            bundle.putString("ProductJsonString",productJsonString)
+            fragmentToSet.arguments = bundle
+            (activity as MainActivity).setFragment(fragmentToSet)
+        }
 
         rvRecent.apply{
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

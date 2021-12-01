@@ -84,8 +84,8 @@ class EditProfileFragment : Fragment() {
             }else user.downloadUrlDp.let { url ->
                 if (url != "") {
                     Glide.with(requireContext()).load(url)
-                        .placeholder(R.drawable.defaultavatar)
-                        .error(R.drawable.defaultavatar).into(image_view)
+                        .placeholder(R.drawable.default_avatar)
+                        .error(R.drawable.default_avatar).into(image_view)
                 }
             }
 
