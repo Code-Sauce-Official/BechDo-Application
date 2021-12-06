@@ -23,8 +23,7 @@ class HelpFragment : Fragment() {
         R.string.faqs_ques_4,
         R.string.faqs_ques_5,
         R.string.faqs_ques_6,
-        R.string.faqs_ques_7,
-        R.string.faqs_ques_8
+        R.string.faqs_ques_7
     )
 
     private val arrAns = arrayOf(
@@ -34,8 +33,7 @@ class HelpFragment : Fragment() {
         R.string.faqs_ans_4,
         R.string.faqs_ans_5,
         R.string.faqs_ans_6,
-        R.string.faqs_ans_7,
-        R.string.faqs_ans_8
+        R.string.faqs_ans_7
     )
 
     override fun onCreateView(

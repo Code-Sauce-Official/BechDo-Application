@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.*
 
-private fun getCurrentLocale(context: Context): Locale {
+fun getCurrentLocale(context: Context): Locale {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         context.resources.configuration.locales[0]
     } else {
@@ -86,7 +86,7 @@ fun Date.formatAsWeekDay(c: Context): String {
 fun Date.formatAsFull(context: Context, abbreviated: Boolean = false): String {
     val month = if (abbreviated) "LLL" else "LLLL"
 
-    return SimpleDateFormat("d $month YYYY", getCurrentLocale(context))
+    return SimpleDateFormat("d $month yyyy", getCurrentLocale(context))
         .format(this)
 }
 

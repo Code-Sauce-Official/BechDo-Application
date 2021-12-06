@@ -60,6 +60,7 @@
                 android:layout_gravity="end"
                 android:layout_marginStart="10dp"
                 android:src="@drawable/default_avatar"
+                android:scaleType="centerCrop"
                 app:shapeAppearanceOverlay="@style/CircularImageView" />
         </RelativeLayout>
 
