@@ -45,7 +45,8 @@ class EditProfileFragment : Fragment() {
         FirebaseFirestore.getInstance()
     }
 
-    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var selectImgLauncher: ActivityResultLauncher<Intent>
+    private lateinit var reqPermLauncher: ActivityResultLauncher<Array<out String>>
     private lateinit var newDp: Uri
     private lateinit var newDpUrl: String
     private var isNewDpSelected = false
@@ -54,7 +55,7 @@ class EditProfileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        resultLauncher =
+        selectImgLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == AppCompatActivity.RESULT_OK) {
                     result.data?.data?.let { uri ->
@@ -64,6 +65,24 @@ class EditProfileFragment : Fragment() {
                     }
                 }
             }
+
+        reqPermLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){ permissions->
+                val granted = permissions.entries.all{
+                    it.value == true
+                }
+
+                if(granted){
+                    selectImageFromGallery()
+                }else{
+                    Toast.makeText(
+                        requireContext(),
+                        "Cannot select image without storage permissions",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
     }
 
     override fun onCreateView(
@@ -236,30 +255,24 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun checkPermissionsForImage() {
-        if (requireContext().checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-            activity?.requestPermissions(
-                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                121
-            )
-        }
-
-        if (requireContext().checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-            activity?.requestPermissions(
-                arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                131
-            )
-        }
-
         if (requireContext().checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
             && requireContext().checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-        ) {
+        )
             selectImageFromGallery()
-        }
+        else if(::reqPermLauncher.isInitialized)
+            reqPermLauncher.launch(
+                arrayOf(
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+        )
     }
 
     private fun selectImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        resultLauncher.launch(intent)
+
+        if(::selectImgLauncher.isInitialized)
+            selectImgLauncher.launch(intent)
     }
 }

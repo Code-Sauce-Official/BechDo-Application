@@ -15,17 +15,19 @@ import android.text.method.LinkMovementMethod
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.acash.bechdo.R
 import com.acash.bechdo.models.Colleges
 import com.acash.bechdo.models.User
+import com.acash.bechdo.utils.getCurrentLocale
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_profile.*
 import java.io.ByteArrayOutputStream
@@ -47,27 +49,32 @@ class ProfileActivity : AppCompatActivity() {
         FirebaseFirestore.getInstance()
     }
 
-    private var myCalendar: Calendar = Calendar.getInstance()
+    private lateinit var selectImgLauncher: ActivityResultLauncher<Intent>
 
-    private var imgType = ""
+    private var myCalendar: Calendar = Calendar.getInstance()
 
     private var downloadUrlDp:String = ""
 
-    private lateinit var downloadUrlClgId:String
-
     private lateinit var dpUri:Uri
 
-    private lateinit var clgIdUri:Uri
-
     private lateinit var progressDialog:ProgressDialog
-
-    private var imgUploadCount = 0
 
     private lateinit var clgSet:HashSet<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+        selectImgLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    result.data?.data?.let { uri ->
+                        dpUri = uri
+                        image_view.setImageURI(uri)
+                    }
+                }
+            }
+
         tvTnC.movementMethod = LinkMovementMethod.getInstance()
 
         val clgList = ArrayList<String>()
@@ -123,12 +130,6 @@ class ProfileActivity : AppCompatActivity() {
 
         uploadPicBtn.setOnClickListener {
             checkPermissionsForImage()
-            imgType = "Dp"
-        }
-
-        uploadClgIdBtn.setOnClickListener{
-            checkPermissionsForImage()
-            imgType = "ClgId"
         }
 
         nameEt.setOnFocusChangeListener { _, hasFocus ->
@@ -155,50 +156,59 @@ class ProfileActivity : AppCompatActivity() {
             if(noErrors()){
                 progressDialog = this.createProgressDialog("Saving Data, Please wait...",false)
                 progressDialog.show()
-                uploadImages()
+
+                if (::dpUri.isInitialized)
+                    uploadDp()
+                else uploadDataToFirestore()
             }
         }
     }
 
     private fun updateDate() {
         val myFormat = "d MMM yyyy"
-        val sdf = SimpleDateFormat(myFormat)
+        val sdf = SimpleDateFormat(myFormat, getCurrentLocale(this))
         dobEt.setText(sdf.format(myCalendar.time))
     }
 
     private fun checkPermissionsForImage() {
-        if(checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)==PackageManager.PERMISSION_DENIED){
-            requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),121)
-        }
-
-        if(checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_DENIED){
-            requestPermissions(arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),131)
-        }
-
-        if(checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-            && checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED)
+        if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+            && checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        )
             selectImageFromGallery()
+        else requestPermissions(
+            arrayOf(
+                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ), 121
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == 121) {
+            if (grantResults.size > 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                selectImageFromGallery()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Cannot select image without storage permissions",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     private fun selectImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent,141)
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode== RESULT_OK && requestCode==141){
-            data?.data?.let{
-                if(imgType=="Dp") {
-                    dpUri = it
-                    image_view.setImageURI(it)
-                }else if(imgType == "ClgId"){
-                    clgIdUri = it
-                    uploadClgIdBtn.text = getString(R.string.uploadClgIdChanged)
-                }
-            }
-        }
+        if(::selectImgLauncher.isInitialized)
+            selectImgLauncher.launch(intent)
     }
 
     private fun checkNameErrors():Boolean {
@@ -246,11 +256,6 @@ class ProfileActivity : AppCompatActivity() {
                 return false
             }
 
-            if (!::clgIdUri.isInitialized) {
-                Toast.makeText(this, "College id cannot be empty!", Toast.LENGTH_SHORT).show()
-                return false
-            }
-
             if(!tncCheckBox.isChecked){
                 Toast.makeText(this, "Accepting Terms and Conditions is mandatory to proceed!", Toast.LENGTH_SHORT).show()
                 return false
@@ -262,33 +267,18 @@ class ProfileActivity : AppCompatActivity() {
         return false
     }
 
-    private fun uploadImages() {
-        lateinit var ref:StorageReference
-        lateinit var imgUri: Uri
+    private fun uploadDp() {
+        val ref = storage.reference.child("uploads/" + auth.uid.toString() + "/Dp")
 
-        if(imgUploadCount==0) {
-            if (::dpUri.isInitialized) {
-                ref = storage.reference.child("uploads/" + auth.uid.toString() + "/Dp")
-                imgUri = dpUri
-            }else {
-                imgUploadCount++
-                uploadImages()
-                return
-            }
-        }else {
-            ref = storage.reference.child("uploads/" + auth.uid.toString() + "/ClgId")
-            imgUri = clgIdUri
-        }
-
-        val bitmap: Bitmap = if(Build.VERSION.SDK_INT<=28) {
-            MediaStore.Images.Media.getBitmap(contentResolver, imgUri)
-        }else{
-            val source = ImageDecoder.createSource(contentResolver,imgUri)
+        val bitmap: Bitmap = if (Build.VERSION.SDK_INT <= 28) {
+            MediaStore.Images.Media.getBitmap(contentResolver, dpUri)
+        } else {
+            val source = ImageDecoder.createSource(contentResolver, dpUri)
             ImageDecoder.decodeBitmap(source)
         }
 
         val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG,25,baos)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 25, baos)
         val fileInBytes = baos.toByteArray()
         val uploadTask = ref.putBytes(fileInBytes)
 
@@ -300,15 +290,9 @@ class ProfileActivity : AppCompatActivity() {
             return@Continuation ref.downloadUrl
         }).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                if (imgUploadCount == 0) {
-                    downloadUrlDp = task.result.toString()
-                    imgUploadCount++
-                    uploadImages()
-                } else if (imgUploadCount == 1) {
-                    downloadUrlClgId = task.result.toString()
-                    uploadDataToFirestore()
-                }
-            }else{
+                downloadUrlDp = task.result.toString()
+                uploadDataToFirestore()
+            } else {
                 progressDialog.dismiss()
                 Toast.makeText(this, task.exception?.message, Toast.LENGTH_SHORT).show()
             }
@@ -322,7 +306,6 @@ class ProfileActivity : AppCompatActivity() {
             dobEt.text.toString(),
             clgDropDown.text.toString(),
             (findViewById<RadioButton>(yearRadio.checkedRadioButtonId)).text.toString(),
-            downloadUrlClgId,
             downloadUrlDp
         )
         database.collection("users").document(auth.uid.toString()).set(user)

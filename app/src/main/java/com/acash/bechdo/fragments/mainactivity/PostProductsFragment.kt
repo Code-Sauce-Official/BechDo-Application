@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,6 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +31,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_post_products.*
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -52,7 +49,8 @@ class PostProductsFragment : Fragment() {
         FirebaseFirestore.getInstance()
     }
 
-    private lateinit var resultLauncher:ActivityResultLauncher<Intent>
+    private lateinit var selectImgLauncher:ActivityResultLauncher<Intent>
+    private lateinit var reqPermLauncher: ActivityResultLauncher<Array<out String>>
     private lateinit var productId:String
     private lateinit var progressDialog: ProgressDialog
     private val downloadUrls = ArrayList<String>()
@@ -72,7 +70,7 @@ class PostProductsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result->
+        selectImgLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 if(pics.size==7) {
                     pics.clear()
@@ -98,6 +96,23 @@ class PostProductsFragment : Fragment() {
 
             }
         }
+
+        reqPermLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){ permissions->
+                val granted = permissions.entries.all{
+                    it.value == true
+                }
+
+                if(granted){
+                    selectMultipleImagesFromGallery()
+                }else{
+                    Toast.makeText(
+                        requireContext(),
+                        "Cannot select image without storage permissions",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -242,24 +257,17 @@ class PostProductsFragment : Fragment() {
     }
 
     private fun checkPermissionsForImage() {
-        if (requireContext().checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-            activity?.requestPermissions(
-                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                121
-            )
-        }
-
-        if (requireContext().checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-            activity?.requestPermissions(
-                arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                131
-            )
-        }
-
         if (requireContext().checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
             && requireContext().checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
         )
             selectMultipleImagesFromGallery()
+        else if(::reqPermLauncher.isInitialized)
+            reqPermLauncher.launch(
+                arrayOf(
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+        )
     }
 
     private fun selectMultipleImagesFromGallery() {
@@ -267,6 +275,8 @@ class PostProductsFragment : Fragment() {
         intent.type = "image/*"
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.action = Intent.ACTION_GET_CONTENT
-        resultLauncher.launch(Intent.createChooser(intent, "Select images(at max 7)"))
+
+        if(::selectImgLauncher.isInitialized)
+            selectImgLauncher.launch(Intent.createChooser(intent, "Select images(at max 7)"))
     }
 }

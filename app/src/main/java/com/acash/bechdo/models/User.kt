@@ -6,11 +6,8 @@ class User(
     val dob: String,
     val clg: String,
     var year: String,
-    val downloadUrlClgId: String,
     var downloadUrlDp: String,
     val favouriteProducts:ArrayList<String> = ArrayList(),
-    @field:JvmField
-    val isAccountActivated: Boolean = true,
 ) {
-    constructor() : this("", "", "", "", "", "", "", ArrayList<String>(), true)
+    constructor() : this("", "", "", "", "", "", ArrayList<String>())
 }
