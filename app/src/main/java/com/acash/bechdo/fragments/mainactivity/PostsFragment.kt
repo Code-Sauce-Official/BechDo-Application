@@ -62,7 +62,7 @@ class PostsFragment : Fragment() {
 
         newQuery = query
 
-        val queryLower = query.toLowerCase(Locale.ROOT)
+        val queryLower = query.lowercase(Locale.ROOT)
 
         when (task) {
             "Products" -> {

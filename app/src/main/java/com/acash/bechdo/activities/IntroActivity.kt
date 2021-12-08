@@ -5,10 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.acash.bechdo.utils.FadeOutTransformation
 import com.acash.bechdo.R
 import com.acash.bechdo.adapters.ViewPagerAdapter
+import com.acash.bechdo.fragments.introactivity.IntroFragment1
 import com.acash.bechdo.fragments.introactivity.IntroFragment2
 import com.acash.bechdo.fragments.introactivity.IntroFragment3
 import com.acash.bechdo.fragments.introactivity.IntroFragment4
-import com.acash.bechdo.fragments.introactivity.IntroFragment1
 import kotlinx.android.synthetic.main.activity_intro.*
 
 class IntroActivity : AppCompatActivity() {

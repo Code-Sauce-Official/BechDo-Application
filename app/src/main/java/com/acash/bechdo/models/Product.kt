@@ -4,8 +4,7 @@ import com.google.firebase.firestore.ServerTimestamp
 import java.util.*
 import kotlin.collections.ArrayList
 
-class
-Product(
+class Product(
     val productId:String,
     val postedBy:String,
     val title:String,

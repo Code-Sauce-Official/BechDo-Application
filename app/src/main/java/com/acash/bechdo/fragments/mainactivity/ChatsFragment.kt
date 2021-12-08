@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.acash.bechdo.BuildConfig
 import com.acash.bechdo.viewholders.InboxViewHolder
 import com.acash.bechdo.R
 import com.acash.bechdo.activities.*
@@ -26,7 +27,7 @@ class ChatsFragment : Fragment() {
     }
 
     private val database by lazy {
-        FirebaseDatabase.getInstance("https://bech-do-2b48b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        FirebaseDatabase.getInstance(BuildConfig.RTDB_URL)
     }
 
     override fun onCreateView(

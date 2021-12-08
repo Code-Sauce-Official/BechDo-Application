@@ -16,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.work.*
+import com.acash.bechdo.BuildConfig
 import com.acash.bechdo.R
 import com.acash.bechdo.fragments.mainactivity.*
 import com.acash.bechdo.models.User
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private val realtimeDatabase by lazy {
-        FirebaseDatabase.getInstance("https://bech-do-2b48b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        FirebaseDatabase.getInstance(BuildConfig.RTDB_URL)
     }
 
     private val userStatusCollection = realtimeDatabase.reference.child("user_status/${auth.uid}")
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
             "New Message Received",
-            ExistingPeriodicWorkPolicy.KEEP,
+            ExistingPeriodicWorkPolicy.REPLACE,
             notificationWork
         )
     }

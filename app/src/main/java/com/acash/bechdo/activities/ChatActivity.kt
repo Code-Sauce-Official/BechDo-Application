@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.acash.bechdo.BuildConfig
 import com.acash.bechdo.R
 import com.acash.bechdo.adapters.ChatAdapter
 import com.acash.bechdo.models.*
@@ -37,11 +38,11 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private val currentUid by lazy{
-        FirebaseAuth.getInstance().uid!!
+        FirebaseAuth.getInstance().uid.toString()
     }
 
     private val db by lazy{
-        FirebaseDatabase.getInstance("https://bech-do-2b48b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        FirebaseDatabase.getInstance(BuildConfig.RTDB_URL)
     }
 
     private var listChatEvents = mutableListOf<ChatEvent>()
