@@ -53,6 +53,8 @@ class ProfileActivity : AppCompatActivity() {
 
     private var myCalendar: Calendar = Calendar.getInstance()
 
+    private lateinit var datePickerDialog: DatePickerDialog
+
     private var downloadUrlDp:String = ""
 
     private lateinit var dpUri:Uri
@@ -104,27 +106,9 @@ class ProfileActivity : AppCompatActivity() {
             }
 
         dobEt.setOnClickListener {
-            val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                myCalendar.set(Calendar.YEAR,year)
-                myCalendar.set(Calendar.MONTH,month)
-                myCalendar.set(Calendar.DAY_OF_MONTH,dayOfMonth)
-                updateDate()
+            if (!(::datePickerDialog.isInitialized)) {
+                createDatePickerDialog()
             }
-
-            val datePickerDialog = DatePickerDialog(
-                this,
-                dateSetListener,
-                myCalendar.get(Calendar.YEAR),
-                myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH)
-            )
-
-            val maxDateCal = Calendar.getInstance()
-            maxDateCal.set(Calendar.YEAR,2003)
-            maxDateCal.set(Calendar.MONTH,11)
-            maxDateCal.set(Calendar.DAY_OF_MONTH,31)
-
-            datePickerDialog.datePicker.maxDate = maxDateCal.timeInMillis
             datePickerDialog.show()
         }
 
@@ -162,6 +146,25 @@ class ProfileActivity : AppCompatActivity() {
                 else uploadDataToFirestore()
             }
         }
+    }
+
+    private fun createDatePickerDialog() {
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            myCalendar.set(Calendar.YEAR,year)
+            myCalendar.set(Calendar.MONTH,month)
+            myCalendar.set(Calendar.DAY_OF_MONTH,dayOfMonth)
+            updateDate()
+        }
+
+        datePickerDialog = DatePickerDialog(
+            this,
+            dateSetListener,
+            myCalendar.get(Calendar.YEAR),
+            myCalendar.get(Calendar.MONTH),
+            myCalendar.get(Calendar.DAY_OF_MONTH)
+        )
+
+        datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
     }
 
     private fun updateDate() {

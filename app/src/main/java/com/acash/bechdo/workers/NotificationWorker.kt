@@ -8,10 +8,12 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.acash.bechdo.BuildConfig
 import com.acash.bechdo.R
 import com.acash.bechdo.activities.ChatActivity
 import com.acash.bechdo.activities.NAME
@@ -35,7 +37,7 @@ class NotificationWorker(private val context: Context, params: WorkerParameters)
     }
 
     private val rtDb by lazy {
-        FirebaseDatabase.getInstance("https://bech-do-2b48b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        FirebaseDatabase.getInstance(BuildConfig.RTDB_URL)
     }
 
     override fun doWork(): Result {
@@ -49,11 +51,11 @@ class NotificationWorker(private val context: Context, params: WorkerParameters)
             val inboxListSnapshot = task.result
 
             if (inboxListSnapshot?.exists() == true) {
-                for ((index, inboxSnapshot) in inboxListSnapshot.children.withIndex()) {
+                for (inboxSnapshot in inboxListSnapshot.children) {
                     val friendInInbox = inboxSnapshot.getValue(Inbox::class.java)
                     friendInInbox?.apply {
                         if (count > 0) {
-                            showNotification(index, this)
+                            showNotification(this)
                         }
                     }
                 }
@@ -68,7 +70,7 @@ class NotificationWorker(private val context: Context, params: WorkerParameters)
     }
 
 
-    private fun showNotification(id: Int, friendInInbox:Inbox) {
+    private fun showNotification(friendInInbox:Inbox) {
         val nm: NotificationManager =
             context.getSystemService(Service.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -77,13 +79,14 @@ class NotificationWorker(private val context: Context, params: WorkerParameters)
             intent.putExtra(NAME, name)
             intent.putExtra(UID, from)
             intent.putExtra(THUMBIMG, image)
+            intent.data = Uri.parse("scheme:///$from")
         }
 
         val pi = PendingIntent.getActivity(
             context,
-            id,
+            101,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -145,6 +148,6 @@ class NotificationWorker(private val context: Context, params: WorkerParameters)
             .setStyle(NotificationCompat.BigTextStyle().bigText(friendInInbox.msg))
             .build()
 
-        nm.notify(id, newMsgNotification)
+        nm.notify(friendInInbox.from,0, newMsgNotification)
     }
 }

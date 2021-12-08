@@ -233,7 +233,7 @@ class PostProductsFragment : Fragment() {
             productId,
             auth.uid.toString(),
             titleEt.text.toString(),
-            titleEt.text.toString().toLowerCase(Locale.ROOT),
+            titleEt.text.toString().lowercase(Locale.ROOT),
             descriptionEt.text.toString(),
             price,
             downloadUrls,

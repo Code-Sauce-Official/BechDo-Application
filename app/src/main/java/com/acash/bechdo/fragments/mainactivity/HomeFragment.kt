@@ -71,7 +71,7 @@ class HomeFragment : Fragment() {
             adapter = recentAdapter
         }
 
-        database.collection("Products").whereEqualTo("isActive",true).orderBy("createdDate",Query.Direction.DESCENDING).limit(10).get()
+        database.collection("Products").whereEqualTo("isActive",true).orderBy("createdDate",Query.Direction.DESCENDING).limit(5).get()
             .addOnSuccessListener {queryDocumentSnapshots->
                 if(!queryDocumentSnapshots.isEmpty) {
                     for (snapshot in queryDocumentSnapshots) {
