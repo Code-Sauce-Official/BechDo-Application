@@ -36,7 +36,7 @@ class FiltersFragment : BottomSheetDialogFragment() {
 
         val postsFragment = parentFragment as PostsFragment
 
-        if(postsFragment.task=="Category"){
+        if (postsFragment.task == "Category") {
             tvCategory.visibility = View.GONE
             tagsGroup.visibility = View.GONE
         }
@@ -64,8 +64,12 @@ class FiltersFragment : BottomSheetDialogFragment() {
                         clgSet = HashSet(clgList)
                         clgAdapter.notifyDataSetChanged()
 
-                        if(postsFragment.clg!="")
-                            clgDropDown.setText(postsFragment.clg)
+                        if (postsFragment.clg != "")
+                            clgDropDown?.setText(postsFragment.clg)
+
+                        if (clgInput?.isErrorEnabled == true && !clgDropDown?.text.isNullOrEmpty()) {
+                            clgInput?.isErrorEnabled = false
+                        }
                     }
                 }
             }
@@ -74,7 +78,7 @@ class FiltersFragment : BottomSheetDialogFragment() {
             clgInput.isErrorEnabled = false
         }
 
-        if(postsFragment.category!="" && postsFragment.task!="Category") {
+        if (postsFragment.category != "" && postsFragment.task != "Category") {
             tagsGroup.children
                 .toList()
                 .filter { (it as Chip).text == postsFragment.category }
@@ -83,7 +87,7 @@ class FiltersFragment : BottomSheetDialogFragment() {
                 }
         }
 
-        if(postsFragment.priceRange!="") {
+        if (postsFragment.priceRange != "") {
             priceRangeGroup.children
                 .toList()
                 .filter { (it as Chip).text == postsFragment.priceRange }
@@ -92,7 +96,7 @@ class FiltersFragment : BottomSheetDialogFragment() {
                 }
         }
 
-        if(postsFragment.type!=-1)
+        if (postsFragment.type != -1)
             typeRadio.check(typeRadio.getChildAt(postsFragment.type).id)
 
         cancelBtn.setOnClickListener {
@@ -102,21 +106,19 @@ class FiltersFragment : BottomSheetDialogFragment() {
         applyBtn.setOnClickListener {
             val clg = clgDropDown.text.toString()
 
-            if (clg != "" && !clgSet.contains(clg)) {
-                clgInput.error = "Please select a college from the given list.."
-            } else {
+            if (checkClgErrors(clg)) {
                 val fragmentToSet = PostsFragment()
                 var isFilterSelected = false
                 val bundle = Bundle()
                 bundle.putString("Query", postsFragment.newQuery)
 
-                if(postsFragment.task!="Category") {
+                if (postsFragment.task != "Category") {
                     tagsGroup.findViewById<Chip>(tagsGroup.checkedChipId)
                         ?.let {
                             bundle.putString("CategoryFilter", it.text.toString())
                             isFilterSelected = true
                         }
-                }else{
+                } else {
                     bundle.putString("CategoryFilter", postsFragment.category)
                 }
 
@@ -141,7 +143,7 @@ class FiltersFragment : BottomSheetDialogFragment() {
                 }
 
                 when {
-                    postsFragment.task=="Category" -> {
+                    postsFragment.task == "Category" -> {
                         bundle.putString("Task", "Category")
                     }
                     isFilterSelected -> {
@@ -155,5 +157,24 @@ class FiltersFragment : BottomSheetDialogFragment() {
                 (activity as MainActivity).setFragment(fragmentToSet)
             }
         }
+    }
+
+    private fun checkClgErrors(clg: String): Boolean {
+        if (clg == "") {
+            return true
+        }
+
+        if (!(::clgSet.isInitialized)) {
+            clgInput.error =
+                "Waiting for College list to load, hence college filter is unavailable."
+            return false
+        }
+
+        if (!clgSet.contains(clg)) {
+            clgInput.error = "Please select a college from the given list.."
+            return false
+        }
+
+        return true
     }
 }

@@ -27,7 +27,7 @@
         android:textSize="16sp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="23dp"
-        android:text="Type"
+        android:text="@string/type"
         android:textStyle="bold"/>
 
     <RadioGroup
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:buttonTint="@color/white"
             android:fontFamily="@font/montserrat"
-            android:text="For Rent"
+            android:text="@string/for_rent"
             android:textColor="@color/white"
             android:textSize="14sp" />
 
@@ -54,7 +54,7 @@
             android:layout_marginStart="10dp"
             android:buttonTint="@color/white"
             android:fontFamily="@font/montserrat"
-            android:text="For Sale"
+            android:text="@string/for_sale"
             android:textColor="@color/white"
             android:textSize="14sp"/>
 
@@ -65,7 +65,7 @@
             android:layout_marginStart="10dp"
             android:buttonTint="@color/white"
             android:fontFamily="@font/montserrat"
-            android:text="Both"
+            android:text="@string/both"
             android:textColor="@color/white"
             android:textSize="14sp" />
     </RadioGroup>
@@ -242,7 +242,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="0-199"
+            android:text="@string/_0_199"
             android:textColor="@color/chip_text_color_filters"
             android:checkable="true"
             android:clickable="true"
@@ -257,7 +257,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="200-399"
+            android:text="@string/_200_399"
             android:textColor="@color/chip_text_color_filters"
             android:checkable="true"
             android:clickable="true"
@@ -272,7 +272,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="400-599"
+            android:text="@string/_400_599"
             android:textColor="@color/chip_text_color_filters"
             android:checkable="true"
             android:clickable="true"
@@ -287,7 +287,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="600-799"
+            android:text="@string/_600_799"
             android:textColor="@color/chip_text_color_filters"
             android:checkable="true"
             android:clickable="true"
@@ -302,7 +302,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="800-999"
+            android:text="@string/_800_999"
             android:textColor="@color/chip_text_color_filters"
             android:checkable="true"
             android:clickable="true"
@@ -318,7 +318,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="1000+"
+            android:text="@string/_1000"
             android:textColor="@color/chip_text_color_filters"
             android:checkable="true"
             android:clickable="true"

@@ -103,4 +103,15 @@
     <string name="faqs_ans_6">No, the account cannot be deleted once created.</string>
     <string name="faqs_ques_7">How do I search for a product?</string>
     <string name="faqs_ans_7">Go to the search bar at the top of your screen and search for a product by name. You can also filter products by type(rent or sale), college, price and/or category.</string>
+    <string name="type">Type</string>
+    <string name="for_rent">For Rent</string>
+    <string name="for_sale">For Sale</string>
+    <string name="both">Both</string>
+    <string name="_0_199">0–199</string>
+    <string name="_200_399">200–399</string>
+    <string name="_400_599">400–599</string>
+    <string name="_600_799">600–799</string>
+    <string name="_800_999">800–999</string>
+    <string name="_1000">1000+</string>
+    <string name="tagline">An e-commerce application to sell, buy and rent your college related stuff</string>
 </resources>

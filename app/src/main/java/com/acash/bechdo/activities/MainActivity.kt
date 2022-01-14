@@ -15,6 +15,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
 import androidx.work.*
 import com.acash.bechdo.BuildConfig
 import com.acash.bechdo.R
@@ -203,11 +204,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
             supportFragmentManager.backStackEntryCount > 0 -> {
-                supportFragmentManager.popBackStack()
-                if (!navDrawerBackStackIndices.isEmpty()) {
-                    currentFragment = navDrawerBackStackIndices.pop()
-                    nextFragment = currentFragment
-                    navigation_view.menu.getItem(currentFragment).isChecked = true
+                if(lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+                    supportFragmentManager.popBackStack()
+                    if (!navDrawerBackStackIndices.isEmpty()) {
+                        currentFragment = navDrawerBackStackIndices.pop()
+                        nextFragment = currentFragment
+                        navigation_view.menu.getItem(currentFragment).isChecked = true
+                    }
                 }
             }
 
@@ -253,15 +256,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun setDp() {
         currentUserInfo?.downloadUrlDp.let { url ->
             if (url != "") {
-                Glide.with(this).load(url)
-                    .placeholder(R.drawable.default_avatar)
-                    .error(R.drawable.default_avatar).into(dp)
+                dp?.let {
+                    Glide.with(this).load(url)
+                        .placeholder(R.drawable.default_avatar)
+                        .error(R.drawable.default_avatar).into(dp)
+                }
             }
         }
     }
 
     fun setName() {
-        tvUserName.text = currentUserInfo?.name ?: ""
+        tvUserName?.text = currentUserInfo?.name ?: ""
     }
 }
 
