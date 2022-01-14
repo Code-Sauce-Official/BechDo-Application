@@ -58,7 +58,9 @@ class PostProductsFragment : Fragment() {
     private val pics = ArrayList<Uri>()
     private lateinit var productPicsPostAdapter:ProductPicsPostAdapter
     private var forRent = false
-    private var storageLocation = "uploads/" + auth.uid.toString() + "/Products Posted/"
+    private var storageLocation = ""
+
+    private var postPressed = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -115,8 +117,19 @@ class PostProductsFragment : Fragment() {
             }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(POST_PRESSED,postPressed)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        savedInstanceState?.let {
+            postPressed = it.getBoolean(POST_PRESSED)
+        }
+
+        storageLocation = "uploads/" + auth.uid.toString() + "/Products Posted/"
 
         if(arguments?.getBoolean("Rent")==true){
             tvHeading.text = getString(R.string.rent_info)
@@ -143,12 +156,20 @@ class PostProductsFragment : Fragment() {
                     false
                 )
                 progressDialog.show()
+                postPressed = true
                 productId = database.collection("Products").document().id
                 uploadPics(0)
             }
         }
 
         cancelBtn.setOnClickListener {
+            activity?.onBackPressed()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(postPressed && ::progressDialog.isInitialized && !progressDialog.isShowing){
             activity?.onBackPressed()
         }
     }
@@ -278,5 +299,9 @@ class PostProductsFragment : Fragment() {
 
         if(::selectImgLauncher.isInitialized)
             selectImgLauncher.launch(Intent.createChooser(intent, "Select images(at max 7)"))
+    }
+
+    companion object {
+        private const val POST_PRESSED = "post_pressed"
     }
 }

@@ -42,6 +42,8 @@ class ProductInfoFragment : Fragment() {
     private lateinit var productJsonString: String
     private var favourites:ArrayList<String>? = null
 
+    private var removePressed = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -122,7 +124,7 @@ class ProductInfoFragment : Fragment() {
                                 .addOnSuccessListener {
                                     product.isActive = false
                                     progressDialog.dismiss()
-                                    btn.text = getString(R.string.mark_as_available)
+                                    btn?.text = getString(R.string.mark_as_available)
                                 }
                         }
 
@@ -139,7 +141,7 @@ class ProductInfoFragment : Fragment() {
                                 .addOnSuccessListener {
                                     product.isActive = true
                                     progressDialog.dismiss()
-                                    btn.text = getString(R.string.mark_as_unavailable)
+                                    btn?.text = getString(R.string.mark_as_unavailable)
                                 }
                         }
                     }
@@ -170,6 +172,7 @@ class ProductInfoFragment : Fragment() {
                     "No"
                 ) {
                     progressDialog.show()
+                    removePressed = true
                     deleteProductFromFirestore()
                 }
             }
@@ -212,6 +215,25 @@ class ProductInfoFragment : Fragment() {
         return view
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(REMOVE_PRESSED,removePressed)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        savedInstanceState?.let{
+            removePressed = it.getBoolean(REMOVE_PRESSED)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(removePressed && ::progressDialog.isInitialized && !progressDialog.isShowing) {
+            activity?.onBackPressed()
+        }
+    }
+
     private fun removeProductFromFavourites() {
         database.collection("users").document(auth.uid.toString())
             .update("favouriteProducts", FieldValue.arrayRemove(product.productId))
@@ -219,7 +241,7 @@ class ProductInfoFragment : Fragment() {
                 progressDialog.dismiss()
 
                 if (task.isSuccessful) {
-                    btnSaveProduct.isSelected = false
+                    btnSaveProduct?.isSelected = false
                     favourites?.remove(product.productId)
                     Toast.makeText(
                         requireContext(),
@@ -241,7 +263,7 @@ class ProductInfoFragment : Fragment() {
                 progressDialog.dismiss()
 
                 if (task.isSuccessful) {
-                    btnSaveProduct.isSelected = true
+                    btnSaveProduct?.isSelected = true
                     favourites?.add(product.productId)
                     Toast.makeText(
                         requireContext(),
@@ -273,7 +295,7 @@ class ProductInfoFragment : Fragment() {
             progressDialog.dismiss()
             Toast.makeText(requireContext(), "Product removed successfully", Toast.LENGTH_SHORT)
                 .show()
-            (activity as MainActivity).onBackPressed()
+            activity?.onBackPressed()
             return
         }
 
@@ -285,8 +307,12 @@ class ProductInfoFragment : Fragment() {
             .addOnFailureListener {
                 progressDialog.dismiss()
                 Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                (activity as MainActivity).onBackPressed()
+                activity?.onBackPressed()
             }
+    }
+
+    companion object {
+        private const val REMOVE_PRESSED = "remove_pressed"
     }
 }
 

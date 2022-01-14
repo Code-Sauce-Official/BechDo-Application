@@ -52,6 +52,7 @@ class EditProfileFragment : Fragment() {
     private var isNewDpSelected = false
     private lateinit var progressDialog: ProgressDialog
     private lateinit var year: String
+    private lateinit var name: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -128,10 +129,11 @@ class EditProfileFragment : Fragment() {
         }
 
         saveBtn.setOnClickListener {
+            name = nameEt.text.toString()
             year =
                 (requireActivity().findViewById<RadioButton>(yearRadio.checkedRadioButtonId)).text.toString()
 
-            if (isNewDpSelected || nameEt.text.toString() != (activity as MainActivity).currentUserInfo?.name ||
+            if (isNewDpSelected || name != (activity as MainActivity).currentUserInfo?.name ||
                 year != (activity as MainActivity).currentUserInfo?.year
             ) {
                 progressDialog =
@@ -185,7 +187,7 @@ class EditProfileFragment : Fragment() {
             .update(
                 mapOf(
                     "downloadUrlDp" to newDpUrl,
-                    "name" to nameEt.text.toString(),
+                    "name" to name,
                     "year" to year
                 )
             )
@@ -195,7 +197,7 @@ class EditProfileFragment : Fragment() {
                     (activity as MainActivity).apply {
                         currentUserInfo?.let { user ->
                             user.downloadUrlDp = newDpUrl
-                            user.name = nameEt.text.toString()
+                            user.name = name
                             user.year = year
                         }
                         setDp()
@@ -227,14 +229,14 @@ class EditProfileFragment : Fragment() {
         database.collection("users").document(auth.uid.toString())
             .update(
                 mapOf(
-                    "name" to nameEt.text.toString(),
+                    "name" to name,
                     "year" to year
                 )
             )
             .addOnSuccessListener {
                 (activity as MainActivity).apply {
                     currentUserInfo?.let { user ->
-                        user.name = nameEt.text.toString()
+                        user.name = name
                         user.year = year
                     }
                     setName()

@@ -1,5 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.10572916666666667" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/drawable/ic_baseline_add_a_photo_24.xml" value="0.10572916666666667" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/drawable/ic_baseline_bookmark_24.xml" value="0.10572916666666667" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/drawable/ic_baseline_bookmark_border_24.xml" value="0.10572916666666667" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/drawable/ic_baseline_keyboard_arrow_down_24.xml" value="0.10572916666666667" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/drawable/ic_chat_icons_smile.xml" value="0.10572916666666667" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.14" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/drawable/save_product.xml" value="0.2203125" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/activity_chat.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/activity_email.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/activity_intro.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/activity_main.xml" value="0.15" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/activity_profile.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/category_row.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/fragment_chats.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/fragment_edit_profile.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/fragment_filters.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/fragment_help.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/fragment_intro_1.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/fragment_intro_2.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/fragment_intro_3.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/fragment_intro_4.xml" value="0.18" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/fragment_post_products.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/fragment_posts.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/fragment_product_info.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/fragment_sell_products.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/fragment_sign_in.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/fragment_sign_up.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/list_item_chat_receive_msg.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/list_item_chat_sent_msg.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/list_item_date_header.xml" value="0.22" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/list_item_dropdown_menu.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/list_item_faq.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/list_item_product.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/list_item_product_pic_post.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/list_item_product_pic_view.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/list_item_user.xml" value="0.22" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/layout/navigation_header.xml" value="0.1" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.10572916666666667" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/BechDo-Application/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.10572916666666667" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

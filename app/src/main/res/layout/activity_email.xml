@@ -36,7 +36,7 @@
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/montserrat"
                 android:gravity="center"
-                android:text="An e-commerce application to sell, buy and rent your daily life stuff"
+                android:text="@string/tagline"
                 android:textColor="@color/white"
                 android:textSize="36sp"
                 android:visibility="gone" />

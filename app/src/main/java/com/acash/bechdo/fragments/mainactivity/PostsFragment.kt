@@ -246,7 +246,8 @@ class PostsFragment : Fragment() {
     private fun setupAdapter() {
 
         val config = PagedList.Config.Builder()
-            .setPageSize(10)
+            .setPageSize(8)
+            .setInitialLoadSizeHint(16)
             .setEnablePlaceholders(false)
             .setPrefetchDistance(2)
             .build()

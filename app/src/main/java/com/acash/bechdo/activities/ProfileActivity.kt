@@ -101,6 +101,10 @@ class ProfileActivity : AppCompatActivity() {
                         clgList.sort()
                         clgSet = HashSet(clgList)
                         clgAdapter.notifyDataSetChanged()
+
+                        if(clgInput?.isErrorEnabled == true && !clgDropDown?.text.isNullOrEmpty()){
+                            clgInput?.isErrorEnabled = false
+                        }
                     }
                 }
             }
@@ -229,7 +233,12 @@ class ProfileActivity : AppCompatActivity() {
             return false
         }
 
-        if(::clgSet.isInitialized && !clgSet.contains(clgDropDown.text.toString())){
+        if(!(::clgSet.isInitialized)){
+            clgInput.error = "Waiting for College list to load"
+            return false
+        }
+
+        if(!clgSet.contains(clgDropDown.text.toString())){
             clgInput.error = "Please select a college from the given list.."
             return false
         }
