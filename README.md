@@ -22,18 +22,19 @@ So what are guys waiting for, **BechDo pe BechDo** or _Khareed Lo_ 🙃
 
 - `Authentication` : This is implemented using Firebase Auth. A first-time user needs to sign up upon opening the app. On doing the same, the user will receive a verification mail. The link in the mail will verify the user after which they can sign in. If the mail is not sent due to any error, there's an option for the user to request for it again at an interval of 30 seconds. The user upon forgetting the password can use an option to reset their password, through which they will receive a mail, which will direct them to change the same. 
 
-- `Create and Edit Profile` : Users need to add their personal information on the profile page including their name, date of birth, college name and year. The college name is to be selected from a drop-down list. Incase, user's college is not present in the list then they will have to <a href="mailto:bechdoofficial@gmail.com" >contact us<a> to get it updated in the server. College name and date of birth cannot be changed once added. 
+- `Create and Edit Profile` : Users need to fill out a profile section mentioning their name, date of birth, college name and year, profile picture is optional. The college name has to be selected from a drop-down list. In case, user's college is not present in the list then they will have to <a href="mailto:bechdoofficial@gmail.com" >contact us<a> to get it updated on our server. College name and date of birth cannot be changed once entered. 
   
-- `Sell/Rent Products` : While listing a product, users need to provide a short description, title, category and images (atmost 7). Images are compressed while uploading to 25 % of their quality, still smaller images are preferable.
+- `Sell/Rent Products` : While listing a product, users need to provide a short description, title, category and images (atmost 7). Images are compressed while uploading to 25 % of their quality, still smaller image sizes are preferable.
   
-- `Track/Remove products` : The products added are visible in active products.The seller can also mark them as unavailable temporarily or remove them permanently.
+- `Track/Remove products` : The sellers can track the products posted by them in the Active Products section. They can also mark them as unavailable temporarily (after which they will be visible in the Sold Products section) or remove them permanently.
   
-- `Search Products/Add Filters` : Users can search products based on the title and can further filter the products based on type(for sale/rent/both), category, college and price.
-- `Favourites` : Users can mark the products as favourites but this is limited to 10 products because these are stored online to provide mutildevice experience (firebase limitation).
+- `Search Products/Add Filters` : Users can make use of title based search for Products and can also filter them based on type(for sale/rent/both), category, college and price.
+	
+- `Favourites` : Users can mark the products as favourites but this is limited to 10 products (due to Firestore's restriction on whereIn query on arrays, which has been employed to fetch products using an array of favouriteProductIds of user, stored online to provide a multi-device experience).
   
-- `Messages` : Buyers can chat with sellers to negotiate price and discuss the sale. They can also see their recent messages using realtime database. We have implemented notifications as well (not real time but updated every 15 minutes using jetpack work manager).
+- `Messages` : Buyers and sellers can chat with each other to negotiate price and discuss the sale. The Chat functionality has been implemented using Firebase Realtime Database. Users also get push notifications for any new messages (not real-time but updated every 15 minutes using Jetpack Work Manager).
   
-- `Help` :  Users can check out the FAQs to clear out the queries.  
+- `Help` :  Users can check out this FAQs section in the app to clear out their queries.  
 
 ## Maintainers
 
@@ -83,9 +84,9 @@ The repository has the following permanent branches:
 
 
 ## Contributing
-Please read our [Contributing guidelines](https://github.com/Code-Sauce-Official/FitMate/blob/develop/Documentation/CONTRIBUTING.md#contributing-guidelines) and [Code of Conduct](https://github.com/Code-Sauce-Official/FitMate/blob/develop/Documentation/CodeOfConduct.md#code-of-conduct)
+Please read our [Contributing guidelines](https://github.com/Code-Sauce-Official/BechDo-Application/blob/main/docs/CONTRIBUTING.md) and [Code of Conduct](https://github.com/Code-Sauce-Official/BechDo-Application/blob/main/docs/CodeOfConduct.md)
 
-If you are new to open source check out [How to Start](https://github.com/Code-Sauce-Official/FitMate/blob/develop/Documentation/HowToStart.md)
+If you are new to open source check out [How to Start](https://github.com/Code-Sauce-Official/BechDo-Application/blob/main/docs/HowToStart.md)
 
 Thanks to these wonderful people ✨✨:
 
