@@ -1,14 +1,14 @@
 ![bd](https://user-images.githubusercontent.com/57208352/149821063-97bfb91c-3d83-4804-9a85-7b1c76ea1167.png)
 # BechDo
-Do you think you made a mistake buying some goods in your freshman year that you no longer need? Do you feel the urge to clear up that clutter and make room for something more useful? Are you up for for selling/renting it to your juniors so that they don't end up making the same mistake and could save a few bucks?
+Do you think you made a mistake by buying some goods in your freshman year that you no longer need? Do you feel the urge to clear up that clutter and make room for something more useful? Are you up for selling/renting it to your juniors so that they don't end up making the same mistake and could save a few bucks?
 
-Well then we've got your back! Presenting BechDo
+Well then we've got your back! Presenting **BechDo**,
 
-✨List your product on the app so that potential buyers from your college, i.e. your juniors can contact you via the inbuilt chat functionality and close the deal. You can even keep a track of your active products and mark them as unavailable or permanently delete them if they have been sold.
+✨List your product on the app so that potential buyers from your college, i.e. your juniors can contact you via the inbuilt chat functionality and seal the deal. You can even keep a track of your active products and mark them as unavailable or permanently delete them if they have been sold.
 
 ✨The ones looking to buy some stuff can simply go through the various products offered, filter them based on type(For sale or Rent), college, category and/or price, add some of them to their wishlist and obviously contact the seller.
 
-So what are guys waiting for, **BechDo pe BechDo** or _Khareed Lo_ 🙃
+So what are you guys waiting for! **BechDo pe BechDo** ya _Khareed Lo_ 🙃
 
 `Join Code Sauce discord server for project updates, weekly meetups and insights.`
 
