@@ -61,7 +61,11 @@ class EditProfileFragment : Fragment() {
                 if (result.resultCode == AppCompatActivity.RESULT_OK) {
                     result.data?.data?.let { uri ->
                         newDp = uri
-                        image_view.setImageURI(uri)
+
+                        Glide.with(requireContext()).load(uri).placeholder(R.drawable.default_avatar)
+                            .error(R.drawable.default_avatar)
+                            .into(image_view)
+
                         isNewDpSelected = true
                     }
                 }
@@ -100,7 +104,9 @@ class EditProfileFragment : Fragment() {
         (activity as MainActivity).currentUserInfo?.let { user ->
 
             if(::newDp.isInitialized){
-                image_view.setImageURI(newDp)
+                Glide.with(requireContext()).load(newDp)
+                    .placeholder(R.drawable.default_avatar)
+                    .error(R.drawable.default_avatar).into(image_view)
             }else user.downloadUrlDp.let { url ->
                 if (url != "") {
                     Glide.with(requireContext()).load(url)

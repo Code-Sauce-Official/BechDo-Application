@@ -22,15 +22,19 @@ class SellProductsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_sell_products, container, false)
 
         Glide.with(requireContext()).load(R.drawable.sell_products_card_bg)
+            .error(R.drawable.default_image)
             .into(view.imgViewSellProducts)
 
         Glide.with(requireContext()).load(R.drawable.rent_products_card_bg)
+            .error(R.drawable.default_image)
             .into(view.imgViewRentProducts)
 
         Glide.with(requireContext()).load(R.drawable.active_products_card_bg)
+            .error(R.drawable.default_image)
             .into(view.imgViewActvProducts)
 
         Glide.with(requireContext()).load(R.drawable.sold_products_card_bg)
+            .error(R.drawable.default_image)
             .into(view.imgViewSoldProducts)
 
         return view
