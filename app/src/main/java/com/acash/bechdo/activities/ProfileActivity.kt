@@ -23,6 +23,7 @@ import com.acash.bechdo.R
 import com.acash.bechdo.models.Colleges
 import com.acash.bechdo.models.User
 import com.acash.bechdo.utils.getCurrentLocale
+import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -72,7 +73,10 @@ class ProfileActivity : AppCompatActivity() {
                 if (result.resultCode == RESULT_OK) {
                     result.data?.data?.let { uri ->
                         dpUri = uri
-                        image_view.setImageURI(uri)
+
+                        Glide.with(this).load(uri).placeholder(R.drawable.default_avatar)
+                            .error(R.drawable.default_avatar)
+                            .into(image_view)
                     }
                 }
             }
