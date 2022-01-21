@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.acash.bechdo.R
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.list_item_product_pic_post.view.*
 
 class ProductPicsPostAdapter(private val pics:ArrayList<Uri>):RecyclerView.Adapter<ProductPicsPostAdapter.ProductPicsHolder>() {
@@ -18,16 +19,22 @@ class ProductPicsPostAdapter(private val pics:ArrayList<Uri>):RecyclerView.Adapt
         ProductPicsHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_product_pic_post,parent,false))
 
     override fun onBindViewHolder(holder: ProductPicsHolder, position: Int) {
-        holder.itemView.imgView.setImageURI(null)
-        if(position==0){
-            holder.itemView.apply {
+        holder.itemView.apply {
+            Glide.with(this)
+                .clear(imgView)
+
+            if (position == 0) {
                 cardView.background = ContextCompat.getDrawable(context, R.drawable.add_product_pic)
                 imgView.setBackgroundColor(Color.TRANSPARENT)
                 setOnClickListener {
-                   onClick?.invoke()
+                    onClick?.invoke()
                 }
+            } else if (position < pics.size + 1) {
+                Glide.with(this).load(pics[position - 1])
+                    .error(R.drawable.default_image)
+                    .into(imgView)
             }
-        }else if(position<pics.size+1) holder.itemView.imgView.setImageURI(pics[position-1])
+        }
     }
 
     override fun getItemCount() = 8

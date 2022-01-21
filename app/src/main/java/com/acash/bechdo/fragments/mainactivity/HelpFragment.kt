@@ -1,14 +1,14 @@
 package com.acash.bechdo.fragments.mainactivity
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.acash.bechdo.R
 import com.acash.bechdo.adapters.FaqAdapter
@@ -58,9 +58,9 @@ class HelpFragment : Fragment() {
             intent.data = Uri.parse("mailto:")
             intent.putExtra(Intent.EXTRA_EMAIL,arrayOf("Bechdoofficial@gmail.com"))
 
-            if(requireContext().packageManager.resolveActivity(intent,PackageManager.MATCH_DEFAULT_ONLY)!=null){
+            try{
                 startActivity(intent)
-            }else{
+            }catch (e:ActivityNotFoundException){
                 Toast.makeText(requireContext(),"No suitable apps found for sending Email",Toast.LENGTH_SHORT).show()
             }
         }
